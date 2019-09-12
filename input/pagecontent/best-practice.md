@@ -1,0 +1,144 @@
+The IG publication tooling enforces lots of validation rules that try to enforce that your implementation guide is 'technically' correct.  However,
+it's possible to create implementation guides that are 'technically correct', but are going to be problematic for the target implementer community
+or for the implementer community at large.
+
+This page tries to consolidate a number of recommendations/best practices for creating "good" IGs that will be easy to understand by developers,
+will be consistent with other IGs and will create specifications that reduce implementation costs for the community as a whole (and as a result,
+hopefully result in increased/faster adoption.
+
+The guidance here is not static.  New recommendations will be added and existing recommendations will be reworded, clarified or even removed based on
+feedback from the community.  At some point, we may even seek formal review of the content listed here.
+
+### Writing and narrative
+
+* Your best technical person may not be your best technical writer.  Try to have documentation written by people who know how to write and communicate,
+rather than presuming that someone who knows how to write super-awesome FHIRPath and can code slice discriminators in their sleep is going to be good at 
+writing intuitive, clear and  concise IG text.
+*	Write for your primary audience – generally software developers.  That means:
+  * Avoiding medical jargon or any language that wouldn't be familiar to a non-clinical lay-person.
+    * If specific medical terms must be used because they're intrinsically tied to the purpose of the implementation guide, then either point to directly 
+  include a 'primary' that provides a simple overview of the relevant concepts that would be easily consumable by a non-clinician
+    * Use hyperlinks or flyovers for complex terms to provide definitions
+* Keep documentation brief and focus on what software developers must know in order to implement.
+  * It should be possible for a developer to skim an IG and have a pretty good idea of what's in the IG, how it relates to what they need and how long it'll 
+ take to implement in ~30 minutes.  If it takes more than an hour, the IG is probably too complex or doesn't have appropriate overview/explanatory text and 
+ diagrams.
+* Make your IG navigable.  Use hyperlinks wherever possible – both to content that exists within the implementation guide as well to external sources that 
+provide additional "drill-down" information.  The only time a hyperlink isn't appropriate is when the concept has already been linked to within the same 
+couple of paragraphs of a single section.
+  * This includes both page content as well as intro and notes sections and even definitions and usage notes within profiles.
+* Design the order of presentation of content in the implementation guide such that reading from start to end presents information in a logical order.  
+However, don't presume that readers will navigate in order.  They may jump directly into the middle of the IG and navigate at random through the content 
+based on their instance.  As such, both backward and forward hyperlinks are appropriate – especially for content in distinct sections.
+* Single, large pages are better then numerous short pages
+  * Single pages can easily be searched using Ctrl-F and can be scrolled around to see related content.  Multiple small pages make it easy to get lost
+ and/or misscontent
+* Put "good" anchor names on all pages (harder to do this for markdown)
+  * You never know when someone might need to link to a particular page in the spec.  While, the publisher will auto-generate link points, these will be 
+ version-specific.  The anchor names you define will persist across versions
+* Put intros on all artifacts
+  * Every artifact should have text that explains what it's for and where it fits in the grand scheme of things (including how it's different from potentially
+ related artifacts.
+  * If it's a complex artifact, include usage notes too.
+* Use aliases to ensure that common domain terms will show up when searching
+* If there's controversy about why something is the way it is or it's driven by subtle/non-widely-understood requirements, be sure to capture the reasons 
+for the current design in rationale so that future maintainers can take that information into account when designing
+* The index page should always start with a patient-friendly explanation of the purpose of the IG
+
+
+### Images and Diagrams
+
+* Diagrams can be very helpful, but it takes time to do them well.  Don't leave them until the last minute
+* Try to ensure that pictures have a consistent color scheme and visual approach
+* Make sure embedded graphics can be distributed under a CC-no-attribution license (or provide attribution if that's required under the open-source license)
+* Make sure the source for the graphic is checked in and that the authoring tool is either free or widely used.  Don't use esoteric websites that might not be around in 5-10 years or formats that are unlikely to be convertable.
+
+
+### Artifacts
+
+* Manage artifact volume
+  * Consider "What is computably useful?" - I.e. What do you actually need to validate automatically and what might be better (more clear) as text
+    * In some cases, consider producing both a computable and 'human' friendly profile where the formeris a constraint on the latter
+    * At the same time, do try to be computable most of the time. Human-readable text is frequently ambiguous and very expensive to enforce
+  * What is reasonably reviewable/implementable?  Yes, you could write 200 profiles.  However, if balloters can't realistically check all of them and confirm 
+ that they're correct and/or implementers aren't going to be able to implement that sort of volume in the next 5 years, you're wasting your time
+  * Also consider long-term maintenance.  Every artifact you introduce is going to need to be maintained for 10-20 years, maybe longer.  Make sure there's
+ a good reason for the resource to exist
+* Use appropriate artifacts.  Implementation Guides can (and should) contain more than just profiles
+  * Use capability statements to define what interface capabilities implementers are expected to support (including using extensions to differentiate 
+ MAY/SHOULD/SHALL)
+  * OperationDefinition, NamingSystem, MessageDefinition, GraphDefinition, Questionnaire, etc. are all available
+
+
+### Profiles
+
+*	Use mustSupport to identify what must be supported, not cardinality
+* Try to allow for existing/legacy data unless you're happy to throw it all away.
+  * 0..1, mustSupport allows for missing data while still setting expectations for data sharing
+*	Avoid constraining 'max'
+  * It's better to slice and set constraints that let you extract the specific repetition(s) you need than to prevent others from sending the data they have
+  * If you constrain max, it means you're forcing implementations to create a custom implementation interface that just strips data out that could be
+ ignored for free
+* Be cautious about constraints enforcing business rules
+  * legacy data and/or external data may not comply
+  * business rules will often change more frequently than systems do (and aren't constrained by backward-compatibility rules)
+  * different systems may have different business rules
+  * Instead, only enforce constraints that you're confident will stand the test of time.  Other constraints can be expressed as usage notes to warn implementers
+ about what's 'currently expected' and/or handled as business rules within the system.  (It's totally fine to reject instances that pass profile validation
+ because they fail context-specific business rules.)
+
+
+### Terminology
+
+* Leverage external terminologies whenever you can.
+  * For higher maturity, expectation is that you're using external terminologies for non-'code' elements unless it's simply not possible
+* You  *cannot* create 'required' or 'extensible' bindings to terminologies that aren't "free for use" in the realm that you're implementing in
+  * SNOMED CT is ok in US IGs, but not in international IGs (unless SNOMED has granted an open license for everyone to freely use those codes)
+* If you need to define temporary FHIR codes for low-maturity artifacts as you're just experimenting, make very clear that they're "temporary"
+* If using terminologies that use advanced capabilities (subsumption, post-coordination, or even value set expansions), consider whether the implementation 
+community is likely to support these.
+* Be cautious of 'required' bindings that don't have an "other"
+  * If there's a required binding and the element is min=1, then you can't send the instance if no code exists.
+  * Ensure an escape valve exists if one is needed (including for legacy content)
+* If you can't use required or extensible, try to at least define "preferred" if interoperability matters for an element
+* Consider whether vocabulary bindings should be "locked" to the IG version or unconstrained
+  * Version-specific means the definition will be more stable, but means the only way to update the codes used is to release a new version of the IG.
+ sometimes that's desirable, sometimes not
+* Don't use OIDs to identify code systems or identifiers
+  * When implementaters have v3 experience, they may well have OIDs for some of these.  Because you can prefix the OID with "uri:oid:" and get a valid URN,
+ the temptation will be to do this because it's cheaper and it eases conversion.  However, it increases the costs for the community as a whole.
+  * OIDs are  *not* human readable which makes errors easier and debugging harder
+  * OIDs cannot be resolved, which removes a helpful tool for implementers trying to discover what a code means or an identifier refers to
+  * Most of the world understands the concept of an identifier.  Few understand OIDs.  Using OIDs means that you incur a permanent learning curve for your
+ specification
+  * If FHIR has defined a standard URL for a code system/identifier type, you have no choice but to use the HL7 code - the v3 OID isn't allowed
+  * The NamingSystem resource exists to allow simple translation
+
+
+### Examples
+
+* Include examples that showcase all key parts of the IG
+* Include comments in your examples (this means authoring should be done in XML)
+* At least one example should highlight every must-support element and every extension defined within the IG
+
+
+### Extensions
+
+* Before defining a new extension:
+  * Consider whether anything in core could be used
+  * Look at existing core and IG extensions
+  * Consult with the responsible work group and chat.fhir.org
+  * If a new extension is needed, consider if it can be made generic enough that it could be used in other spaces and would be appropriate to register as an HL7 'core' extension
+* Create extensions nested inside the elements they apply to rather than at the root
+
+
+### General
+
+* Keep in mind that you might well not always be the primary author of the IG, so ensure all relevant source material is under source control and that 
+content is organized and named intuitively.  Artifacts need to be in 'standard' formats.
+* Even for closed projects, IGs should be developed in consultation with the open community
+  * Ask questions and share what you're up to on chat.fhir.org so you're aware of other work you can leverage/align with and so you can take advantage of the 
+ knowledge of the broader community
+  * Seek engagement from the relevant work group.  (Remember, they're going to have to endorse your IG's design approach before it can get to higher maturity 
+ levels or normative – you don't want to have to make significant design changes late in the process.)
+* Copy and paste the text of your IGs into MS Word or an equivalent tool to do full grammar and spell checking on the content

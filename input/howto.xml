@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ImplementationGuide xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../input-cache/schemas-r5/fhir-single.xsd">
+  <id value="hl7.fhir.uv.howto"/>
+  <url value="http://hl7.org/fhir/uv/howto/ImplementationGuide/hl7.fhir.uv.howto"/>
+  <name value="HowToCreateIGs"/>
+  <title value="Guidance for HL7 IG Creation"/>
+  <status value="draft"/>
+  <experimental value="false"/>
+  <publisher value="HL7 International - FHIR Management Group"/>
+  <contact>
+    <telecom>
+      <system value="other"/>
+      <value value="http://hl7.org/Special/committees/fhirmg"/>
+    </telecom>
+  </contact>
+  <description value="Provides guidance on the process to define implementation guides using the HL7 IG Publisher and HL7-managed IG templates.  It also provides guidance on 'best practices' around IG development and information about how to develop and maintain IG templates."/>
+  <jurisdiction>
+    <coding>
+      <system value="http://unstats.un.org/unsd/methods/m49/m49.htm"/>
+      <code value="001"/>
+    </coding>
+  </jurisdiction>
+  <packageId value="hl7.fhir.uv.howto"/>
+  <fhirVersion value="4.0.0"/>
+  <definition>
+    <page>
+      <nameUrl value="toc.html"/>
+      <title value="Table of Contents"/>
+      <generation value="html"/>
+      <page>
+        <nameUrl value="index.html"/>
+        <title value="IG Home Page"/>
+        <generation value="html"/>
+      </page>
+      <page>
+        <nameUrl value="background.html"/>
+        <title value="Background"/>
+        <generation value="html"/>
+      </page>
+      <page>
+        <nameUrl value="tooling.html"/>
+        <title value="IG Tooling"/>
+        <generation value="html"/>
+      </page>
+      <page>
+        <nameUrl value="using-templates.html"/>
+        <title value="Using the HL7 Templates"/>
+        <generation value="html"/>
+      </page>
+      <page>
+        <nameUrl value="best-practice.html"/>
+        <title value="IG Best Practices"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
+        <nameUrl value="template.html"/>
+        <title value="Extending the HL7 IG Templates"/>
+        <generation value="html"/>
+      </page>
+      <page>
+        <nameUrl value="downloads.html"/>
+        <title value="Useful Downloads"/>
+        <generation value="html"/>
+      </page>
+      <page>
+        <nameUrl value="changes.html"/>
+        <title value="IG Change History"/>
+        <generation value="html"/>
+      </page>
+    </page>
+  </definition>
+</ImplementationGuide>
