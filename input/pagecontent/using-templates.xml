@@ -39,7 +39,7 @@
     The base directory structure for the IG publisher before invoking the build to import the standard template will look something like this:
     </p>
 
-~~~
+<pre>
 .
 ├── LICENSE
 ├── README.md
@@ -77,14 +77,14 @@
     └── txcache
         ├── ...
 
-~~~
+</pre>
 
 <p>
   The directory structure after invoking the build, importing the standard template, and completing the build will look something like this:
   </p>
 
 
-~~~
+<pre>
 .
 ├── LICENSE
 ├── README.md
@@ -181,9 +181,9 @@
     │   ├── ...
     └── var
         └── lib
-~~~
+</pre>
 
-  <table>
+  <table class="grid">
     <thead>
       <tr>
         <th>Folder</th>
@@ -244,7 +244,7 @@
     The files that define the content of the IG, as well as those that guide the publication process are all found in this folder.  The key contents
     are as follows:
   </p>
-  <table>
+    <table class="grid">
     <thead>
       <tr>
         <th>File / Folder</th>
@@ -311,7 +311,7 @@
     This contains several files that drive the publication process.  It may also contain additional files relating to source control or other processes.  
     The files are listed in the order in which they're typically authored/used rather than in alphabetical order.
   </p>
-  <table>
+  <table class="grid">
     <thead>
       <tr>
         <th>File</th>
@@ -359,7 +359,7 @@
     HL7 international and many FHIR.org projects make use of Github as a source control environment.  For those projects, the following additional files
     will likely be in your <code>[root]</code> folder:
   </p>
-	<table>
+	<table class="grid">
     <thead>
       <tr>
         <th>File</th>

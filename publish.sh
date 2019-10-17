@@ -14,7 +14,7 @@ do
 done
 echo "================================================================="
 echo === Publish $SOURCE IG!!! $(date -u) ===
-echo see 'local workflow.md' file for how to use
+echo to run from command line '"bash publish.sh [parameters]"'
 echo "Optional Parameters"
 echo '-t parameter for no terminology server (run faster and offline)= ' $NA
 echo '-w parameter for using watch on igpublisher from source default is off = ' $WATCH
