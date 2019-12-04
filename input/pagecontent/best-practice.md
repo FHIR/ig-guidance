@@ -127,6 +127,21 @@ writing intuitive, consistent, clear and  concise IG text.
     * The NamingSystem resource exists to allow simple translation
 
 
+### Security and Privacy Considerations
+
+* Section is focused on speaking to the Security and Privacy experts
+  * The purpose of the section is to explain what attacks have been considered and what countermeasures can be applied to defend against them
+  * Privacy Principles -- related to a subject of data; transparency, purpose limitation, data minimization, accuracy, storage limitations, and security -- There are regional specializations. 
+  * Security Principles -- security is risk management against risks to Confidentiality, Integrity, and Availability
+* Keep points succinct to the special considerations of your IG
+  * Reference FHIR core security and privacy for background http://build.fhir.org/secpriv-module.html
+  * Reference FHIR core security and privacy checklist http://build.fhir.org/security.html
+  * Leverage the security and privacy categorization defined in FHIR core where appropriate
+  * Leverage the security and privacy implementation guides such as SMART-on-FHIR
+* Include specific conformance requirements of your IG that are related to Security or Privacy in this section, and what attacks that requirement is addressing
+* Include residual risks that are not addressed as they would need to be addressed in system design, system deployment, or policy
+
+
 ### Examples
 
 * Include examples that showcase all key parts of the IG
