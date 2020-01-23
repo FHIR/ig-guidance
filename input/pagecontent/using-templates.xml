@@ -18,10 +18,10 @@
   </p>
 
   <a name="authoring"> </a>
-  <h3>Authoring Templates</h3>
+  <h3>Authoring with templates</h3>
   <p>
     The process of authoring implementation guides is an iterative sequence of steps where artifacts are first created and edited and then the "publication
-    " process is run (or the "IG is 'built'") to produce a rendered view of the content as well as a set of feedback on the IG's quality, such as whether 
+    process" is run (or the "IG is 'built'") to produce a rendered view of the content as well as a set of feedback on the IG's quality, such as whether 
     the artifacts and examples validate correctly, whether links resolve, etc.
   </p>
   <p>
@@ -47,45 +47,53 @@
     </thead>
     <tbody>
       <tr>
-        <td>[root]</td>
+        <td>
+          <a href="#root">[igroot]</a>
+        </td>
         <td>
           <p>
-            The root folder can be anywhere in the user's directory structure.  It does need to be a folder where the user has free permission to create 
+            The root folder can be anywhere in the user's directory structure.  However, it needs to be a folder where the user has free permission to create 
             and edit files without additional administrative privileges.
           </p>
           <p>
-            In addition to containing the folders below, this folder contains a number of files related to the execution of the publication process and 
+            In addition to containing the folders below, this folder holds a number of files related to the execution of the publication process and 
             that support the automated execution of the process on continuous integration build environments.
           </p>
         </td>
       </tr>
       <tr>
-        <td>[root]/input</td>
+        <td>
+          <a href="#root.input">[igroot]/input</a>
+        </td>
         <td>Folder where all source files are maintained.  This is the only folder that needs to exist for a 'new' project.  The contents of this folder 
-          should generally be managed under source control.  (E.g. Git)</td>
+          should generally be managed under source control.  (For HL7, this will be Git.)</td>
       </tr>
       <tr>
-        <td>[root]/input-cache</td>
+        <td>
+          <a href="#root.input">[igroot]/input-cache</a>
+        </td>
         <td>Contains downloaded and/or generated files that are typically retained across multiple runs of the publisher.  Some of the contents of this 
           folder will typically also be managed under source control for performance reasons.  (Further discussion below.)</td>
       </tr>
       <tr>
-        <td>[root]/output</td>
+        <td>[igroot]/output</td>
         <td>This contains the results of the publication process.  The content in this folder is a set of static web pages and other artifacts that are 
-          intended to be posted/shared with those who need to read/use the implementation guide.</td>
+          intended to be posted/shared with those who need to read/use the implementation guide.  The output folder will not be described here - 
+          essentially it contains whatever the IG publication process defines it to contain.</td>
       </tr>
       <tr>
-        <td>[root]/temp</td>
+        <td>[igroot]/temp</td>
         <td>Contains files produced as part of the publication process.  The contents of this folder are wiped and re-generated each time the publication 
           process is run.  They are retained after the publication run for diagnostic/debugging purposes in the event of issues with the publication 
-          process.  However, the content can be freely deleted to make extra space</td>
+          process.  However, the content can freely be deleted to make extra space.  Editing files in this folder has no effect as the contents is wiped
+          and replaced as part of each publication run.</td>
       </tr>
       <tr>
-        <td>[root]/template</td>
+        <td>[igroot]/template</td>
         <td>This contains files retrieved from the template repository that determine how source files are modified as part of the publication process 
         and what the rendered view of different artifacts will look like, including color scheme , formatting, navigation, etc.  Like the temp folder, 
-        it is regenerated for each run of the publication process and is only retained for diagnostic/debugging purposes.  It can be deleted to free 
-        space.</td>
+        it is regenerated for each run of the publication process and is only retained for diagnostic/debugging purposes.  It can also be deleted to free 
+        space.  Editing files in this folder has no effect as the contents is wiped and replaced as part of each publication run.</td>
       </tr>
     </tbody>
   </table>
@@ -98,10 +106,16 @@
   </p>
   
   <a name="root"> </a>
-  <h5>[root]</h5>
+  <h5>[igroot]</h5>
   <p>
     This contains several files that drive the publication process.  It may also contain additional files relating to source control or other processes.  
     The files are listed in the order in which they're typically authored/used rather than in alphabetical order.
+  </p>
+  <p>
+    Several of the files below should be consistent across most/all implementation guides that use this publication framework.  However, they cannot
+    easily be shared across IGs.  (Or at least we haven't figured out a good way to do that yet.)  These files are all marked by **.  Implementers are
+    encouraged to download the version of these files found in the <a href="http://github.com/FHIR/sample-ig">sample-ig</a> implementation guide or at
+    least to merge changes occasionally pushed to that IG with their own versions.
   </p>
   <table>
     <thead>
@@ -117,39 +131,58 @@
           <p>This key file has two key parameters:</p>
           <ul>
             <li>"ig" indicates the path to the file containing the implementation guide XML or JSON file.  (Typically this will be in the 'input' folder.)</li>
-            <li>"template" specifies the id, URL or local filepath of the <a href="todo">IG template</a> to use as part of the publication process.  The 
-              'id' approach can only be used if the template is 'trusted' by the IG Publisher and is managed in FHIR.org's continuous integration build 
-              (CI-build) environment</li>          
+            <li>"template" specifies the id, URL or local filepath of the <a href="index.html#templates">IG template</a> to use as part of the publication 
+              process.  The 'id' approach can only be used if the template is 'trusted' by the IG Publisher and is managed in FHIR.org's continuous 
+              integration build (CI-build) environment</li>          
           </ul>
+          <p>In addition, it may contain an optional third parameter: usage-stats-opt-out.  If set to 'true', publishing this IG will not share
+          usage stats about resources, extensions, operations, etc. with HL7.  This information is used by HL7 to understand what portions of the FHIR
+          specification are being used.  No personal information is shared.</p>
         </td>
       </tr>
       <tr>
-        <td>_updatePublisher[.bat | .sh]</td>
-        <td>This process retrieves the current version of the HL7 IG Publisher.  It must be run before the publication process can be launched.  
-          The IG Publisher changes on a regular basis as enhancements are made and bugs are fixed.  A warning will appear in the publication output 
-          if the version of the publisher used is out of date.  A severely out-of-date publisher may occasionally cause the build process to fail.  
-          (So the first step in any publication failure is to make sure you're running with the latest publisher.)</td>
+        <td><a name="updatePub"> </a>_updatePublisher[.bat | .sh]<sup>**</sup></td>
+        <td>
+          <p>
+            This process retrieves the current version of the HL7 IG Publisher.  It must be run before the publication process can be launched.  
+            The IG Publisher changes on a regular basis as enhancements are made and bugs are fixed.  A warning will appear in the publication output 
+            if the version of the publisher used is out of date.  A severely out-of-date publisher may occasionally cause the build process to fail.  
+            (So the first step in any publication failure is to make sure you're running with the latest publisher.)
+          </p>
+          <p>
+            The publisher will be stored in one of two locations.  The default is to place it in the <code>[igroot]/input-cache</code> folder.  However,
+            for authors responsible for multiple IG repositories, this means keeping a copy of the publisher in each IG project (which consumes 80+ MB per
+            IG) and also means downloading the IG separately for each IG.  To mitigate this, the IGPublisher can also be placed as a sibling to the [igroot]
+            folder.  Simply move the [igroot]/input-cache/org.hl7.fhir.publisher.jar to the parent of the [igroot] folder.  Once this is done for one IG,
+            it will become the default location for all IGs that share that common parent folder.  If any copies of the org.hl7.fhir.publisher.jar remain
+            within the input-cache folders of any other child implementation guide folders, they can safely be deleted.
+          </p>
+        </td>
       </tr>
       <tr>
-        <td>_genonce[.bat | .sh]</td>
+        <td>_genonce[.bat | .sh]<sup>**</sup></td>
         <td>This initiates the publication process.  Launching the .bat file (Windows) or .sh file (Unix/Mac) will launch HL7's IGPublisher program and 
-          build/publish the IG one time.</td>
+          build/publish the IG one time.  This process checks for whether the publisher is found in the parent folder of the IG or within the input-cache
+          folder.  If found in neither place, an error will be raised and _updatepublisher will need to be run.  This process also does a quick check to
+          determine whether the machine on which the publisher is running has access to the HL7 terminology server or not and, if not, disables
+          terminology lookup.  This will allow the publication process to run when not connected to the internet or when the terminology server is down,
+          however it means that some terminology validation will be skipped.</td>
       </tr>
       <tr>
-        <td>_gencontinuous[.bat | .sh]</td>
+        <td>_gencontinuous[.bat | .sh]<sup>**</sup></td>
         <td>This initiates the publication process.  Launching the .bat file (Windows) or .sh file (Unix/Mac) will launch HL7's IGPublisher program in 
-          'continuous' mode.  See <a href="todo">Invoking the IG Publisher</a>.</td>
+          'continuous' mode.  See <a href="#invoking">Invoking the IG Publisher</a>.</td>
       </tr>
       <tr>
         <td>package-list.json</td>      
         <td>This file is needed for those projects publishing in HL7's continuous integration environment.  It provides versioning and history information.  
-          The contents of the file are defined <a href="todo">here</a>.</td>      
+          The contents of the file are defined <a href="https://confluence.hl7.org/display/FHIR/FHIR+IG+PackageList+doco">in Confluence</a>.</td>      
       </tr>
     </tbody>
   </table>
   <p>
     HL7 international and many FHIR.org projects make use of Github as a source control environment.  For those projects, the following additional files 
-    will likely be in your <code>[root]</code> folder:
+    will likely be in your <code>[igroot]</code> folder:
   </p>	
 	<table>
     <thead>
@@ -160,7 +193,7 @@
     </thead>
     <tbody>
       <tr>
-        <td>.gitignore</td>
+        <td>.gitignore<sup>**</sup></td>
         <td>This identifies files that should not be committed to source control (e.g. the files in the temp and template folders)</td>
       </tr>
       <tr>
@@ -181,7 +214,7 @@
   </table>
 
 	<a name="root.input"> </a>
-	<h5>[root]/input</h5>
+	<h5>[igroot]/input</h5>
 	<p>
     The files that define the content of the IG, as well as those that guide the publication process are all found in this folder.  The key contents 
     are as follows:
@@ -196,15 +229,16 @@
     <tbody>
       <tr>
         <td>[ig-id].[xml | json]</td>
-        <td>This is the <a href="todo">Implementation Guide</a> resource.  It defines key resource metadata, including the base table of contents for the IG.  
-          Specific requirements for the id and contents of this resource when used with the HL7 template are found <a href="todo">below</a></td>
+        <td>This is the <a href="{{site.data.fhir.path}}implementationguide.html">Implementation Guide</a> resource.  It defines key resource metadata, 
+          including the base table of contents for the IG.  Specific requirements for the id and contents of this resource when used with the HL7 template 
+          are found <a href="#ig-content">below</a></td>
       </tr>
     </tbody>
     <tbody>
       <tr>
         <td>ignoreWarnings.txt</td>
         <td>This file can be populated with any QA warning and information messages that should be ignored by the publication process.  See 
-          <a href="todo">QA</a> for more details</td>
+          <a href="#warnings">QA</a> for more details</td>
       </tr>
     </tbody>
     <tbody>
@@ -217,10 +251,15 @@
             driven by author convenience.  Some authors will prefer to shove all resources into the 'resources' folder.  Others will prefer to split 
             contents apart based on the type of artifact.  This will be particularly common when different users are expected to maintain different types 
             of artifacts.  No checking is done about which artifact types are allowed in each folder.  However, to minimize confusion, only artifacts 
-            that are 'appropriate' based on the name of the folder should go in that folder.
+            that are 'appropriate' based on the name of the folder should go in that folder.  I.e. Don't throw SearchParameter instances in the 'vocabulary'
+            folder.
           </p>
           <p>
-            The potential folder names supported by the template are:
+            These folders will be searched for files in XML, JSON or TTL format that contain resource definitions.  They will also be searched for
+            Excel spreadsheets saved as XML which contain FHIR resources and/or extensions.  See <a href="#resource-fmt">resource formats</a> for details.
+          </p>
+          <p>
+            The potential 'resource' folder names supported by the template are:
           </p>
           <ul>
             <li>capabilities (for CapabilityStatements/Conformance resources)</li>
@@ -229,31 +268,283 @@
             <li>models (for logical models)</li>
             <li>operations</li>
             <li>profiles</li>
-            <li>resources (for anything/everything)</li>
+            <li>resources (for anything/everything or whatever doesn't fit one of the other folders)</li>
             <li>vocabulary (for code systems &amp; value sets)</li>
           </ul>
         </td>
       </tr>
       <tr>
         <td>[page folder(s)]</td>
-        <td></td>
+        <td>
+          <p>
+            Like resources, there are also several folders that can be used to contain resource content.  At least one of these folders MUST be present
+            because all IGs must have at least an index page.  Some IGs will have several. The choice of which folders to use (and what to put in them) is 
+            driven by author convenience.  Some authors will prefer to shove all page content into the 'pages' folder.  Others will prefer to split 
+            contents apart based on the type of content - generally to make it easier to find files.
+          </p>
+          <p>
+            Narrative content for the IG can be authored using either markdown (.md files) or XHTML (.xml files).  See 
+            <a href="#narrative-fmt">narrative formats</a>.
+            The processing of the content of the page folders will vary.  Those .md and .xml files named to act as intro sections or notes sections will 
+            be injected into the base web pages for their respective resources.  Other .md and .xml files will be processed and turned into HTML pages
+            representing the narrative content for the IG.  All other files will be copied to the output folder unchanged.
+          </p>
+          <p>
+            Additional guidance on what sort of pages to create - as well as how to organize them can be found <a href="#pages">below</a>
+          </p>
+          <p>
+            The potential 'page' folder names supported by the template are:
+          </p>
+          <ul>
+            <li>pages (for the markdown or XHTML page content)</li>
+            <li>pagecontent (same purpose as pages - use whichever name you prefer)</li>
+            <li>resource-docs (intended for -intro and -notes files -see <a href="intros">below</a> for more details.</li>
+            <li>images (for jpg, png and other image files - or any binary content that should be copied to the published website.</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>includes</td>
+        <td>
+          <p>
+            This is a special folder for content that will appear multiple places within the IG.  In general, most of this is handled by the template
+            itself.  However, in some cases, it will be necessary for the same content to appear on multiple pages within the same IG.  Such markdown
+            and/or XHTML content can be placed here and then referenced using Latex within other 'page' files within the IG.  This is 'advanced' behavior
+            and authors planning to do this should read the <a href="template.html#todo">Using IG Templates</a> section.
+          </p>
+          <p>
+            However, there is one file that all igs will need - <code>menu.xml</code>.  This is an XHTML file that defines the content of the main menu.
+            It is an XHTML unordered list.  To see what one might look like, look at the <a href="http://github.com/FHIR/sample-ig">sample-ig</a>.
+            Guidance on how best to structure IG menus can be found <a href="here"/>.
+          </p>
+          <p>
+            NOTE: The representation of menus is more complicated than we'd like it to be - we hope to come up with a simpler way to represent this
+            content in the future.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>images-source</td>
+        <td>
+          This folder isn't actually used by the publication process at all.  None of the content of this folder will ever be migrated to the
+          published HTML site.  However, it is <b>strongly</b> recommended that IGs have this folder anyhow.  It is intended to include the source
+          files used to generate any .jpg, .png or other images (or any 'generated' content) found in the pages or resources folders of the IG.  This
+          ensures that all content needed to maintain the IG is included in source control.
+        </td>
       </tr>
     </tbody>
   </table>
 
-Key files
+	<a name="root.input"> </a>
+	<h5>[igroot]/input-cache</h5>
+	<p>
+    This section of the IG won't cover the content of this folder in great detail.  The main things to know are:
+	</p>
+  <ul>
+    <li>What subset of the content of this folder should be managed in source control?</li>
+    <li>What subset of the content in this folder might you occasionally need to delete?</li>
+  </ul>
+	<table>
+    <thead>
+      <tr>
+        <th>File / Folder</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>org.hl7.fhir.publisher.jar</td>
+        <td>
+          This is the copy of the IG Publisher that is retrieved by the <a href="#updatePub">_updatePublisher[.bat|.sh]</a> process (unless the
+          publisher is shared in the IG's parent folder by multiple other IGs.  This file should generally <b>not</b> be included in source control
+          because a) it will cause commits and updates to be super slow; and b) it wastes lots of space in source control.  If there's a need to
+          retrieve previous copies of the IGPublisher (e.g. because the current version happens to be broken), historical versions can be found 
+          <a href="https://oss.sonatype.org/#nexus-search;quick~org.hl7.fhir.publisher.cli">here</a>.  (After you download the desired version, move it
+          into either [igroot]/input-cache or the parent folder and rename it to org.hl7.fhir.publisher.jar.)  There should be no reason to delete this
+          file - instead run _updatePublisher to grab the current version.  Though you can delete the file if you're running short of harddrive space
+          and won't need to re-run the publish process any time soon.
+        </td>
+      </tr>
+      <tr>
+        <td>schemas</td>
+        <td>
+          <p>
+            This folder will be generated after successfully (or even partially - provided the 'onGenerate' portion completes) running the IGPublisher.
+            It will contain the XML and JSON schemas for the current FHIR release as well as all FHIR releases referenced by the implementation guide 
+            file.  Its primary purpose is to provide schemas that can be referenced by the source files in the 'input' folder to allow validation when
+            creating or editing the files.
+          </p>
+          <p>
+            This folder may be committed to source control to slightly improve performance.  There should be no need to delete these files as the
+            publication process will automatically update them if they're out of date.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>txcache</td>
+        <td>
+         This folder will be generated during the resource validation process.  It caches results of the terminology validation to improve performance
+          on subsequent invocations.  This folder SHOULD be committed to source control.  However, it may occasionally need to be deleted.  Once a cache
+          entry for a given code system is created, it won't be updated - even if the underlying code system or value set changes.  Prior to major
+          publication milestones, such as balloting or official publication, the cache folder should be deleted and the build process should be run from
+          scratch.
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-Resource formats
+  <h4>File content</h4>
+  <p>
+    This section describes in more detail the content expectations for the different types of files listed above.
+  </p>
+  
+  <a name="ig"> </a>
+  <h5>The implementation guide</h5>
+    Todo - explain key metadata that must be present, use of groupings, extensions to refer to specific spreadsheets, use of ids to refer to resources,
+    ordering of resources, defaulting of metadata for resources, toc being the root page, where index should go, where artifacts should go, position of 
+    pages in determining TOC hierarchy and
+    order and section numbers, what parameters must be present, what parameters may be present.  (Will probably want multiple subsections here.)
+  
+  <a name="resource-fmt"> </a>
+  <h5>Resource formats</h5>
+  <p>
+    The primary mechanism for maintaining resources is authoring content in one of the official FHIR syntaxes.  Content can be authored in either the
+    'current' draft version of FHIR (as of the time the publisher being used was released) or using one of the 'official' versions of FHIR (no earlier
+    than DSTU2).  It can be authored in XML, JSON or (if you really really want to...) Turtle.  While schema references are not normally permitted in
+    HL7 instances, they are allowed when authoring in the IG framework.  This is generally the preferred mechanism because these files are easily
+    managed in source control and because they can be consumed by most FHIR-based tools - though what versions and formats they support may vary.
+  </p>
+  <p>
+    For profiles and extensions, there is a second option that is available, at least for now - spreadsheets.  Details on the mechanism for authoring
+    spreadsheet files can be found <a href="https://confluence.hl7.org/display/FHIR/FHIR+Spreadsheet+Authoring">here</a> and
+    <a href="https://confluence.hl7.org/display/FHIR/FHIR+Spreadsheet+Profile+Authoring">here</a>.
+  </p>
+  
+  <a name="narrative-fmt"> </a>
+  <h5>Narrative content</h5>
+  <p>
+    FHIR supports the authoring of page content (as well as <a href="#intros">intro and notes content</a>) using two mechanisms: XHTML and Markdown.
+  </p>
+  <p>
+    XHTML is an XML-validatable version of HTML 4.  FHIR constraints the XHTML content permitted to exclude active content (buttons, scripts, etc.)
+    If these are needed, the relevant files must be defined in a trusted IG template and then referenced in the relevant files.  XHTML provides complete 
+    control over the rendering of the page content - as it reflects exactly what will appear in the generated pages.  It can also be validated using
+    XML schema validation tools.  However, it requires a certain degree of technical expertise to use.
+  </p>
+  <p>
+    Markdown is a text base syntax that uses specific text conventions to indicate how content should be rendered as XHTML.  For example, a line starting
+    with the "*" character, surrounded with appropriate whitespace, will be rendered as an XHTML un-ordered list item.  The IG Publisher (or specifically, 
+    Jekyll) makes use of a markdown flavor called Kramdown.  Guidance on writing Kramdown can be found
+    <a href="https://kramdown.gettalong.org/">here</a>.  Markdown is often very intuitive for authoring simple content.  However, it is not validatable
+    and small formatting errors can have a significant impact on how content is rendered.  As well, sophisticated rendering (e.g. controlling table
+    appearance) can be as complex as XHTML or may require injection of XHTML into the markdown.  XHTML within markdown cannot be validated.
+  </p>
+  <p>
+    Regardless of which format is used, content should be organized under hierarchical headings.  Because of how the templates work, headings in 
+    <a href="#pages">page content</a> or <a href="#intros">intros or notes</a> should always start at the third level.  I.e. in markdown, they should
+    start with <code>###</code> and in HTML they should start with <code>&lt;h3&gt;</code>.
+  </p>
+  
+  <h6>Liquid</h6>
+  <p>
+    Regardless of whether narrative content is authored using XHTML or markdown, it can also contain embedded 
+    <a href="https://jekyllrb.com/docs/liquid/">Liquid</a> commands.  Most IG authors won't need to worry much about liquid as it is managed as part of 
+    the template process.  Guidance on using liquid for more sophisticated capabilities is covered in the section of this IG that deals with
+    <a href="template.html#todo">authoring templates.</a>  However, even simple IGs may find a need for liquid in two circumstances:
+  </p>
+  <ul>
+    <li>
+      <p>
+        When authoring page content, it's often desirable to be able to embed hyperlinks to the FHIR specification the IG is based on or to artifacts from
+        higher level implementation guides the current guide depends on.  However, over the course of an IG's lifetime, it may evolve to depend on different
+        versions of the core FHIR specification and/or higher-level IGs.  This is particularly true when authoring against the continuous integration build
+        but needing to publish against frozen ballot snapshots or other releases.  To simplify this process, best practice is to never hard-code the URLs
+        of any FHIR version or higher-level IG into the web pages.  Instead, the URLs (and, if relevant, their version names) are referenced by Liquid 
+        variables.  The following table lists variables that are commonly referenced in IGs.  (Full documentation on available variables can be found
+        in the <a href="template.html#todo">templates section</a>.)
+      </p>
+      {% raw %}
+      <table>
+        <tbody>
+          <tr>
+            <th>Variable</th>
+            <th>Use</th>
+          </tr>
+          <tr>
+            <td>
+              <code>{{site.data.fhir.path}}</code>
+            </td>
+            <td>
+              The URL for the version of FHIR referenced by the implementation guide.  The URL includes the trailing '/', so when referencing the
+              files withing the IG, the format should be "{{site.data.fhir.path}}resourcelist.html" - i.e. no slash between '}}' and the file within FHIR being 
+              referenced
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>{{site.data.fhir.version}}</code>
+            </td>
+            <td>
+              The version of FHIR referenced by the implementation guide
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>{{site.data.fhir.</code>[dependencyId]<code>}}</code>
+            </td>
+            <td>
+              This gives the base URL of the implementation guide dependency listed in this IG with the specified 'id' attribute.
+            </td>
+          </tr>
+        </tbody>      
+      </table>
+      {% endraw %}
+    </li>
+    <li>
+      <p>
+        If page content includes content wrapped by curly braces <code>{}</code> - most commonly when showing example JSON content -  Liquid processing 
+        can cause issues.  That's because liquid commands are delimited by curly braces.  If embedding JSON examples (or other curly-braced content) in your
+        page content, put the string <code>{&#x25; raw &#x25;}</code> before the curly-braced content to disable Liquid processing and then put 
+        <code>{&#x25; endraw &#x25;}</code> after the curly-braced content to turn liquid processing back on.
+      </p>
+      <p>
+        NOTE: It's essential to turn liquid processing back on after turning it off, even if your page doesn't us Liquid.  That's because content inserted
+        around your pages (e.g. the standard page footer) will likely make use of Liquid.
+      </p>
+    </li>  
+  </ul>
+  <p>
+  </p>
+  
+  <a name="pages"> </a>
+  <h5>Page files</h5>
+  <p>
+    Page files take on the name of the page as it will appear in the final publication, with the exception that the ".md" or ".xml" extension will be
+    changed to a ".html" extension.  I.e. a page named "background.xml" will become "background.html" in the final publication.  Every IG *must* have
+    a page called "index.[md|xml]" that defines the home page.  In addition to defining the page file, each page must also be listed in the implementation
+    guide itself, as described <a href="#ig-page">here</a>.  Recommendations on what pages should exist and what they should be named is covered in
+    the <a href="best-practice.html#pages-and-organization">Best practice</a> portion of this IG.
+  </p>
 
-Page formats
+  <a name="intros"> </a>
+  <h5>Intros and Usage Notes</h5>
+  <p>
+    In addition to defining the narrative for individual pages, it's also possible to define narrative content that appears on the pages created for
+    each resource - either before the resource description (intro text) or after the resource description (note text).  This can work for any type of
+    resource - profiles, extensions, value sets, examples, etc.  The 'intro' section should provide additional information about what the artifact is
+    for, how it relates to other artifacts, when it should be used vs. not, etc.  The 'notes' section is to provide additional or specialized guidance.
+  </p>
+  
+  <a name="warnings"> </a>
+  <h5>Handling errors and warnings</h5>
+  <p>
+    TODO - guidance on using the 
+  </p>
+  
+  <a name="invoking"> </a>
+  <h3>Using the IG publisher</h3>
+todo - point to pages for installing pre-reqs (JDK 1.8+, Ruby, Jekyll).  Also point to page on Git.  Also talk about memory.
 
-Publisher options
-
-IG Appearance
-Generated pages
-Profiles
-Extensions
-Value Sets
-Examples and other resoruces
+Publisher options - explain the options that *can* be passed to the IGPublisher command line
 
 </div>

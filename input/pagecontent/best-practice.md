@@ -9,6 +9,13 @@ hopefully result in increased/faster adoption.
 The guidance here is not static.  New recommendations will be added and existing recommendations will be reworded, clarified or even removed based on
 feedback from the community.  At some point, we may even seek formal review of the content listed here.
 
+### Pages and organization
+
+* Each IG should display non-normative content (background, use-cases, downloads, etc.) from normative material (content that sets conformance 
+criteria for compliant implementations). 
+* In addition to the standard index, toc and artifacts pages, most IGs should have a 'background' page, a 'downloads' page and one or more pages that
+define the normative content
+
 ### Writing and narrative
 
 * Your best technical person may not be your best technical writer.  Try to have documentation written by people who know how to write and communicate,
@@ -173,3 +180,4 @@ writing intuitive, consistent, clear and  concise IG text.
     * Seek engagement from the relevant work group.  (Remember, they're going to have to endorse your IG's design approach before it can get to higher maturity 
       levels or normative – you don't want to have to make significant design changes late in the process.)
 * Copy and paste the text of your IGs into MS Word or an equivalent tool to do full grammar and spell checking on the content
+

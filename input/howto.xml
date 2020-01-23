@@ -2,8 +2,9 @@
 <ImplementationGuide xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../input-cache/schemas-r5/fhir-single.xsd">
   <id value="hl7.fhir.uv.howto"/>
   <url value="http://hl7.org/fhir/uv/howto/ImplementationGuide/hl7.fhir.uv.howto"/>
+  <version value="0.1.0"/>
   <name value="HowToCreateIGs"/>
-  <title value="Guidance for HL7 IG Creation"/>
+  <title value="Guidance for FHIR IG Creation"/>
   <status value="draft"/>
   <experimental value="false"/>
   <publisher value="HL7 International - FHIR Management Group"/>
@@ -21,6 +22,7 @@
     </coding>
   </jurisdiction>
   <packageId value="hl7.fhir.uv.howto"/>
+  <license value="CC0-1.0"/>
   <fhirVersion value="4.0.1"/>
   <definition>
     <page>
@@ -68,5 +70,13 @@
         <generation value="html"/>
       </page>
     </page>
+    <parameter>
+      <code value="copyrightyear"/>
+      <value value="2019+"/>
+    </parameter>
+    <parameter>
+      <code value="releaselabel"/>
+      <value value="CI Build"/>
+    </parameter>
   </definition>
 </ImplementationGuide>
