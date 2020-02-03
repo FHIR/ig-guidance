@@ -38,7 +38,7 @@
       <tr>
         <td>fhir.base.template</td>
         <td>
-          <a href="https://github.com/FHIR/ig-template-base">https://github.com/FHIR/ig-template-base</a>
+          <a href="https://github.com/HL7/ig-template-base">https://github.com/HL7/ig-template-base</a>
         </td>
         <td>This template includes all of the scripts, layouts, etc. to produce an HL7-style implementation guide.  However, it does not include the HL7 or 
         FHIR logos.  It is intended to serve as a base for most non-HL7 IG publication</td>
@@ -46,28 +46,28 @@
       <tr>
         <td>hl7.base.template</td>
         <td>
-          <a href="https://github.com/FHIR/ig-template-hl7">https://github.com/FHIR/ig-template-hl7</a>
+          <a href="https://github.com/HL7/ig-template-hl7">https://github.com/HL7/ig-template-hl7</a>
         </td>
         <td>This template inherits from the fhir.base.template and adds in the HL7 logo, a generic HL7 color scheme and some HL7-specific rules.</td>
       </tr>
       <tr>
         <td>hl7.fhir.template</td>
         <td>
-          <a href="https://github.com/FHIR/ig-template-fhir">https://github.com/FHIR/ig-template-fhir</a>
+          <a href="https://github.com/HL7/ig-template-fhir">https://github.com/HL7/ig-template-fhir</a>
         </td>
         <td>This template inherits from the hl7.base.template and adds in the FHIR product family logo and color scheme.</td>
       </tr>
       <tr>
         <td>fhir.davinci.template</td>
         <td>
-          <a href="https://github.com/FHIR/ig-template-davinci">https://github.com/FHIR/ig-template-davinci</a>
+          <a href="https://github.com/HL7/ig-template-davinci">https://github.com/HL7/ig-template-davinci</a>
         </td>
         <td>This template inherits from the hl7.fhir.template and adds in the Da Vinci logo and some boiler-plate Da Vinci-specific text</td>
       </tr>
       <tr>
         <td>hl7.cda.template</td>
         <td>
-          <a href="https://github.com/FHIR/ig-template-cda">https://github.com/FHIR/ig-template-cda</a>
+          <a href="https://github.com/HL7/ig-template-cda">https://github.com/HL7/ig-template-cda</a>
         </td>
         <td>This template inherits from the hl7.base.template and adds in the CDA product family logo and color scheme.</td>
       </tr>

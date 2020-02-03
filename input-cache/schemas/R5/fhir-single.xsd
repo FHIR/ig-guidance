@@ -47,7 +47,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Thu, Jan 9, 2020 20:41+0000 for FHIR v4.2.0 
+  Generated on Sun, Feb 2, 2020 04:12+0000 for FHIR v4.2.0 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hl7.org/fhir" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://hl7.org/fhir" elementFormDefault="qualified" version="4.2.0">
   <!-- Note: When using this schema with some tools, it may also be necessary to declare xmlns:xml="http://www.w3.org/XML/1998/namespace", however this causes performance issues with other tools and thus is not in the base schemas. -->
@@ -492,6 +492,7 @@
       <xs:element ref="NamingSystem"/>
       <xs:element ref="NutritionIntake"/>
       <xs:element ref="NutritionOrder"/>
+      <xs:element ref="NutritionProduct"/>
       <xs:element ref="Observation"/>
       <xs:element ref="ObservationDefinition"/>
       <xs:element ref="OperationDefinition"/>
@@ -765,7 +766,7 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
       <xs:documentation xml:lang="en">If the element is present, it must have a value for at least one of the defined elements, an @id referenced from the Narrative, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="Element">
+      <xs:extension base="DataType">
         <xs:sequence>
           <xs:element name="versionId" type="id" minOccurs="0" maxOccurs="1">
             <xs:annotation>
@@ -19490,12 +19491,12 @@ UDILabelName | UserFriendlyName | PatientReportedName | ManufactureDeviceName | 
           </xs:element>
           <xs:element name="evidenceSource" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Various information categories of group.</xs:documentation>
+              <xs:documentation xml:lang="en">Group from which the evidence is derived.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="intendedGroup" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Non-actual group that is a set of characteristics.</xs:documentation>
+              <xs:documentation xml:lang="en">Group for which the evidence applies.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="directnessMatch" minOccurs="0" maxOccurs="1" type="CodeableConcept">
@@ -19593,12 +19594,12 @@ UDILabelName | UserFriendlyName | PatientReportedName | ManufactureDeviceName | 
           </xs:element>
           <xs:element name="note" minOccurs="0" maxOccurs="1" type="Annotation">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Textual note of certainty subcomponent.</xs:documentation>
+              <xs:documentation xml:lang="en">Footnotes and/or explanatory notes.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="type" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Footnotes and/or explanatory notes.</xs:documentation>
+              <xs:documentation xml:lang="en">Type of certainty being rated.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="rating" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
@@ -21087,6 +21088,14 @@ UDILabelName | UserFriendlyName | PatientReportedName | ManufactureDeviceName | 
           <xs:documentation xml:lang="fr">OrdreNutrition</xs:documentation>
           <xs:documentation xml:lang="es">OrdenNutrición</xs:documentation>
           <xs:documentation xml:lang="zh">营养医嘱</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NutritionProduct">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">NutritionProduct</xs:documentation>
+          <xs:documentation xml:lang="en">NutritionProduct</xs:documentation>
+          <xs:documentation xml:lang="fr">ProduitNutritionnel</xs:documentation>
+          <xs:documentation xml:lang="es">ProductoNutricional</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
       <xs:enumeration value="Observation">
@@ -30123,18 +30132,18 @@ UDILabelName | UserFriendlyName | PatientReportedName | ManufactureDeviceName | 
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
-          <xs:choice minOccurs="1" maxOccurs="1" >
+          <xs:element name="type" minOccurs="1" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Specific characteristic that is relevant to the administration guideline (e.g. height, weight, gender).</xs:documentation>
-            </xs:annotation>
-            <xs:element name="characteristicCodeableConcept" type="CodeableConcept"/>
-            <xs:element name="characteristicQuantity" type="Quantity"/>
-          </xs:choice>
-          <xs:element name="value" minOccurs="0" maxOccurs="unbounded" type="string">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The specific characteristic (e.g. height, weight, gender, etc.).</xs:documentation>
+              <xs:documentation xml:lang="en">The categorization of the specific characteristic that is relevant to the administration guideline (e.g. height, weight, gender).</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:choice minOccurs="0" maxOccurs="1" >
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The specific characteristic (e.g. height, weight, gender, etc.).</xs:documentation>
+            </xs:annotation>
+            <xs:element name="valueCodeableConcept" type="CodeableConcept"/>
+            <xs:element name="valueQuantity" type="Quantity"/>
+          </xs:choice>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -32936,6 +32945,197 @@ The primary difference between a medicationusage and a medicationadministration 
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:element name="NutritionProduct" type="NutritionProduct">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A product used for exclusively nutritional purposes, (how do we want to make this cut clear? Including pharmacodynamic properties or something.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="NutritionProduct">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A product used for exclusively nutritional purposes, (how do we want to make this cut clear? Including pharmacodynamic properties or something.</xs:documentation>
+      <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DomainResource">
+        <xs:sequence>
+          <xs:element name="status" minOccurs="1" maxOccurs="1" type="NutritionProductStatus">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The current state of the product.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="category" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Nutrition products can have different classifications - according to its nutritional properties, preparation methods, etc.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="code" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The code assigned to the product, for example a manufacturer number or other terminology.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="manufacturer" minOccurs="0" maxOccurs="unbounded" type="Reference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The organisation (manufacturer, representative or legal authorisation holder) that is responsible for the device.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="nutrient" type="NutritionProduct.Nutrient" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The product's nutritional information expressed by the nutrients.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="ingredient" type="NutritionProduct.Ingredient" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The ingredient contained in the product.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="instance" type="NutritionProduct.Instance" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Conveys instance-level information about this product item. One or several physical, countable instances or occurrences of the product.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="note" minOccurs="0" maxOccurs="unbounded" type="Annotation">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Comments made about the product.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NutritionProduct.Nutrient">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A product used for exclusively nutritional purposes, (how do we want to make this cut clear? Including pharmacodynamic properties or something.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="item" minOccurs="0" maxOccurs="1" type="CodeableReference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The (relevant) nutrients in the product.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="amount" minOccurs="0" maxOccurs="unbounded" type="Ratio">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The amount of nutrient expressed in one or more units: X per pack / per serving / per dose.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NutritionProduct.Ingredient">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A product used for exclusively nutritional purposes, (how do we want to make this cut clear? Including pharmacodynamic properties or something.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="item" minOccurs="1" maxOccurs="1" type="CodeableReference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is adhered to in whole or in part by this {{title}}.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="amount" minOccurs="0" maxOccurs="unbounded" type="Ratio">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The URL pointing to an externally maintained protocol, guideline, orderset or other definition that is adhered to in whole or in part by this {{title}}.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NutritionProduct.Instance">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A product used for exclusively nutritional purposes, (how do we want to make this cut clear? Including pharmacodynamic properties or something.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="quantity" minOccurs="0" maxOccurs="1" type="Quantity">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The amount of items or instances that the resource considers, for instance when referring to 2 identical units together.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="identifier" minOccurs="0" maxOccurs="unbounded" type="Identifier">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The identifier for the physical instance, typically a serial number.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="lotNumber" minOccurs="0" maxOccurs="1" type="string">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The identification of the batch or lot of the product.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="expiry" minOccurs="0" maxOccurs="1" type="dateTime">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The time after which the product is no longer expected to be in proper condition, or its use is not advised or not allowed.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="useBy" minOccurs="0" maxOccurs="1" type="dateTime">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The time after which the product is no longer expected to be in proper condition, or its use is not advised or not allowed.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="intake" type="NutritionProduct.Intake" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Where and how the product was consumed.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="NutritionProduct.Intake">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A product used for exclusively nutritional purposes, (how do we want to make this cut clear? Including pharmacodynamic properties or something.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="dateTime" minOccurs="0" maxOccurs="1" type="dateTime">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The time when nutrition product has been taken.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="location" minOccurs="0" maxOccurs="1" type="CodeableReference">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The place where nutrition product has been taken.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="NutritionProductStatus-list">
+    <xs:restriction base="code-primitive">
+      <xs:enumeration value="active">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Active</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="inactive">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Inactive</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="entered-in-error">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Entered in Error</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="NutritionProductStatus">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Codes identifying the lifecycle stage of a product.</xs:documentation>
+      <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Element">
+        <xs:attribute name="value" type="NutritionProductStatus-list" use="optional"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:element name="Observation" type="Observation">
     <xs:annotation>
       <xs:documentation xml:lang="en">Measurements and simple assertions made about a patient, device or other subject.</xs:documentation>
@@ -34476,7 +34676,7 @@ For resource issues, this will be a simple XPath limited to element names, repet
               <xs:documentation xml:lang="en">The physical type of the container of the medicine.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="quantity" minOccurs="0" maxOccurs="1" type="Quantity">
+          <xs:element name="quantity" minOccurs="0" maxOccurs="1" type="integer">
             <xs:annotation>
               <xs:documentation xml:lang="en">The quantity of this package in the medicinal product, at the current level of packaging. If specified, the outermost level is always 1.</xs:documentation>
            </xs:annotation>
@@ -37302,12 +37502,12 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:element name="RegulatedAuthorization" type="RegulatedAuthorization">
     <xs:annotation>
-      <xs:documentation xml:lang="en">The regulatory authorization of a medicinal product.</xs:documentation>
+      <xs:documentation xml:lang="en">The regulatory authorization of a medicinal product, device or process.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="RegulatedAuthorization">
     <xs:annotation>
-      <xs:documentation xml:lang="en">The regulatory authorization of a medicinal product.</xs:documentation>
+      <xs:documentation xml:lang="en">The regulatory authorization of a medicinal product, device or process.</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -37315,17 +37515,17 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
         <xs:sequence>
           <xs:element name="identifier" minOccurs="0" maxOccurs="unbounded" type="Identifier">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Business identifier for the marketing authorization, as assigned by a regulator.</xs:documentation>
+              <xs:documentation xml:lang="en">Business identifier for the authorization, typically assigned by the authorizing body.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="subject" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The product that is being authorized.</xs:documentation>
+              <xs:documentation xml:lang="en">The type of product or service that is being authorized.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="type" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Type of this authorization, for example drug marketing approval, orphan drug designation.</xs:documentation>
+              <xs:documentation xml:lang="en">Overall type of this authorization, for example drug marketing approval, orphan drug designation.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="description" minOccurs="0" maxOccurs="1" type="markdown">
@@ -37340,12 +37540,12 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:element>
           <xs:element name="status" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The status of the marketing authorization.</xs:documentation>
+              <xs:documentation xml:lang="en">The status that is authorised e.g. approved. Intermediate states can be tracked with cases and applications.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="statusDate" minOccurs="0" maxOccurs="1" type="dateTime">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The date at which the given status has become applicable.</xs:documentation>
+              <xs:documentation xml:lang="en">The date at which the given status became applicable.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="validityPeriod" minOccurs="0" maxOccurs="1" type="Period">
@@ -37353,9 +37553,21 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
               <xs:documentation xml:lang="en">The beginning of the time period in which the marketing authorization is in the specific status shall be specified A complete date consisting of day, month and year shall be specified using the ISO 8601 date format.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:choice minOccurs="0" maxOccurs="1" >
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Condition for which the medicinal use applies.</xs:documentation>
+            </xs:annotation>
+            <xs:element name="indicationCodeableConcept" type="CodeableConcept"/>
+            <xs:element name="indicationReference" type="Reference"/>
+          </xs:choice>
+          <xs:element name="intendedUse" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The intended use of the product, e.g. prevention, treatment.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="basis" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The legal framework against which this authorization is granted, or other reasons for it.</xs:documentation>
+              <xs:documentation xml:lang="en">The legal or regulatory framework against which this authorization is granted, or other reasons for it.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="relatedDate" type="RegulatedAuthorization.RelatedDate" minOccurs="0" maxOccurs="unbounded">
@@ -37389,7 +37601,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:complexType name="RegulatedAuthorization.RelatedDate">
     <xs:annotation>
-      <xs:documentation xml:lang="en">The regulatory authorization of a medicinal product.</xs:documentation>
+      <xs:documentation xml:lang="en">The regulatory authorization of a medicinal product, device or process.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -37412,29 +37624,29 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:complexType name="RegulatedAuthorization.Case">
     <xs:annotation>
-      <xs:documentation xml:lang="en">The regulatory authorization of a medicinal product.</xs:documentation>
+      <xs:documentation xml:lang="en">The regulatory authorization of a medicinal product, device or process.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="identifier" minOccurs="0" maxOccurs="1" type="Identifier">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Identifier for this case.</xs:documentation>
+              <xs:documentation xml:lang="en">Identifier by which this case can be referenced.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="type" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Type of case.</xs:documentation>
+              <xs:documentation xml:lang="en">The defining type of case.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="status" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The status of the case.</xs:documentation>
+              <xs:documentation xml:lang="en">The status associated with the case.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:choice minOccurs="0" maxOccurs="1" >
             <xs:annotation>
-              <xs:documentation xml:lang="en">Date of case.</xs:documentation>
+              <xs:documentation xml:lang="en">Relevant date for this of case.</xs:documentation>
             </xs:annotation>
             <xs:element name="datePeriod" type="Period"/>
             <xs:element name="dateDateTime" type="dateTime"/>
