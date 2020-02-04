@@ -1,88 +1,115 @@
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../src-generated/schemas/fhir-single.xsd">
-<div>
-<a name="summary"></a>
-<h3>Summary</h3>
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas-r5/fhir-single.xsd">
+<a name="summary"> </a>
+<h3 id="summary">Summary</h3>
+<p>Some projects may want to publish their IGs with a different look and feel or changed features. This can be done by creating a custom template (which is a template extension) and pointing the IG Publisher to use that custom template.</p>
+<p>We can customize the template by:</p>
+<ul>
+<li><p>Adding or changing images to the template</p></li>
+<li><p>Adding html content</p></li>
+<li><p>Changing colors</p></li>
+<li><p>etc.</p></li>
+</ul>
+<p>The custom template consists of a local folder under the IG root folder with a "package" folder, which in turn contains:</p>
+<ol style="list-style-type: decimal">
+<li><p>a package.json defining the new template and the base template</p></li>
+<li><p>the files for the extended template</p></li>
+</ol>
+<p>(See below for details)</p>
+<p>When publishing the IG, these files are combined (added, replaced, or appended) to the base template, resulting in a custom template.</p>
+<p></p>
+<p></p>
 
-<p>Some projects may want to publish their IGs with a different look and feel or changed features. This can be done by creating a custom template (which is a template extension) in a local folder, and pointing the IG Publisher to use that template extension.</p>
-<p>The extension is a folder under the IG root folder ( [igroot] ), containing a "package" folder, which contains:</p>
-<ol>
-<li>a) a package.json defining the new template and the base template - see below</li>
-<li>b) the files for the extended template</li>
-</ol>
-<p>The ImplementationGuide publisher builds the template in the [igroot]/template folder, first fetching all the files from the base, then adding, replacing, or appending the files that exist in the "package" folder in the extension.</p>
-<p>To know more about the contents of package.json: <a href="https://wiki.hl7.org/index.php?title=FHIR_IG_publisher_templates#package.5Cpackage.json">https://wiki.hl7.org/index.php?title=FHIR_IG_publisher_templates#package.5Cpackage.json</a></p>
-<a name="changing"></a>
-<h3>Changing the custom template</h3>
+<a name="changing-the-custom-template"> </a>
+<h3 id="changing-the-custom-template">Changing the custom template</h3>
+<p>Changing the template means:</p>
 <ul>
-<li>Adding or changing images to the template</li>
-<li>Adding html content</li>
-<li>Changing colors</li>
-<li>etc.</li>
+<li><p>creating the template’s “package” folder and a package.json in it</p></li>
+<li><p>adding content files to the custom template folder</p></li>
+<li><p>telling the IG publisher to use the local template</p></li>
 </ul>
-<p>To create the package.json, you might find it easiest to copy the one from the "HL7" official template<br /> <a href="https://github.com/HL7/ig-template-fhir/blob/master/package/package.json">https://github.com/HL7/ig-template-fhir/blob/master/package/package.json</a></p>
-<p></p>
-<p>Changing the template simply means adding files which will be added to the template, or that will replace or append those files arleady in the template.</p>
+<p>To create the package.json, you might find it easiest to copy the one from the <a href="https://github.com/HL7/ig-template-fhir/blob/master/package/package.json">HL7 official template</a>. See <a href="https://wiki.hl7.org/index.php?title=FHIR_IG_publisher_templates#package.5Cpackage.json">here</a> more about the contents of package.json.</p>
+<p>Next, we add files that add/replace to the base template.</p>
+<p>The logic how it works is:</p>
 <ul>
-<li>When the custom template has a file that does not exist in the base, this file from the custom template gets added to the template</li>
-<li>When the custom template has a file that exists in the base, the base file gets replaced by the file from the custom template</li>
-<li>When the custom template has a file named _append.xyz , the content of this file is added to the file named xyz in the base</li>
-<li>(A custom template with no files simply does not change the base templates)</li>
+<li><p>When the custom template has a file that does not exist in the base, this file from the custom template gets added to the template</p></li>
+<li><p>When the custom template has a file that exists in the base, the base file gets replaced by the file from the custom template</p></li>
+<li><p>When the custom template has a file named _append.xyz , the content of this file is added to the file named xyz in the base</p></li>
+<li><p>(A custom template with no files simply does not change the base templates)</p></li>
 </ul>
 <p></p>
-<p>The HL7 official template (used exclusively for Implementation Guides published by HL7 International) extends the FHIR base template and can be checked as an example.</p>
-<p><a href="https://github.com/HL7/ig-template-fhir">https://github.com/HL7/ig-template-fhir</a></p>
 <p></p>
-<a name="setup"></a>
-<h4>Setting up the local custom template</h4>
+
+<a name="example"> </a>
+<h3 id="example">Example</h3>
+<p>For an example of how a template is customized, the HL7 official template (used exclusively for Implementation Guides published by HL7 International) extends the FHIR base template and can be checked here: <a href="https://github.com/HL7/ig-template-fhir">https://github.com/HL7/ig-template-fhir</a></p>
+
+<p></p>
+<a name="customize-a-template"> </a>
+<h3 id="customize-a-template">Customize a template</h3>
+<p>Here is an example customization:</p>
+
+<a name="setting-up-the-local-custom-template"> </a>
+<h4 id="setting-up-the-local-custom-template">Setting up the local custom template</h4>
 <p>The first step is to define the custom template's package.json. It must have a unique name, and declare a base (and dependency on) the base template. For example, if we want a template called "myTemplate", the package.json could look like:</p>
-<pre>{
- "name": "myTemplate",
- "version": "0.1",
- "type": "fhir.template",
- "license": "CC0-1.0",
- "description": "My FHIR Template",
- "base": "hl7.fhir.template",
- "dependencies": {
- "hl7.fhir.template": "0.0.5"
+<pre>
+{
+ &quot;name&quot;: &quot;myTemplate&quot;,
+ &quot;version&quot;: &quot;0.1&quot;,
+ &quot;type&quot;: &quot;fhir.template&quot;,
+ &quot;license&quot;: &quot;CC0-1.0&quot;,
+ &quot;description&quot;: &quot;My FHIR Template&quot;,
+ &quot;base&quot;: &quot;hl7.fhir.template&quot;,
+ &quot;dependencies&quot;: {
+ &quot;hl7.fhir.template&quot;: &quot;0.0.5&quot;
  }
-}
-</pre>
-<a name="example"></a>
-<h3>Example:</h3>
-<a name="icon"></a>
-<h4>Adding an icon to the template</h4>
-<ol>
-<li>Within your local template folder (e.g. myTemplate), create a path "content/assets/images"</li>
-<li>Inside the images folder put some sort of icon that you"d like in header to your implementation guides (call it for example "myIcon.png") - make sure you have a license to use the image</li>
-<li>Supplement the header for the template to point to your icon:
-<ol>
-<li>Within your local template folder (e.g. myTemplate), create a path "includes"</li>
-<li>Create a text file called "_append.fragment-header.html"</li>
-<li>In that file put an XHTML fragment that looks like this:</li>
-</ol>
-</li>
-</ol>
-<pre>     &lt;div id="hl7-nav"&gt; 
-     &lt;a id="hl7-logo" no-external="true" href="yourprojectwebsite.html"&gt;
-     &lt;img height="50" alt="Visit MyProject" src="{{site.data.info.assets}}assets/images/myIcon.png.png"/&gt;
-     &lt;/a&gt;
-</pre>
+}</pre>
+
 <p></p>
-<a name="css"></a>
-<h4>Append a CSS to change the background color</h4>
-<ol>
-<li>Within your local template folder (e.g. myTemplate), create a path "content/assets/css"</li>
-<li>Create a file called "myproject.css"</li>
-<li>In that file, set the following styles:</li>
+<p></p>
+
+<a name="adding-an-icon-to-the-template"> </a>
+<h4 id="adding-an-icon-to-the-template">Adding an icon to the template</h4>
+<ol style="list-style-type: decimal">
+<li><p>Within your local template folder (e.g. myTemplate), create a path "content/assets/images"</p></li>
+<li><p>Inside the images folder put some sort of icon that you"d like in header to your implementation guides (call it for example "myIcon.png") - make sure you have a license to use the image</p></li>
+<li><p>Supplement the header for the template to point to your icon:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Within your local template folder (e.g. myTemplate), create a path "includes"</p></li>
+<li><p>Create a text file called "_append.fragment-header.html"</p></li>
+<li><p>In that file put an XHTML fragment that looks like this:</p></li>
+</ol></li>
 </ol>
-<pre>      #segment-footer &gt; .container {background-color: #888888;}
-      .navbar-inverse {background-color: #88888;}
+<pre>
+     &lt;div id=&quot;hl7-nav&quot;&gt; 
+     &lt;a id=&quot;hl7-logo&quot; no-external=&quot;true&quot; href=&quot;yourprojectwebsite.html&quot;&gt;
+     &lt;img height=&quot;50&quot; alt=&quot;Visit MyProject&quot; src=&quot;{{site.data.info.assets}}assets/images/myIcon.png.png&quot;/&gt;
+     &lt;/a&gt;</pre>
+<p></p>
+<p></p>
+<a name="append-a-css-to-change-the-background-color"> </a>
+<h4 id="append-a-css-to-change-the-background-color">Append a CSS to change the background color</h4>
+<ol style="list-style-type: decimal">
+<li><p>Within your local template folder (e.g. myTemplate), create a path "content/assets/css"</p></li>
+<li><p>Create a file called "myproject.css"</p></li>
+<li><p>In that file, set the following styles:</p></li>
+</ol>
+<pre>
+      #segment-footer &gt; .container {background-color: #888888;}
+      .navbar-inverse {background-color: #88888;}</pre>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Supplement the header for the template to point to your css</p></li>
+<li><p>In the "includes" folder created in step 5, create a new file called "_append.fragment-css.html"</p></li>
+<li><p>In that file add the following XHTML fragment:</p></li>
+</ol>
+<pre>
+     &lt;link href=&quot;{{site.data.info.assets}}assets/css/myproject.css&quot; rel=&quot;stylesheet&quot;/&gt;
 </pre>
-<ol start="4">
-<li>Supplement the header for the template to point to your css</li>
-<li>In the "includes" folder created in step 5, create a new file called "_append.fragment-css.html"</li>
-<li>In that file add the following XHTML fragment:</li>
-</ol>
-<pre>     &lt;link href="{{site.data.info.assets}}assets/css/myproject.css" rel="stylesheet"/&gt;</pre>
-To see the results - and you should do it often - run the IG Publisher</div>
+
+<p></p>
+<p></p>
+<a name="running-the-publisher"> </a>
+<h4 id="running-the-publisher">Running the publisher</h4>
+<p>To see the results of the customization - and you should do it often to make sure that the changes do not break the publisher – just run the IG Publisher.</p>
+<p></p>
+<p></p>
 </div>
