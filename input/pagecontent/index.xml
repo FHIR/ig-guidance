@@ -58,7 +58,7 @@
         <td>This template inherits from the hl7.base.template and adds in the FHIR product family logo and color scheme.</td>
       </tr>
       <tr>
-        <td>fhir.davinci.template</td>
+        <td>hl7.davinci.template</td>
         <td>
           <a href="https://github.com/HL7/ig-template-davinci">https://github.com/HL7/ig-template-davinci</a>
         </td>
