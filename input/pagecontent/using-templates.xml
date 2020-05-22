@@ -137,7 +137,8 @@
           </ul>
           <p>In addition, it may contain an optional third parameter: usage-stats-opt-out.  If set to 'true', publishing this IG will not share
           usage stats about resources, extensions, operations, etc. with HL7.  This information is used by HL7 to understand what portions of the FHIR
-          specification are being used.  No personal information is shared.</p>
+          specification are being used.  No personal information is shared. Note that opt-out does not apply to any spec built using the <a href="https://github.com/FHIR/auto-ig-builder/blob/master/README.md">FHIR ci-build infrastructure</a>,
+	  or to any specifications for HL7 or IHE (as judged the presence of 'hl7.', 'ihe.' or 'argonaut.' in the package name.</p>
         </td>
       </tr>
       <tr>
