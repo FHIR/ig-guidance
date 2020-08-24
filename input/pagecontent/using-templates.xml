@@ -312,12 +312,12 @@
             This is a special folder for content that will appear multiple places within the IG.  In general, most of this is handled by the template
             itself.  However, in some cases, it will be necessary for the same content to appear on multiple pages within the same IG.  Such markdown
             and/or XHTML content can be placed here and then referenced using Latex within other 'page' files within the IG.  This is 'advanced' behavior
-            and authors planning to do this should read the <a href="template.html">Using IG Templates</a> section.
+            and authors planning to do this should read the <a href="template.html#todo">Using IG Templates</a> section.
           </p>
           <p>
             However, there is one file that all igs will need - <code>menu.xml</code>.  This is an XHTML file that defines the content of the main menu.
             It is an XHTML unordered list.  To see what one might look like, look at the <a href="http://github.com/FHIR/sample-ig">sample-ig</a>.
-            <!--Guidance on how best to structure IG menus can be found <a href="here"/>. -->
+            Guidance on how best to structure IG menus can be found <a href="#todo">here</a>.
           </p>
           <p>
             NOTE: The representation of menus is more complicated than we'd like it to be - we hope to come up with a simpler way to represent this
@@ -452,7 +452,7 @@
     Regardless of whether narrative content is authored using XHTML or markdown, it can also contain embedded
     <a href="https://jekyllrb.com/docs/liquid/">Liquid</a> commands.  Most IG authors won't need to worry much about liquid as it is managed as part of
     the template process.  Guidance on using liquid for more sophisticated capabilities is covered in the section of this IG that deals with
-    <a href="template.html">authoring templates.</a>  However, even simple IGs may find a need for liquid in two circumstances:
+    <a href="template.html#todo">authoring templates.</a>  However, even simple IGs may find a need for liquid in two circumstances:
   </p>
   <ul>
     <li>
@@ -463,7 +463,7 @@
         but needing to publish against frozen ballot snapshots or other releases.  To simplify this process, best practice is to never hard-code the URLs
         of any FHIR version or higher-level IG into the web pages.  Instead, the URLs (and, if relevant, their version names) are referenced by Liquid
         variables.  The following table lists variables that are commonly referenced in IGs.  (Full documentation on available variables can be found
-        in the <a href="template.html">templates section</a>.)
+        in the <a href="template.html#todo">templates section</a>.)
       </p>
       {% raw %}
       <table>
