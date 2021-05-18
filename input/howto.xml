@@ -58,6 +58,11 @@
         <nameUrl value="template.html"/>
         <title value="Extending the HL7 IG Templates"/>
         <generation value="html"/>
+        <page>
+          <nameUrl value="colors.html"/>
+          <title value="Changing the IG colors"/>
+          <generation value="markdown"/>
+        </page>
       </page>
       <page>
         <nameUrl value="downloads.html"/>

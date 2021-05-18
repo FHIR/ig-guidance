@@ -25,8 +25,18 @@
       <li>
         <a href="best-practice.html">IG Best Practices</a>
       </li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Customization<b class="caret">
+      </b>
+    </a>
+    <ul class="dropdown-menu">
       <li>
         <a href="template.html">Extending the HL7 IG Templates</a>
+      </li>
+      <li>
+        <a href="colors.html">Changing colors in the template</a>
       </li>
     </ul>
   </li>
