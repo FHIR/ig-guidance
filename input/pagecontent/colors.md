@@ -9,7 +9,7 @@ Changing the IG colors can be done by manipulating the css variables, e.g. by ov
 </blockquote>
 </div>
 
-<p class="dragon">here be dragons</p>
+<p class="dragon">This box (styled 'dragon') serves to warn about issues or pitfalls</p>
 
 
 
