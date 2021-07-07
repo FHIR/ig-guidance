@@ -544,9 +544,13 @@
 
   <a name="warnings"> </a>
   <h5>Handling errors and warnings</h5>
-  <p>
-    TODO - guidance on using the
-  </p>
+ <p><br />In general you should attempt to address errors, warnings, and informational messages in the qa.html and qa.txt files through changes to your IG. Sometimes this is not possible or practical. For example, inevitably, some errors wil result from reported, but unresolved issues with the IG publisher or HL7 terminology services. Similarly the informational messages are instructions to the author to check certain things, but once checked, they contribute little to the QA reiew of an IG.</p>
+<p>Warnings and information messages, and some errors, can be silenced by including them in the input/ignoreWarnings.txt file. Example content for this file is shown below, and includes full messages copied from the qa.txt file, along with explanatory text in '#' prefixed comments. The lines in the file should be grouped so that an explanatory comment precedes a series of messages that are to be ignored.</p>
+<p>The content of the ignoreWarnings.txt file is included in the QA report to support review of the IG. </p>
+<p style="padding-left: 30px;"><br />== Suppressed Messages ==<br /># Errors to suppress<br /># This is a known IG Publisher error<br />ERROR: /Users/skravitz/git/davinci-pdex-plan-net/fsh/build/output/searchform.html#/html/body/div/div/a/img/div/div/nav/div/div/ul/li/a at Line 64, column 21: The link 'history.html' for "History" cannot be resolved</p>
+<p style="padding-left: 30px;"># These are actual warnings to surpress <br /># The display values for NUCC Provider Taxonomy have been updated, and the HL7 Terminology server does not yet incorporate the updated values.</p>
+<p style="padding-left: 30px;"># The changes are all of the form adding a role at the end of the display name, so for example "Family Medicine" becomes "Family Medicine Physician"<br />WARNING: HealthcareService/BurrClinicServices: HealthcareService.specialty[0]: The display "Family Medicine" is not a valid display for the code {http://nucc.org/provider-taxonomy}207Q00000X - should be one of ["Family Medicine Physician"] (from http://tx.fhir.org/r4)</p>
+<p style="padding-left: 30px;"># Informational -- these examples are in the IG because they are examples of the referenced profiles. They are generated using FSH, so their profiles are correct by construction<br />INFORMATION: Endpoint/AcmeOfCTPortalEndpoint: Endpoint: Validate resource against profile http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/plannet-Endpoint</p>
 
   <a name="invoking"> </a>
   <h3>Using the IG publisher</h3>
