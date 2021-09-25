@@ -1,0 +1,12 @@
+@startuml
+(*) --> "Create <font:monospaced>**filename.plantuml**</font>\nin <font:monospaced>**input/images-source**</font> folder"
+'-->"Add content to\n<font:monospaced>filename.plantuml</font>"
+if "page\nsyntax:" then
+  -right->[markdown] "Include in markdown\n or embedded html"
+  -->"Optionally ensure the text\ndoesn't wrap around the image"
+  --> (*)
+else
+  -left->[xhtml] "Include the image \n in the page "
+  --> "Optionally\nadd a caption"
+--> (*)
+@enduml
