@@ -1,0 +1,38 @@
+@startuml
+skinparam componentStyle rectangle
+
+'!include ./style.iuml
+!pragma layout smetana ' you can use the internal engine instead of graphviz
+skinparam linetype polyline
+
+title "**How PlantUML is used**\ninside an ImplementationGuide\n"
+
+'agent [Case Report\n Submitter] as CRS
+'agent [Case Report\n Transformer] as CRT
+'agent [Case Report\n Repository] as CRR
+agent "plantuml" as pu
+'agent "Case Data\n Converter" as CRM
+'collections "      EHR      " as EHR
+file  "  <filename>.plantuml  " as fpu
+file  "  <filename>.svg  " as svg
+file  "  <page>.html  " as page
+file  "  <page>.xml  " as pagex
+file  "  <page>.md  " as pagem
+
+
+fpu -r-> pu :  "1. Template picks .plantuml   \nfiles from images-source"
+pu -d-> svg :  3. PlantUML\ntransforms\nsource to svg 
+svg -d-> page : 4. Publisher and Jekyll\nput the page together 
+pagem --r.->page  : "2. SVG must be\nreferenced in xhtml\nor markdown pages\n                                                "  
+pagex --[hidden]r.->svg: "      gggggg                          "
+pagex --r.->page
+pagex -[hidden]d-> pagem 
+fpu -[hidden]d-> pagex
+pagex --[hidden]r-->svg : hidden text: separate items
+
+'pagem --[hidden]r->page: .............................................   
+
+
+
+
+@enduml

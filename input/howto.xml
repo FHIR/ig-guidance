@@ -53,6 +53,12 @@
         <nameUrl value="best-practice.html"/>
         <title value="IG Best Practices"/>
         <generation value="markdown"/>
+        <page>
+          <nameUrl value="diagrams.html"/>
+          <title value="Adding diagrams"/>
+          <generation value="markdown"/>
+        </page>
+
       </page>
       <page>
         <nameUrl value="template.html"/>

@@ -1,0 +1,37 @@
+@startuml
+title PlantUML usage
+
+hide footbox
+
+'you can use skins to define your own look and feel
+!include ./style.iuml 
+
+actor "Author" as you
+participant "PlantUML\nstandalone\nor in IDE" as pu #DEE
+participant "Local\nRepo" as lr 
+participant "Remote\nRepo" as rr
+
+group Read about PlantUML
+you --> you: Check PlantUML syntax
+note left: [[http://plantuml.com plantuml.com]]
+end
+
+
+group Create diagram and page
+you --> pu: Create & preview
+you -> lr: Add diagram
+you -> lr: Add page
+end
+
+you -> lr : commit 
+
+group Local build 
+lr -> lr : build &\npreview
+end
+you -> rr : push 
+group Remote build 
+rr -> rr : build
+
+end
+
+@enduml
