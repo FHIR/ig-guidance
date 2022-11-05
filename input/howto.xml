@@ -40,6 +40,11 @@
         <generation value="html"/>
       </page>
       <page>
+        <nameUrl value="readingIgs.html"/>
+        <title value="Reading Implemenation Guides"/>
+        <generation value="html"/>
+      </page>
+      <page>
         <nameUrl value="tooling.html"/>
         <title value="IG Tooling"/>
         <generation value="html"/>

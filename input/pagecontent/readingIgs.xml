@@ -1,0 +1,79 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas-r5/fhir-single.xsd">
+	<p>
+    Different implementation guides will have different settings used in their rendering.  However, most implementation guides published using the HL7 IG templates will have a
+    common set of behavior.  This page provides an overview of the elements found in most implementation guides.
+  </p>
+  <a name="general"> </a>
+  <h3>General appearance</h3>
+  <p>
+    These characteristics apply to most/all pages within the IG
+  </p>
+  <a name="colors"> </a>
+  <h4>Color scheme</h4>
+  <p>The top and bottom of all HL7 IGs have color schemes that are specific to product family:</p>
+  <ul>
+    <li>FHIR IGs use a <span style="background-color:#ad1f2f; color:white">red</span> background</li>
+    <li>CDA  IGs use a <span style="background-color:#2E8B57; color:white">green</span> background</li>
+    <li>V2   IGs use a <span style="background-color:#2E40FF; color:white">blue</span> background</li>
+    <li>Non-family-specific IGs use a <span style="background-color:#505050; color:white">grey</span> background</li>
+    <li>Non-HL7 IGs use a <span style="background-color:#7b1fad; color:white">purple</span> background by default, though this can be overridden by organization-specific templates</li>
+  </ul>
+  <a name="header"> </a>
+  <h4>Header</h4>
+  <p>
+    
+  </p>
+
+  <a name="structures"> </a>
+  <h3>Structure Definitions</h3>
+
+  <a name="sdviews"> </a>
+  <h4>Model 'views'</h4>
+  <p>
+    A structure definition is made up of a collection of <a href="{{site.data.fhir.path}}elementdefinition.html">ElementDefinitions</a> that describe the individual data
+    elements that make up the model.  When an implementation guide displays those elements, there are often different subsets of the elements that are of interest to the
+    reader.  For this reason, implementation guides offer up different 'views' of the model, each of which exposes different subsets of elements.  This view-based approach
+    is used for both the <a href="#sdtables">table views</a> and the <a href="#sddicts">data dictionaries</a>.
+  </p>
+  <p>
+    There are up to four different types of table view, though not all will appear in every implementation guide:
+  </p>
+  <ul>
+    <li><b>Differential</b> - used to indicate what is 'different' between the parent model for the structure definition and the current
+      model.  In general, only those properties of the element that have changed will be shown, though some properties are always displayed to provide context.  Element
+      properties that are unchanged from the parent model are partially opaque, looking greyish.  Element properties that have been removed from the parent model are
+      rendered with strikethrough.  This view shows "what has this profile done?" - it shows the content of the profile, but not necessarily everything that needs to
+      be implemented or that is possible to share.</li>
+    <li><b>Snapshot</b> - shows the complete set of data elements allowed within the profile.  This is the result of applying all of the changes from the 'differential'
+      to the base model.  This view is the largest, as it includes everything that can be represented within the model by a conformant system.  It is useful to understand
+      the full context of what's possible, and is often the appropriate view to look at when seeking possible targets when mapping.  Note that the snapshot only drills
+      down into data types when the model imposes additional constraints on those types.  This means that to see <i>all</i> data elements, the reader must click through
+      the data types to see what those types contain.  A full exapansion view that drills down into all data types is not possible because, with extensions, data types
+      recurse.  (Even if icons were used to denote recursion, the view would be too overwhelming to be useful for most models.)</li>
+    <li><b>Must Support</b> - This is a trimmed-down version of the snapshot that only includes those data elements that are marked as 
+      <a href="{{site.data.fhir.path}}profiling.html#mustsupport">mustSupport</a> - i.e. those where
+      the implementation guide requires specific application behavior related to the capture, storage, rendering, transmission, and/or other uses of the element.  This
+      view provides a quick scan of some of the most important elements, but is generally less useful than the 'Key elements' view.</li>
+    <li><b>Key Elements</b> - This view includes a subset of the elements from the snapshot, including only those elements that need to be considered in some way as part
+      of the implementation process.  The criteria that drives whether an element requires additional implementation consideration includes:<br/>
+      a) an initial list of elements determined as follows:
+        <ul>
+          <li>The root element (always includeded)</li>
+          <li>All elements that are marked as <a href="{{site.data.fhir.path}}profiling.html#mustsupport">mustSupport</a></li>
+          <li>All elements that are listed in the differential (if the profile says something about them, they're presumed to be important)</li>
+          <li>All ancestor elements of those listed above.  E.g. if an element is not mustSupport but contains descendants that are mustSupport, it will be considered a
+            'key element', even though support for it is optional because there are implementation considerations if the system chooses to support it.</li>
+        </ul>
+      </li>
+  </ul>
+  
+  <a name="sdtables"> </a>
+  <h4>Table Views</h4>
+  <p>
+    Table views provide a grid-like view of a structure definition, with a hierarchical view of the model supplemented by metadata describing the elements within the model.
+  </p>
+  
+  <a name="sddicts"> </a>  
+  <h4>Data Dictionaries</h4>
+  
+</div>
