@@ -1,5 +1,5 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas-r5/fhir-single.xsd">
-	<p>
+  <p>
     Different implementation guides will have different settings used in their rendering.  However, most implementation guides published using the HL7 IG templates will have a
     common set of behavior.  This page provides an overview of the elements found in most implementation guides.
   </p>
@@ -23,10 +23,8 @@
   <p>
     
   </p>
-
   <a name="structures"> </a>
   <h3>Structure Definitions</h3>
-
   <a name="sdviews"> </a>
   <h4>Model 'views'</h4>
   <p>
@@ -55,25 +53,257 @@
       the implementation guide requires specific application behavior related to the capture, storage, rendering, transmission, and/or other uses of the element.  This
       view provides a quick scan of some of the most important elements, but is generally less useful than the 'Key elements' view.</li>
     <li><b>Key Elements</b> - This view includes a subset of the elements from the snapshot, including only those elements that need to be considered in some way as part
-      of the implementation process.  The criteria that drives whether an element requires additional implementation consideration includes:<br/>
-      a) an initial list of elements determined as follows:
+      of the implementation process.  The elements that qualify as key elements are determined by the following process:<br/>
+      a) Construct an initial list of elements meeting one of the following criteria:
         <ul>
-          <li>The root element (always includeded)</li>
-          <li>All elements that are marked as <a href="{{site.data.fhir.path}}profiling.html#mustsupport">mustSupport</a></li>
-          <li>All elements that are listed in the differential (if the profile says something about them, they're presumed to be important)</li>
-          <li>All ancestor elements of those listed above.  E.g. if an element is not mustSupport but contains descendants that are mustSupport, it will be considered a
+        <li>The root element for the model</li>
+        <li>All elements that are marked as <a href="{{site.data.fhir.path}}profiling.html#mustsupport">mustSupport</a></li>
+        <li>All elements that are listed in the differential <span style="color:grey">- if the profile says something about them, they're presumed to be important)</span></li>
+        <li>All ancestor elements of those listed above.  E.g. if an element is not mustSupport but contains descendants that are mustSupport, it will be considered a
             'key element', even though support for it is optional because there are implementation considerations if the system chooses to support it.</li>
-        </ul>
+      </ul><br/>
+      b) If any of those initial elements have unselected children, those children will be included if:
+        <ul>
+        <li>They are mandatory (minimum cardinality != 0) <span style="color:grey">- important for senders, as they're responsible for including the element in instances</span></li>
+        <li>Their maximum cardinality has been constrained from the default cardinality for the resource or data type <span style="color:grey">- may constrain what data the sender can transmit</span></li>
+        <li>They are implicated in a constraint that imposes rules on when they must be present or absent</li>
+        <li>They are slices of an element <span style="color:grey">- slices impose constraints on certain uses of that element</span></li>
+        <li>The element is a modifier element <span style="color:grey">- receivers must check for the presence of such elements with unexpected/supported values, as they may make processing of sibling elements unsafe</span></li>
+      </ul><br/>
+      c) Recurse step (b) for any newly included elements<br/><br/>
+      The result is a list of all elements that are most likely to be relevant to implementation.  For included elements, the property values highlight any changes from the 
+      underlying value for the resource or data type.
       </li>
   </ul>
-  
   <a name="sdtables"> </a>
   <h4>Table Views</h4>
   <p>
     Table views provide a grid-like view of a structure definition, with a hierarchical view of the model supplemented by metadata describing the elements within the model.
+    There can be multiple tables (typically in tabs) showing different subsets of elements (see <a href="#sdviews">Model Views</a> above).  Each of the views shows the
+    resource, data type, extension definition or logical model with the following columns:
   </p>
-  
-  <a name="sddicts"> </a>  
+  <table class="grid">
+    <tr>
+      <td>
+        <b>Column</b>
+      </td>
+      <td>
+        <b>Content</b>
+      </td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td>This column starts with icon that denotes the underlying type of the element. The icons are described below.  Following the icon is the name of the element 
+      in the resource/data type/logical model described by the row.  If the element is an extension slice, the name of the extension slice will be displayed instead of
+      the element name (which is always 'extension' or 'modifierExtension' and is implied by the icon).  For other slices, this column will include both the name of the 
+      element and the name of the slice.  Clicking on the name will jump to the <a href="#sddicts">data dictionary</a> page for the element, which provides more detailed 
+      information, including full definitions and other guidance.</td>
+    </tr>
+    <tr>
+      <td>Flags</td>
+      <td>A set of information about the element that impacts how implementers handle them. The flags are described below.  Hovering over a flag will provide a description
+        of its meaning.</td>
+    </tr>
+    <tr>
+      <td>Card.</td>
+      <td>Cardinality: the lower and upper bounds on how many times this element is allowed to appear within the containing model or element.  In some 
+        <a href="#sdviews">views</a>, cardinality may be greyed out, indicating that they are unchanged from the reference model for that view.</td>
+    </tr>
+    <tr>
+      <td>Type</td>
+      <td>The type (or types) of the element (hyperlinked to the definition of the type).  These might be base data types or profiles of data types.
+        If the type is one that references other models, the allowed target models that can be referenced will be listed in () brackets after the type name.
+        As with cardinality, some <a href="#sdviews">views</a> may also show changes from the reference model fro the view.  In addition, within profiles, some types might be marked
+        with the <span style="padding-left: 3px; padding-right: 3px; color: white; background-color: red">S</span> mustSupport indicator (see the
+        <a href="#iconlegend">legend</a> below).</td>
+    </tr>
+    <tr>
+      <td>Description &amp; Constraints</td>
+      <td>A short description of the element (from <a href="{{site.data.fhir.path}}elementdefinition-definitions.html#ElementDefinition.short">ElementDefinition.short</a>) as well as certain
+        constraints or other key information, including the <a href="{{site.data.fhir.path}}terminologies.html#strength">vocabulary binding</a>, 
+        <a href="{{site.data.fhir.path}}elementdefinition-definitions.html#ElementDefinition.fixed_x_">fixed values</a> or 
+        <a href="{{site.data.fhir.path}}elementdefinition-definitions.html#ElementDefinition.pattern_x_">patterns</a>, information about
+        <a href="{{site.data.fhir.path}}profiling.html#slicing">slicing behavior</a>, the URL value for extensions, etc.  
+        In some <a href="#sdviews">views</a>, content may be greyed out, indicating that they are unchanged from the reference model for that view.
+        Full details about the element can be found on the corresponding <a href="#sddicts">data dictionary</a> page.</td>
+    </tr>
+  </table>
+  <p>
+    Here's an example:
+  </p>
+  <table border="0" cellpadding="0" cellspacing="0" style="border: 0px; font-size: 11px; font-family: verdana; vertical-align: top;">
+    <tbody>
+      <tr style="border: 1px #F0F0F0 solid; font-size: 11px; font-family: verdana; vertical-align: top;">
+        <th style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">Name</th>
+        <th style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">Flags</th>
+        <th style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">Card.</th>
+        <th style="width: 100px" class="hierarchy">Type</th>
+        <th style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">Description &amp; Constraints</th>
+      </tr>
+      <tr style="border: 0px; padding:0px; vertical-align: top; background-color: white;">
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px; white-space: nowrap; background-image: url(tbl_bck1.png)" class="hierarchy">
+          <img src="tbl_spacer.png" alt="." class="hierarchy"/>
+          <img src="icon_resource.png" alt="." style="background-color: white;" title="Resource" class="hierarchy"/>
+          <a href="#" title="Definition">Resource Name</a>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy"/>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy"/>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">
+          <a href="{{site.data.fhir.path}}resource.html">Base Type</a>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">Definition</td>
+      </tr>
+      <tr style="border: 0px; padding:0px; vertical-align: top; background-color: white;">
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px; white-space: nowrap; background-image: url(tbl_bck10.png)" class="hierarchy">
+          <img src="tbl_spacer.png" alt="." class="hierarchy"/>
+          <img src="tbl_vjoin.png" alt="." class="hierarchy"/>
+          <img src="icon_datatype.gif" alt="." style="background-color: white;" title="Data Type" class="hierarchy"/>
+          <a href="#" title="Definition">nameA</a>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">
+          <span title="This element is included in summaries">Σ</span>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">1..1</td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">
+          <a href="#">TypeA</a>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">description of content</td>
+      </tr>
+      <tr style="border: 0px; padding:0px; vertical-align: top; background-color: white;">
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px; white-space: nowrap; background-image: url(tbl_bck11.png)" class="hierarchy">
+          <img src="tbl_spacer.png" alt="." class="hierarchy"/>
+          <img src="tbl_vjoin.png" alt="." class="hierarchy"/>
+          <img src="icon_choice.gif" alt="." style="background-color: white;" title="Choice of Types" class="hierarchy"/>
+          <a href="#" title="Description">nameB[x]</a>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">
+          <span title="This element is a modifier element">?! </span>
+          <span title="This element is included in summaries">Σ</span>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">0..1</td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy"/>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">description<br/><span title="1">SHALL at least have a value</span></td>
+      </tr>
+      <tr style="border: 0px; padding:0px; vertical-align: top; background-color: white;">
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px; white-space: nowrap; background-image: url(tbl_bck110.png)" class="hierarchy">
+          <img src="tbl_spacer.png" alt="." class="hierarchy"/>
+          <img src="tbl_vline.png" alt="." class="hierarchy"/>
+          <img src="tbl_vjoin.png" alt="." class="hierarchy"/>
+          <img src="icon_primitive.png" alt="." style="background-color: white;" title="Primitive Data Type" class="hierarchy"/>
+          <span title="Value of &quot;true&quot; or &quot;false&quot;">nameBType1</span>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy"/>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">0..1</td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">
+          <a href="#">Type1</a>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy"/>
+      </tr>
+      <tr style="border: 0px; padding:0px; vertical-align: top; background-color: white;">
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px; white-space: nowrap; background-image: url(tbl_bck110.png)" class="hierarchy">
+          <img src="tbl_spacer.png" alt="." class="hierarchy"/>
+          <img src="tbl_vline.png" alt="." class="hierarchy"/>
+          <img src="tbl_vjoin_end.png" alt="." class="hierarchy"/>
+          <img src="icon_primitive.png" alt="." style="background-color: white;" title="Primitive Data Type" class="hierarchy"/>
+          <span title="Value of &quot;true&quot; or &quot;false&quot;">nameBType2</span>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">
+          <span title="This element has or is affected by some invariants">I</span>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">0..1</td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">
+          <a href="#">type2</a>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy"/>
+      </tr>
+      <tr style="border: 0px; padding:0px; vertical-align: top; background-color: white;">
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px; white-space: nowrap; background-image: url(tbl_bck11.png)" class="hierarchy">
+          <img src="tbl_spacer.png" alt="." class="hierarchy"/>
+          <img src="tbl_vjoin_end.png" alt="." class="hierarchy"/>
+          <img src="icon_element.gif" alt="." style="background-color: white;" title="Element" class="hierarchy"/>
+          <a href="#" title="Definition">nameC</a>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy"/>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">1..*</td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">BackboneElement</td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">Definition</td>
+      </tr>
+      <tr style="border: 0px; padding:0px; vertical-align: top; background-color: white;">
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px; white-space: nowrap; background-image: url(tbl_bck110.png)" class="hierarchy">
+          <img src="tbl_spacer.png" alt="." class="hierarchy"/>
+          <img src="tbl_blank.png" alt="." class="hierarchy"/>
+          <img src="tbl_vjoin_end.png" alt="." class="hierarchy"/>
+          <img src="icon_datatype.gif" alt="." style="background-color: white;" title="Data Type" class="hierarchy"/>
+          <a href="#" title="Definition">nameD</a>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy"/>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">1..1</td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">
+          <a href="#">TypeD</a>
+        </td>
+        <td style="vertical-align: top; text-align : left; padding:0px 4px 0px 4px" class="hierarchy">Relevant Records</td>
+      </tr>
+    </tbody>
+  </table>
+  <a name="iconlegend"/>
+  <p>Key to Type Icons</p>
+  <ul>
+    <li><img src="icon_resource.png" alt="." style="background-color: white;" title="Resource" class="hierarchy"/>: The base element for the model (parent resource, data type or logical model)</li>
+    <li><img src="icon_element.gif" alt="." style="background-color: white;" title="Element" class="hierarchy"/>: An element that is part of the model and has child elements within it defined as part of the same model</li>
+    <li><img src="icon_choice.gif" alt="." style="background-color: white;" title="Choice of Types" class="hierarchy"/>: An element which can have one of several different types</li>
+    <li><img src="icon_primitive.png" alt="." style="background-color: white;" title="Primitive Data Type" class="hierarchy"/>: An element of a data type which describes an element that has a <code>value</code> attribute/property. These are also known as primitive types. All primitive type names start with a lower case letter</li>
+    <li><img src="icon_datatype.gif" alt="." style="background-color: white;" title="Data Type" class="hierarchy"/>: An element of a data type which describes an element that has other elements. These are known as complex types. All complex type names defined in this specification start with an uppwer case letter </li>
+    <li><img src="icon_reference.png" alt="." style="background-color: white;" title="Reference to another Resource" class="hierarchy"/>: An element that contains a reference to another resource (see <a href="{{site.data.fhir.path}}references.html">references</a>)</li>
+    <li><img src="icon_reuse.png" alt="." style="background-color: white;" title="Reference to another Element" class="hierarchy"/>: This element has the same content as another element defined within this resource or profile</li>
+    <li><img src="icon_slice.png" alt="." style="background-color: white;" title="Slice Definition" class="hierarchy"/>: Introduction of a set of slices (see <a href="{{site.data.fhir.path}}profiling.html#slicing">Slicing</a>)</li>
+    <li><img src="icon_extension_complex.png" alt="." style="background-color: white;" title="Complex Extension" class="hierarchy"/>: A complex extension - one with nested extensions (see <a href="{{site.data.fhir.path}}extensibility.html#complex">Extensibility</a>)</li>
+    <li><img src="icon_extension_simple.png" alt="." style="background-color: white;" title="Simple Extension" class="hierarchy"/>: An extension that has a value and no nested extensions (see <a href="{{site.data.fhir.path}}extensibility.html">Extensibility</a>)</li>
+    <li><img src="icon_modifier_extension_complex.png" alt="." style="background-color: white;" title="Complex Modifier Extension" class="hierarchy"/>: A complex modifier extension - one with nested extensions (see <a href="{{site.data.fhir.path}}extensibility.html#complex">Extensibility</a>)</li>
+    <li><img src="icon_modifier_extension_simple.png" alt="." style="background-color: white;" title="Simple Modifier Extension" class="hierarchy"/>: A modifier extension that has a value and no nested extensions (see <a href="{{site.data.fhir.path}}extensibility.html">Extensibility</a>)</li>
+    <li><img src="icon_profile.png" alt="." style="background-color: white;" title="Profile" class="hierarchy"/>: The root of a logical profile</li>
+  </ul>
+  <p>Key to Flags</p>
+  <ul>
+    <li><code>?!</code>: This element is a modifying element - see <a href="{{site.data.fhir.path}}conformance-rules.html#isModifier">Modifier Elements</a></li>
+    <li><code style="padding-left: 3px; padding-right: 3px; color: white; background-color: red">S</code>: This element is an element that must be supported - see <a href="{{site.data.fhir.path}}conformance-rules.html#mustSupport">MustSupport Elements</a></li>
+    <li><code>Σ</code>: This element is an element that is part of the summary set - see <a href="{{site.data.fhir.path}}search.html#summary">Summary Searches</a></li>
+    <li><code style="padding-left: 3px; padding-right: 3px; border: 1px maroon solid; font-weight: bold; color: #301212; background-color: #fdf4f4;">C</code>: This element defines or is affected by constraints - see <a href="{{site.data.fhir.path}}conformance-rules.html#constraints">Constraints</a></li>
+    <li><code>NE</code>: This element cannot have extensions (some infrastructural elements only)</li>
+    <li><a style="padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #ffe6e6" href="{{site.data.fhir.path}}versions.html#std-process">TU</a>: This element has a <a href="{{site.data.fhir.path}}versions.html#std-process">standards status of Trial Use</a> (for discussion about mixing standards status in a resource, see <a href="{{site.data.fhir.path}}versions.html#std-process">Mixed Normative content</a>)</li>
+    <li><a style="padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #e6ffe6" href="{{site.data.fhir.path}}versions.html#std-process">N</a>: This element has a <a href="{{site.data.fhir.path}}versions.html#std-process">standards status of Normative</a></li>
+    <li><a style="padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #efefef" href="{{site.data.fhir.path}}versions.html#std-process">D</a>: This element has a <a href="{{site.data.fhir.path}}versions.html#std-process">standards status of Draft</a></li>
+  </ul>
+  <p>
+    The data type for a particular element is typically expressed as the name of the specified type with a hyperlink to its definition.  However, there are two exceptions:
+  </p>
+  <ul>
+    <li>If the element supports multiple types (name ends with [x]), then the type will be a list of data type options, each separated by "|"</li>
+    <li>If one of the types is <a href="{{site.data.fhir.path}}references.html">Reference</a> or <a href="{{site.data.fhir.path}}datatypes.html#canonical">canonical</a>, the data type might be followed by a list of allowed targets the reference is allowed to be.  These might be resource names, data type names, or profile URLs, depending on the context.  As well, the following symbols may appear that represent expectations of where the referenced resource is located: 
+      <ul>
+        <li><code>b</code>: Resource must appear within the same <a href="{{site.data.fhir.path}}bundle.html">Bundle</a>;</li>
+        <li><code>c</code>: Resource must be sent as a <a href="{{site.data.fhir.path}}references.html">contained</a> resource;</li>
+        <li><code>r</code>: Resource is a non-contained reference - i.e. to a resource within the same Bundle or to an external resource</li>
+      </ul>
+    </li>
+  </ul>
+  <p>
+In profiles, references to types may be profiled - i.e. Instances of the element must comply with a specified profile or one of a list of profiles.  The canonical URLs of any applicable profiles are listed inside {}.
+</p>
+  <p>
+Where an element can have a choice of data types, or is a <a href="{{site.data.fhir.path}}references.html">Reference</a> these are
+represented by showing the common type (<code>Reference</code> or <code>Type</code>), and then showing the applicable data type names or
+resource types in a stereotype, separated by the <code>|</code> character. <code>Type</code> is not formally otherwise defined by
+this specification, but is a super type of all the data types.
+</p>
+  <a name="sddicts"> </a>
   <h4>Data Dictionaries</h4>
-  
+  <p>
+    Data dictionaries provide a list of model elements with full details about each element.
+    There can be multiple data dictionary lists (typically in tabs) showing different subsets of elements (see <a href="#sdviews">Model Views</a> above).  Each of the views shows the
+    only the elements that fall within the scope of that view.  For some views, the information will also convey changes between the current model and the reference model for that particular
+    view.  For example, unchanged properties will be shown in grey, new properties in black and removed properties with strike-through.
+  </p>
+  <p>
+    TODO - list all of the types of information that can appear on the data dictionary page.
+  </p>
 </div>
