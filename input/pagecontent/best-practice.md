@@ -105,6 +105,13 @@ writing intuitive, consistent, clear and  concise IG text.
     * Instead, only enforce constraints that you're confident will stand the test of time.  Other constraints can be expressed as usage notes to warn 
       implementers about what's 'currently expected' and/or handled as business rules within the system.  (It's totally fine to reject instances that pass 
       profile validation because they fail context-specific business rules.)
+* Avoid forcing meta.profile to be present or have certain values.  If an instance meets the rules of a profile, that should be sufficient.  Requiring the
+  profile be declared means that the author of an otherwise conformant system must spend money to change and maintain the software forevermore to make that
+  declaration.  The declaration of a profile has no semantic meaning - i.e. an instance that's valid against a profile and an instance that's valid against
+  the profile and happens to declare the profile shouldn't ever drive differences in behavior.  Even if the profile is declared, systems will still need
+  to verify validity.
+* Never prevent meta.profile from having additional (unconstrained) values.  It's totally fine for an instance to indicate it complies with rules you don't
+  recognize.  Profile declarations never change the interpretation or processing rules for a message.
 
 
 ### Terminology
@@ -154,6 +161,9 @@ writing intuitive, consistent, clear and  concise IG text.
 * Include examples that showcase all key parts of the IG
 * Include comments in your examples (this means authoring should be done in XML)
 * At least one example should highlight every must-support element and every extension defined within the IG
+* Avoid declaring meta.profile in your examples unless there's an expectation that implementers must populate production instances with a value for meta.profile
+  (something to be avoided - see [profiles](#profiles)).  Forcing validation and linkage to the profile in the publisher can always be done by other means, and
+  including meta.profile in the example may lead implementers to think they can rely on it - when they can't.
 
 
 ### Extensions
