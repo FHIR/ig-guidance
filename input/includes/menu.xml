@@ -10,6 +10,9 @@
         <a href="background.html">Background</a>
       </li>
       <li>
+        <a href="readingIgs.html">Reading IGs</a>
+      </li>
+      <li>
         <a href="tooling.html">IG Tooling</a>
       </li>
     </ul>
@@ -24,6 +27,9 @@
       </li>
       <li>
         <a href="best-practice.html">IG Best Practices</a>
+      </li>
+      <li>
+        <a href="diagrams.html">Adding Diagrams</a>
       </li>
     </ul>
   </li>
