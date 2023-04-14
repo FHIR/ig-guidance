@@ -42,6 +42,7 @@ To include a diagram in a markdown page, after creating the diagram source, we c
 {% include filename.svg %}
 ```
 {% endraw %}
+
 Where filename is the name of the file that contains the diagram source. Given the way markdown is processed, the text may end up wrapped around the diagram. To resolve this, we can add a `<br clear="all"/>` html tag after inserting the diagram.
 
 {% raw %}
@@ -51,6 +52,16 @@ Where filename is the name of the file that contains the diagram source. Given t
 ```
 {% endraw %}
 
+
+
+Depending upon your version of Jekyll, you may need to wrap the include tag, to stop it erroneously processing the `<?xml>` declaration at the top of the included `.svg` file.
+{% raw %}
+```
+{::nomarkdown}
+{% include filename.svg %}
+{:/}
+```
+{% endraw %}
 
 #### **XHTML and markdown**
 A diagram can be added in an xhtml page by means of a  jekyll include tag, possibly wrapped in a figure and with an opptional figure caption:
