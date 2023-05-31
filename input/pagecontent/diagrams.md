@@ -15,7 +15,7 @@ The source diagram is a file in the `input/images-source` folder. The extension 
 PlantUML has several diagram types and special features. Documentation and examples are abundant out there, so here are a few starting points: 
 
 *  [Several type of PlantUML diagrams](https://plantuml.com/)
-*  [Styling](https://plantuml.com/style-evolution) with many [skinparams](https://plantuml.com/skinparam)
+
 *  [Text formatting features](https://plantuml.com/creole)
 
 
@@ -75,6 +75,24 @@ A diagram can be added in an xhtml page by means of a  jekyll include tag, possi
 ```
 {% endraw %}
 
+
+### Styling
+PlantUML diagrams can use skins or themes, which define defaults for colors, fotns, diagram lines. To use this, there are several options:
+* Adding directives to apply predefined skins e.g. `skin rose` or `skin BlueModern`
+  * The list of the abailable built-in skins is available from PlantUML itself, by using the [`help themes` directive](https://www.plantuml.com/plantuml/uml/SoWkIImgAStDuSf8pIbGACb8pKqjvd98pKi1YW40): 
+
+* Adding [SkinParams](https://plantuml.com/skinparam) to configure specific aspects.
+  * These SkinParams can be in reusable include files
+
+
+**Since June 2023, the FHIR IG base template uses the new PlantUML default theme. If you want to use the "old" PlantUML style, simply add `skin rose` to the beginning of the diagram.**
+
+
+[![Previous skin](./previous-skin.png "Previous skin")](https://www.plantuml.com/plantuml/uml/SoWkIImgAStDuIhEpinJACelJkKAoIp9ILK8A4ejoymlBLO0IN0vvcGcfohesYauvITPANYavkJaSpcavgK0TG80)
+[![New skin](./new-skin.png "New skin")](https://www.plantuml.com/plantuml/uml/SoWkIImgAStDuGh9BCb9LV1BBLSepixCutBCoKnELT2rKt3AJx9Iy4ZDoSddSaZDIm4g1G00)
+
+<br clear="all"/>  
+<br clear="all"/>
 
 
 ### Troubleshooting
