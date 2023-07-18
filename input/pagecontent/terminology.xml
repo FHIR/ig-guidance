@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas/R5/fhir-single.xsd">
+  <p>
+    This page includes a number of frequently asked questions related to terminology design in implementation guides.  The
+    intention is to help specification designers make good design choices around the use of terminology in their specs.  In
+    some cases, this guidance reflects specific rules for those creating HL7 International specifications.  Other specification
+    designers are not required to adhere to such rules (and are generally not expected or permitted to seek permission or guidance
+    from the <a href="#fmg">FHIR Management Group (FMG)</a> or <a href="#tsmg">Terminology Services Management Group (TSMG)</a>.
+    However, the rules enforced by HL7 International on their own specifications may be informative in considering policies for 
+    specifications produced by others.
+  </p>
+
+
+  <a name="general"> </a>
+  <h3>General terminology design questions</h3>
+  <p>
+    This section contains additional general questions about terminology use not specific to <a href="#system">code system</a> and 
+    <a href="#valueset">value set</a> use.
+  </p>
+
+  <a name="coded"> </a>
+  <h4>Should an element be coded?</h4>
+  <p>
+    Many elements in HL7 resources and data types have a data type of <a href="{{site.data.fhir.path}}datatypes.html#CodeableConcept">CodeableConcept</a>
+    or allow a choice of codeded data types and <a href="{{site.data.fhir.path}}datatypes.html#string">string</a>.  In these cases, the decision must
+    be made whether to require (or allow) coded data, as well as whether to require (or allow) only string data.
+  </p>
+  <p>
+    Considerations around whether data should be coded are driven by three things:
+  </p>
+  <ol>
+    <li>Is there a clear benefit to making the data computable?</li>
+    <li>Is it a realistic imposition on those performing the data capture to gather coded data of the granularity necessary to support the desired computation?</li>
+    <li>Is it realistic for the systems capturing the data to capture it in a coded way?  (Typically, but not always, heavily influenced by whether existing
+      systems capture it in a codeded way.)</li>
+  </ol>
+  <p>
+    Obviously if data is not captured exclusively as coded, then string data should be supported.  However, if coded data is supported, string
+    data might still be appropriate if:
+  </p>
+  <ul>
+    <li>Not all data will be able to be represented by codes; or</li>
+    <li>There will be a need to capture ad-hoc additional detail not represented by the codes</li>
+  </ul>
+  <p>
+    Requiring support for codes can be performed by establishing 'required' or 'extensible' bindings (see <a href="#binding-strength">binding strength below</a>),
+    by constraining the allowed data types, and/or by requiring the CodeableConcept.coding element be present via cardinality or a
+    <a href="">constraint</a>.  Requiring string types can also be done via constraining data types and/or by cardinality settings or constraints.
+  </p>
+  
+  <a name="binding-strength"> </a>
+  <h4>How do I decide what binding strength to use?</h4>
+  <p>
+    The FHIR core specification provides good detail on the meaining of the different <a href="{{site.data.fhir.path}}???">binding strengths</a>.
+    Decisions on strength are driven by the tension between "How much interoperability is needed?" and "What can systems reasonably achieve?".
+  </p>
+  <p>
+    A 'required' binding provides robust interoperability provided that the code systems are well defined with disjoint concepts, and the systems involved
+    actually support the range of codes permitted.  However, it requires that the set of codes cover all possibilities for which the element might need
+    to be present, including legacy data, exceptional data, and future evolution (though if the value set is <a href="#intensional-extensional">intensional</a>
+    and/or the value-set reference is not <a href="#version-specific">version-specific</a>, then future evolution might still be possible).  For a system
+    to comply with a 'required' binding, it must map all codes, both now and into the future to the bound value set, and if the binding is not version-specific,
+    it must continue to update those mappings on a regular and ongoing basis.  As such, it is most reasonable when the set of codes to be mapped is both
+    small and relatively static.
+  </p>
+  <p>
+    An 'extensible' binding ensures interoperability for 'most' concepts, however allows for the possibility that the bound value set might not cover
+    every eventuality.  It still imposes a requirement for the implementer to perform mappings for their codes and thus means that the codes used either
+    need to already be used by the system or be relatively small and static.  If a binding is 'extensible', it must not contain any concept that conveys
+    the concept of 'other' or 'not elsewhere specified', nor may it contain a high-level concept that encompasses all possible concepts within the element.
+    In that case, it's not possible to have a concept that falls outside the scope of the value set, and it is therefore, de facto, a 'required' binding.
+  </p>
+  <p>
+    'preferred' and 'extensible' bindings are used when there is no existing set of codes that reasonably covers most of the space, there is no consensus within the 
+    community around what codes should be used for the element, or when it's simply not practical to expect systems to translate from the codes they use to a single 
+    set of codes for interoperability.  'Example' bindings are used in the first to situations.  'Preferred' bindings are used in the last.
+  </p>
+  <p>
+    See also the <a href="#binding-types">additional binding types</a> below.
+  </p>
+
+  <a name="binding-type"> </a>
+  <h4>What are the different 'types' of bindings, and how do I use them?</h4>
+  <p>
+    In past releases of FHIR, there was a single 'core' binding element and several extensions that allowed for additional types of bindings.  Specifically:
+  </p>
+  <ul>
+    <li><a href="">min bindings</a></li>
+    <li><a href="">max bindings</a></li>
+    <li>???</li>
+  </ul>
+  <p>
+    In R5, the notion of <a href="{{site.data.fhir.path}}elementdefinition-definitions.html#???">additionalBindings</a> was introduced.  
+    Through <a href="{{site.data.fhir.path}}???">inter-version extensions</a>, the notion of additional bindings
+    can be used in profiles for versions earlier than R5.  This notion of additional bindings introduces a number of additional binding
+    capabilities.  Specifically:
+  </p>
+  <ul>
+    <li>???</li>
+  </ul>
+
+  <a name="slices"> </a>
+  <h4>When should slicing be used to introduce multiple bindings?</h4>
+  <p>
+    When an element has a type of CodeableConcept, it is possible for multiple codes to be present simultaneously.  The binding for the
+    overall element sets an expectation that one of the codings within the collection must meet the requirements of the binding, but
+    it doesn't matter which.  Other repetitions might meet expectations of other profiles or simply convey other codings the system
+    is also aware of for the same concept.  However, in come cases, a profile might wish to make statements about additional codings
+    that must be present and/or must be supported.  
+  </p>
+  <p>
+    In the past, this was typically done by slicing CodeableConcept.coding by value and
+    specifying required bindings on each slice.  (The bindings must be 'required' and the value sets must be non-overlapping to ensure that
+    the slices remain disjoint, which is required for slicing.)  However, with the introduction of <a href="#binding-type">additional bindings</a>,
+    the need for slicing codings has largely disappeared.  Instead, multiple bindings can now be asserted at the concept level without drilling
+    down to the 'coding' level.  This renders more concisely and is easier for authors.  It is a preferred approach where tooling permits
+    declaring value sets in this way.
+  </p>
+
+  <a name="order"> </a>
+  <h4>Should order of codings matter?</h4>
+  <p>
+    The 'coding' data type is not ordered.  There is no difference to the meaning of the first coding vs. the last coding in the collection.
+    Asserting rules around which coding should be first is strongly discouraged.  It significantly increases the likelihood of conflicts
+    between profiles, forcing instances to write separate interfaces for different systems (something that increases costs for everyone and
+    which FHIR strongly discourages).  In most cases, a receiving system should be able to find the coding repetition they desire by checking
+    the coding.system.  In cases where different codings have different purposes beyond their code system, extensions should be used to designate
+    these purposes, as the order of appearance has no semantic significance - and it is <a href="{{site.data.fhir.path}}??">nonconformant 
+    to semantic significance to order.</a>
+  </p>
+
+  <a name="version-binding"> </a>
+  <h4>Should bindings be to specific value set versions?</h4>
+  <p>
+    Bindings refer to value sets using the <a href="{{site.data.fhir.path}}??">canonical</a> data type.  This type allows the
+    reference to the value set to specify a particular business version.  Locking the value set version means that updates to the value set
+    will not be reflected unless the specification containing the binding is also changed.  Considerations around whether to do this are as
+    follows:
+  </p>
+  <ul>
+    <li>Specifying a version is not relevant if the value set is defined in the same implementation guide package or by a referenced package.
+      References within the package hierarchy are automatically considered specific to the version within the package or the declared
+      dependency version of referenced packages.</li>
+    <li>Constraining the value set version will not necessarily prevent changes to the set of codes present in the value set.
+      <a href="#extensional-intensional">intensional value sets</a> will evolve as the referenced code systems evolve.  Some terminology
+      servers may filter out codes that are flagged as deprecated or retired even for intensional value sets.</li>
+    <li>Limiting changes of codes to changes to the profile version may minimize <a href="#binding-strength">challenges with mapping</a> 
+      when working with 'required' or 'extensible' bindings</li>
+    <li>If a binding is extensional, making the binding version-specific means that it will not be possible to adjust the set of codes
+      at all, and for intensional bindings, it will not be possible to tweak filters to account for code system evolution, without updating
+      the profile.  Updating the value set definition often requires less process/overhead and can be done more quickly, making non-versioned
+      references appealing if adaptation is expected to be necessary.</li>
+  </ul>
+
+  <a name="fixed"> </a>
+  <h4>Should codes have 'fixed' or 'pattern' values?</h4>
+  <p>
+    If there is a need to constrain a code to a specific value, it is almost <b>always</b> better to use 'pattern' rather than 'fixed':
+  </p>
+  <ul>
+    <li>For CodeableConcept, a fixed value would prevent any additional translations from being present</li>
+    <li>For Coding, a fixed value would prevent variations in display name, setting primary, valueset, or other Coding properties</li>
+    <li>For any of the data types, a fixed value will prevent the inclusion of extensions or the 'id' element.  Even if the profile in question
+      does not anticipate the use of 'id' or extensions, it is always possible that other profiles will have need for these elements, for
+      example, in linking discrete data to narrative.</li>
+  </ul>
+
+  <a name="fixed"> </a>
+  <h4>When defining a pattern for CodeableConcept, what should be declared?</h4>
+  <p>
+    When defining a pattern, generally only the Coding.system and Coding.code should be present.  In rare cases where meaning is dependent
+    on the CodeSystem version, then Coding.version might also be present.  Coding.display should never be present as it prohibits translations
+    or other legitimate substitutions of the display value.  If the code is not meaningful to maintainers, a comment may be provided on the
+    element indicating what the chosen code means.
+  </p>
+
+  <a name="FMG-approval"> </a>
+  <h4>How is FMG approval sought?</h4>
+  <p>
+    ???
+  </p>
+
+  <a name="TSMG-approval"> </a>
+  <h4>How is TSMG approval sought?</h4>
+  <p>
+    ???
+  </p>
+
+  <a name="breaking-change"> </a>
+  <h4>What constitutes a 'breaking change' when maintaining codes and value sets?</h4>
+  <p>
+    A breaking change is any change where a previously valid code is no longer valid, or where a
+    previously transmitted code can no longer be safely interpretted according to the definition it previously had.
+    This includes changing subsumption relationships such that a code is no longer a specialization of a code it was
+    previously a specialization of.  Note that deprecating codes is not considered to be breaking.
+  </p>
+
+  <a name="breaking-change-ok"> </a>
+  <h4>In what situations are 'breaking changes' to terminology artifacts acceptable?</h4>
+  <p>
+    In the early stages of profile development, the appropriate set of codes as well as the meaning of and relationships
+    between those codes might not be well-understood.  In low-maturity profiles (<a href="{{site.data.fhir.path}}???">FMM 2</a>
+    or lower), breaking changes may be made to code systems or value sets defined within an implementation guide.  Typically,
+    breaking changes are not permitted for codes or value sets maintained in external code systems or repositories, including
+    those hosted by <a href="http://terminology.hl7.org">terminology.hl7.org</a>.
+  </p>
+
+
+  <a name="codesystem"> </a>
+  <h3>Code System Questions</h3>
+  <p>
+    <a href="{{site.data.fhir.path}}codesystems.html">Code systems</a> define the codes that are used to share computable concepts in HL7 specifications.  
+    Common specification design questions related to code systems include:
+  </p>
+
+  <a name="selecting"> </a>
+  <h4>How do I decide what terminology to use?</h4>
+  <p>
+    In general, it's always best to leverage an existing terminology rather than creating a new one.  Existing terminologies, by definition, are likely to have
+    existing users, and are thus a better foundation for interoperability.  As well, terminologies created by organizations dedicated to terminology management
+    are likely to be more robust, better defined, and more useable than anything built by non-experts.  HL7 policy is to leverage existing terminologies whenever
+    possisble.
+  </p>
+  <h5>Licensing</h5>
+  <p>
+    That said, some terminologies may be governed by licensing schemes that will limit use outside of specific communities and/or impose financial costs that
+    may prove barriers to adoption.  For specifications published by HL7 International, HL7 requires <a href="#fmg">FMG approval</a> before publishing a specification
+    that requires ('required' or 'extensible' <a href="#binding">bindings</a>) the use of a terminology that is not freely available to the user community or
+    is one that the target community is already mandated to use and therefore there is no additional cost to use incurred as part of adoption of the specification.
+  </p>
+  <p>Examples:</p>
+  <ul>
+    <li>Use of International and U.S.-specific SNOMED-CT codes as part of U.S.-realm specifications is fine because the U.S. licenses SNOMED-CT for use within
+      the United States</li>
+    <li>Similarly, use of the ??TODO?? SNOMED-CT subset in international specifications is acceptable because SNOMED International has licensed the codes in that
+      subset for free use in all countries and by all implementers, irrespective of whether the implementer or country have licensed SNOMED codes in general.</li>
+    <li>On the other hand, mandating use of SNOMED-CT codes outside that internationally licensed set in a 'universal' realm HL7 International specification would
+      require <a href="#fmg">FMG approval</a>.</li>
+    <li>Requiring the use of <a href="https://www.ama-assn.org/practice-management/cpt">CPT</a> codes in a specification targeted at U.S. payers or EHR vendors who 
+      are mandated by regulation to send or receive insurance claims using that code system would be fine because it would not present a barrier to implementation.</li>
+    <li>Requiring the use of CPT codes in an international specification would generally be unacceptable because the licensing rules generally preclude such use.</li>
+    <li>Requiring the use of <a href="http://loinc.org">LOINC</a> codes in a U.S. or international specification does not require approval because</li>
+  </ul>
+  <p>
+    NOTE: The above guidance reflects licensing expectations of external terminologies at the time these FAQs were written.  If licensing expectations have changed
+    in a waythat renders this guidance inaccurate, please <a href="http://hl7.org/fhir-issues">submit a change request</a>.
+  </p>
+  
+  <h5>Selecting an 'external' terminology</h5>
+  <p>
+    There are a wide range of terminologies available for use.  Some are general purpose, others are domain-specific.  Considerations beyond licensing (above) include:
+  </p>
+  <ul>
+    <li>What terminologies are in common use by the implementers at whom the specification is targeted?</li>
+    <li>What terminologies contain the types and granularity of concepts necessary to achieve the type(s) of compuational interoperability desired?</li>
+    <li>Does the terminology have the relationships and properties necessary to allow the filtering or other logic needed.  (See the section on
+      <a href="#supplements">code system supplements</a> for alternatives when additional concepts or relationships are necessary.)</li>
+    <li>If selecting a terminology not commonly used by all expected implementers, are there standardized maps available (ideally as
+      <a href="{{site.data.fhir.path}}conceptmap.html">ConceptMaps</a>) that can help translate between the selected terminology and whatever
+      terminology is in use?</li>
+    <li>Is there an issue with publishing value sets or examples that enumerate codes from the code system?</li>
+    <li>Does the code system require the use of post-coordination that might be too complex for implementers to manage?</li>
+    <li>Are the display names associated with the codes in the system appropriate for the expected end users of the system?</li>
+    <li>If multiple languages are likely to be needed for display names, are those languages available?  (CodeSystem supplements may be relevant
+      in this case as well.)</li>
+  </ul>
+  <p>
+    If you're having trouble finding or choosing which code system(s) are most appropriate to use, it's a good idea to ask for guidance on the
+    <a href="http://chat.fhir.org#???">terminology stream</a> on chat.fhir.org, as well as any streams associated with the domain area.
+  </p>
+
+  <a name="existing"> </a>
+  <h4>How do I find existing codes?</h4>
+  <p>
+    The answer to this question depends on the code system.  Some code systems provide a web-based search capability, while
+    others must be downloaded before searching is possible.  The following bullets provide guidance for searching certain commonly
+    used code systems.
+  </p>
+  <ul>
+    <li><b>HL7:</b> ???</li>
+    <li><b>LOINC: </b> <a href="http://search.loinc.org">search.loinc.org</a> can be used, though it does require registering for a
+      (free) membership to the National Library of Medicine(NLM) site.</li>
+    <li><b>SNOMED-CT:</b> ???</li>
+    <li>Others???</li>
+  </ul>
+
+  <a name="adding-codes"> </a>
+  <h4>How do I request new codes be added to an external code system?</h4>
+  <p>
+    ??? For Marc
+  </p>
+
+   <a name="system-location"> </a>
+  <h4>Where should custom code systems be maintained</h4>
+  <p>
+    As discussed in 
+    
+    
+  </p>
+
+  <a name="ig-systems"> </a>
+  <h4>How do I ask for permission to use an IG-specific code system?</h4>
+  <p>
+
+  </p>
+
+  <a name="registering"> </a>
+  <h4>How do I get a URI for an existing external code system?</h4>
+  <p>
+
+  </p>
+
+  <a name="copying"> </a>
+  <h4>Can I copy codes from one code system into another?</h4>
+  <p>
+
+  </p>
+
+  <a name="system-metadata"> </a>
+  <h4>If I define my own code system, what should the metadata say?</h4>
+  <p>
+
+  </p>
+
+  <a name="code-display"> </a>
+  <h4>If I define new codes, what should the codes and display names look like?</h4>
+  <p>
+
+  </p>
+
+  <a name="definition"> </a>
+  <h4>What constitutes a 'good' definition for a concept?</h4>
+  <p>
+
+  </p>
+
+  <a name="properties"> </a>
+  <h4>Should I have properties or relationships in my code system?</h4>
+  <p>
+
+  </p>
+
+
+  <a name="valueset"> </a>
+  <h3>Value Set questions</h3>
+  <p>
+    <a href="{{site.data.fhir.path}}valueset.html">Valuesets</a> select the codes from one or more code systems that are needed for a particular purpose.  
+    Common specification design questions related to valuesets include:
+  </p>
+
+  <a name="valueset-reuse"> </a>
+  <h4>When should I re-use a value set definition?</h4>
+  <p>
+
+  </p>
+
+  <a name="valueset-location"> </a>
+  <h4>Where should my value sets be maintained?</h4>
+  <p>
+
+  </p>
+
+  <a name="valueset-type"> </a>
+  <h4>What is the difference between an 'intensional' and 'extensional' value set?</h4>
+  <p>
+
+  </p>
+
+  <a name="intensional-extensional"> </a>
+  <h4>When should I use intensional vs. extensional value sets?</h4>
+  <p>
+
+  </p>
+
+  <a name="valueset-metadata"> </a>
+  <h4>If I define my own value set, what should the metadata say?</h4>
+  <p>
+  
+  </p>
+
+  <a name="valueset-versions"> </a>
+  <h4>Should value sets be tied to specific code system versions?</h4>
+  <p>
+  
+  </p>
+
+  <a name="valueset-multisystem"> </a>
+  <h4>What guidelines apply to drawing from multiple code systems in a single value set?</h4>
+  <p>
+  
+  </p>
+
+  <a name="valueset-supplement"> </a>
+  <h4>When should value sets draw from code system supplements?</h4>
+  <p>
+  
+  </p>
+
+  <a name="valueset-dependencies"> </a>
+  <h4>In what circumstances should value sets incorporate other value sets?</h4>
+  <p>
+  
+  </p>
+
+</div>
