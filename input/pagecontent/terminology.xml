@@ -165,7 +165,7 @@
       example, in linking discrete data to narrative.</li>
   </ul>
 
-  <a name="fixed"> </a>
+  <a name="pattern"> </a>
   <h4>When defining a pattern for CodeableConcept, what should be declared?</h4>
   <p>
     When defining a pattern, generally only the Coding.system and Coding.code should be present.  In rare cases where meaning is dependent
@@ -239,11 +239,11 @@
     <li>Requiring the use of <a href="https://www.ama-assn.org/practice-management/cpt">CPT</a> codes in a specification targeted at U.S. payers or EHR vendors who 
       are mandated by regulation to send or receive insurance claims using that code system would be fine because it would not present a barrier to implementation.</li>
     <li>Requiring the use of CPT codes in an international specification would generally be unacceptable because the licensing rules generally preclude such use.</li>
-    <li>Requiring the use of <a href="http://loinc.org">LOINC</a> codes in a U.S. or international specification does not require approval because</li>
+    <li>Requiring the use of <a href="http://loinc.org">LOINC</a> codes in a U.S. or international specification does not require approval because LOINC allows their content to be used freely in all countries and by all implementers in accordance with their <a href="https://loinc.org/kb/license/">terms of use</a></li>
   </ul>
   <p>
     NOTE: The above guidance reflects licensing expectations of external terminologies at the time these FAQs were written.  If licensing expectations have changed
-    in a waythat renders this guidance inaccurate, please <a href="http://hl7.org/fhir-issues">submit a change request</a>.
+    in a way that renders this guidance inaccurate, please <a href="http://hl7.org/fhir-issues">submit a change request</a>.
   </p>
   
   <h5>Selecting an 'external' terminology</h5>
@@ -278,36 +278,50 @@
   </p>
   <ul>
     <li><b>HL7:</b> ???</li>
-    <li><b>LOINC: </b> <a href="http://search.loinc.org">search.loinc.org</a> can be used, though it does require registering for a
+    <li><b>LOINC:</b> <a href="http://search.loinc.org">search.loinc.org</a> can be used, though it does require registering for a
       (free) membership to the National Library of Medicine(NLM) site.</li>
-    <li><b>SNOMED-CT:</b> ???</li>
-    <li>Others???</li>
+    <li><b>SNOMED-CT:</b> <a href="https://browser.ihtsdotools.org/?">browser.ihtsdotools.org</a> can be used.  For a US realm IG you'll want to select the US Edition and for an international IG generally you'll want to select the International Edition.</li>
+    <li><b>Code systems in VSAC:</b> <a href="https://vsac.nlm.nih.gov/context/cs">vsac.nlm.nih.gov/context/cs</a> allows for searching by code or term either in all code systems or in a specific code system. VSAC also allows for specifying including inactive codes in the search and choosing between a specific version of a code system or all versions.</li>
+	<li><b>Code systems in PHIN VADS:</b> <a href="phinvads.cdc.gov"></a> allows for searching for any specific code system hosted there as well as for any concept(s) in any of the hosted code systems.</li>
   </ul>
 
   <a name="adding-codes"> </a>
   <h4>How do I request new codes be added to an external code system?</h4>
   <p>
-    ??? For Marc
+    The exact process varies depending on the external code system but the general process is to reach out to the entity responsible for maintaining the code system.  The following bullets provide guidance for requesting new codes in commonly used external code systems
   </p>
+  <ul>
+	<li><b>LOINC:</b> New term requests can be submitted via the <a href="https://loinc.org/submissions/request/">LOINC term request form</a>.  LOINC also provides guidance on what information they need to process a request <a href="https://loinc.org/submissions/new-terms/">here</a>.</li>
+	<li><b>SNOMED-CT:</b> New term requests can be submitted via SNOMED's <a href="http://snomed.org/crs">international content request service</a> and <a href="https://us-request.ihtsdotools.org/">US content request service</a>.  Guidance on using that service can be found <a href="https://confluence.ihtsdotools.org/display/SCTCR/Accessing+CRS">here</a>.  Note: only authorized requesters are able to use those pages.</li>
+	<li></li>
+  </ul>
 
    <a name="system-location"> </a>
   <h4>Where should custom code systems be maintained</h4>
   <p>
-    As discussed in 
-    
-    
+    As discussed in the TSMG's <a href="https://confluence.hl7.org/display/TSMG/Terminology+Expectations+for+IG+Developers">Terminology Expectations for IG Developers</a> policy the location for custom code systems is determined as follows:
   </p>
+  <ul>
+	<li><b>IG-specific code systems</b>: If the concepts are so tightly tied to the structures or usage of the IG that it cannot evolve without a new publication of the specification the code system should remain in your IG with a canonical URL specific to your specification. <a href="#ig-systems">TSMG approval</a> is required for this option.</li>
+	<li><b>Example code systems</b>: If the concepts will ONLY be used to create a value set bound with Example binding strength the code system should be maintained in your IG.  The name of the code system SHALL end in the string "Example" to clarify that the code system is only to be used for example bindings.</li>
+	<li><b>Immature (FMM level 2 or lower) code systems</b>: If the concepts are not IG-specific but are currently of a low maturity, a naming system resource should be created inside THO but the code system itself should be maintained in your IG until such a time as you are confident the concepts will not change or you are seeking to publish your IG at FMM 3 or higher. Note: the canonical URL SHALL follow this pattern: http://terminology.hl7.org/CodeSystem/xxxxx.</li>
+	<li><b>Mature (FMM level 3 or higher) code systems</b>: If the concepts are not IG-specific and are of sufficient maturity (FMM level 3 or higher) or you are confident that despite a lower maturity they are unlikely to change the code system should be migrated to THO. Note: assuming the canonical URL was rooted in THO when it was created value sets that include the code system in their CLD will not need to change.</li>
+  </ul>
 
   <a name="ig-systems"> </a>
   <h4>How do I ask for permission to use an IG-specific code system?</h4>
+  <!-- Currently it's "get on the TSMG's agenda" but I believe they're working on a more robust process similar to the US Core variance request process. -->
   <p>
-
+	The TSMG handles requests for permission to use an IG-specific code system.  To request permission from them send an email with your request to tsmg-cc@lists.hl7.org
   </p>
 
   <a name="registering"> </a>
   <h4>How do I get a URI for an existing external code system?</h4>
   <p>
-
+	Reword for clarity:
+	Step 1: Check THO
+	Step 2: Check HTA pages
+	Step 3: request URI from HTA.
   </p>
 
   <a name="copying"> </a>
@@ -331,13 +345,13 @@
   <a name="definition"> </a>
   <h4>What constitutes a 'good' definition for a concept?</h4>
   <p>
-
+	A 'good' definition is one that clearly expresses the meaning of the concept while also clearly distinguishing it from other similar concepts.  Additionally, the definition should not include the exact terms being defined in most cases.  <!--Put example here-->
   </p>
 
   <a name="properties"> </a>
   <h4>Should I have properties or relationships in my code system?</h4>
   <p>
-
+	Where possible you should use concept properties in your code system.  If your code system has a hierarchy the hierarchical properties of notSelectable, parent, child, and partOf allow you to clearly express that hierarchy.  The various properties around concept statuses enable providing both the status of individual concepts and information around when that status changes.
   </p>
 
 
@@ -362,15 +376,22 @@
 
   <a name="valueset-type"> </a>
   <h4>What is the difference between an 'intensional' and 'extensional' value set?</h4>
-  <p>
+  <ul>
+	<li>An 'intensional' value set is a value set where the definition is a computable set of rules that can be resolved to the desired list of codes.  For example, "All SNOMED CT concepts that are children of the SNOMED CT concept 'Nutritional finding (finding).'"</li>
+	<li>An 'extensional' value set is a value set where the definition is an ennumerated list of codes.  An extensionally defined value set for all the child concepts of 'Nutritional finding' would need to list every single child code in the value set defininition.</li>
+  </ul> 
 
-  </p>
+  <a name="intensional"> </a>
+  <h4>When should I use an intensional value set?</h4>
+  <ul>
+	<li></li>
+  </ul>
 
-  <a name="intensional-extensional"> </a>
-  <h4>When should I use intensional vs. extensional value sets?</h4>
-  <p>
-
-  </p>
+  <a name="extensional"> </a>
+  <h4>When should I use an extensional value sets?</h4>
+  <ul>
+	<li>When the code system does not support intensional value sets because it doesn't have a hierarchy or when you only need an enumerated list of codes.</li>
+  </ul>
 
   <a name="valueset-metadata"> </a>
   <h4>If I define my own value set, what should the metadata say?</h4>
