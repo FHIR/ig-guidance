@@ -87,16 +87,22 @@
   <ul>
     <li><a href="">min bindings</a></li>
     <li><a href="">max bindings</a></li>
-    <li>???</li>
   </ul>
   <p>
-    In R5, the notion of <a href="{{site.data.fhir.path}}elementdefinition-definitions.html#???">additionalBindings</a> was introduced.  
-    Through <a href="{{site.data.fhir.path}}???">inter-version extensions</a>, the notion of additional bindings
+    In R5, the notion of <a href="{{site.data.fhir.path}}elementdefinition-definitions.html#ElementDefinition.binding.additional">additionalBindings</a> was introduced.  
+    Through <a href="{{site.data.fhir.path}}versions.html#extensions">inter-version extensions</a>, the notion of additional bindings
     can be used in profiles for versions earlier than R5.  This notion of additional bindings introduces a number of additional binding
     capabilities.  Specifically:
   </p>
+  <!-- Currently just using the definitions from the additional binding purpose code system. -->
   <ul>
-    <li>???</li>
+    <li><b>Maximum</b>: A required binding, for use when the binding strength is 'extensible' or 'preferred'.</li>
+	<li><b>Minimum</b>: The minimum allowable value set - any conformant system SHALL support all these codes.</li>
+	<li><b>Candidate</b>: This value set is a candidate to substitute for the overall conformance value set in some situations; usually these are defined in the documentation.</li>
+	<li><b>Current</b>: New records are required to use this value set, but legacy records may use other codes. The definition of 'new record' is difficult, since systems often create new records based on pre-existing data. Usually 'current' bindings are mandated by an external authority that makes clear rules around this.</li>
+	<li><b>ui</b>: This value set is provided for user look up in a given context. Typically, these valuesets only include a subset of codes relevant for input in a context.</li>
+	<li><b>starter</b>: This value set is a good set of codes to start with when designing your system.</li>
+	<li><b>component</b>: This value set is a component of the base value set. Usually this is called out so that documentation can be written about a portion of the value set.</li>
   </ul>
 
   <a name="slices"> </a>
@@ -176,12 +182,14 @@
 
   <a name="FMG-approval"> </a>
   <h4>How is FMG approval sought?</h4>
+  <!-- FMG approval for what? -->
   <p>
     ???
   </p>
 
   <a name="TSMG-approval"> </a>
   <h4>How is TSMG approval sought?</h4>
+  <!-- TSMG approval for what? -->
   <p>
     ???
   </p>
@@ -214,7 +222,7 @@
   </p>
 
   <a name="selecting"> </a>
-  <h4>How do I decide what terminology to use?</h4>
+  <h5>How do I decide what terminology to use?</h5>
   <p>
     In general, it's always best to leverage an existing terminology rather than creating a new one.  Existing terminologies, by definition, are likely to have
     existing users, and are thus a better foundation for interoperability.  As well, terminologies created by organizations dedicated to terminology management
@@ -232,7 +240,7 @@
   <ul>
     <li>Use of International and U.S.-specific SNOMED-CT codes as part of U.S.-realm specifications is fine because the U.S. licenses SNOMED-CT for use within
       the United States</li>
-    <li>Similarly, use of the ??TODO?? SNOMED-CT subset in international specifications is acceptable because SNOMED International has licensed the codes in that
+    <li>Similarly, use of the International Patient Summary Terminology SNOMED-CT subset in international specifications is acceptable because SNOMED International has licensed the codes in that
       subset for free use in all countries and by all implementers, irrespective of whether the implementer or country have licensed SNOMED codes in general.</li>
     <li>On the other hand, mandating use of SNOMED-CT codes outside that internationally licensed set in a 'universal' realm HL7 International specification would
       require <a href="#fmg">FMG approval</a>.</li>
@@ -277,7 +285,7 @@
     used code systems.
   </p>
   <ul>
-    <li><b>HL7:</b> ???</li>
+    <li><b>HL7:</b> <!-- This one should really just say: "You can't. Too bad.  We're sorry."--> At the present time HL7 does not provide an easy way to search for codes in a code system.  Downloading the code system and searching a text editor is currently the fastest way.</li>
     <li><b>LOINC:</b> <a href="http://search.loinc.org">search.loinc.org</a> can be used, though it does require registering for a
       (free) membership to the National Library of Medicine(NLM) site.</li>
     <li><b>SNOMED-CT:</b> <a href="https://browser.ihtsdotools.org/?">browser.ihtsdotools.org</a> can be used.  For a US realm IG you'll want to select the US Edition and for an international IG generally you'll want to select the International Edition.</li>
@@ -292,8 +300,8 @@
   </p>
   <ul>
 	<li><b>LOINC:</b> New term requests can be submitted via the <a href="https://loinc.org/submissions/request/">LOINC term request form</a>.  LOINC also provides guidance on what information they need to process a request <a href="https://loinc.org/submissions/new-terms/">here</a>.</li>
-	<li><b>SNOMED-CT:</b> New term requests can be submitted via SNOMED's <a href="http://snomed.org/crs">international content request service</a> and <a href="https://us-request.ihtsdotools.org/">US content request service</a>.  Guidance on using that service can be found <a href="https://confluence.ihtsdotools.org/display/SCTCR/Accessing+CRS">here</a>.  Note: only authorized requesters are able to use those pages.</li>
-	<li></li>
+	<!-- Will reword to make specific to how an IG dev can request a content change in SNOMED. --><li><b>SNOMED-CT:</b> New term requests can be submitted via SNOMED's <a href="http://snomed.org/crs">international content request service</a> and <a href="https://us-request.ihtsdotools.org/">US content request service</a>.  Guidance on using that service can be found <a href="https://confluence.ihtsdotools.org/display/SCTCR/Accessing+CRS">here</a>.  Note: only authorized requesters are able to use those pages.</li>
+	<li><b>SNOMED:</b> New term requests go through SNOMED's <a href="https://confluence.ihtsdotools.org/display/SCTCR/CRS+User+Guide">Content Request Submission process</a> where authorized users submit requests for new terms.  For HL7 members: New term requests for the US realm or HL7 Affiliates with a SNOMED National Release Center (NRC) should be made directly to that affiliate's NRC.  New term requests for the Universal realm or an HL7 affiliate without a SNOMED NRC should be submitted to the HTA using the Context Request Form found <a href="https://confluence.hl7.org/display/TA/Request+content+in+external+terminologies">here</a>.</li>
   </ul>
 
    <a name="system-location"> </a>
@@ -318,10 +326,7 @@
   <a name="registering"> </a>
   <h4>How do I get a URI for an existing external code system?</h4>
   <p>
-	Reword for clarity:
-	Step 1: Check THO
-	Step 2: Check HTA pages
-	Step 3: request URI from HTA.
+	First you should check that there isn't already a URI for that external code system in the ci build of THO in the external content <a href="http://build.fhir.org/ig/HL7/UTG/external_terminologies_csmr.html">metadata</a>, <a href="http://build.fhir.org/ig/HL7/UTG/external_terminologies_csf.html">fragment</a>, or <a href="http://build.fhir.org/ig/HL7/UTG/external_terminologies_ccs.html">complete code system</a> tabs.  If the code system you're looking for is not present in THO, check to see if it's in progress by searching for it at the <a href="https://confluence.hl7.org/display/TA/External+Terminologies+-+Information">HTA's external terminologies information page</a>.  If the external content is not present in THO or in the HTA's external terminology pages you will need to work with the HTA to get the necessary information as laid out <a href="https://confluence.hl7.org/display/TA/External+Code+System+Owner+Engagement+Process">here</a>.
   </p>
 
   <a name="copying"> </a>
@@ -339,7 +344,7 @@
   <a name="code-display"> </a>
   <h4>If I define new codes, what should the codes and display names look like?</h4>
   <p>
-
+	
   </p>
 
   <a name="definition"> </a>
@@ -371,9 +376,15 @@
   <a name="valueset-location"> </a>
   <h4>Where should my value sets be maintained?</h4>
   <p>
-
+	As of right now there is no official policy on where value sets should be maintained.  However, the following is good guidance which will likely reflect the stance that an official policy will take:
   </p>
-
+  <ul>
+	<li><b>IG-specific value sets</b>: If your value set is specific to your IG and would likely provide no benefit to the broader community if it was shared in a terminology repository like THO it should remain in your IG.</li>
+	<li><b>Example value sets</b>: If your value set is only intended to be an example it should remain in your IG.</li>
+	<li><b>Immature value sets</b>: If your value set would be useful to the broader HL7 community but is still likely to change frequently it should either be placed in your IG with a canonical URL anchored in THO (http://terminology.hl7.org/ValueSet/xxxxx) or in a system that enables rapid development of terminology resources such as VSAC.</li>
+	<li><b>Mature value sets</b>: If your value set would be useful to the broader HL7 community and it is unlikely to change frequently it should be moved to THO if it was previously local to your IG.  If the value set was in VSAC it can continue to remain in VSAC.</li>
+  </ul>
+	
   <a name="valueset-type"> </a>
   <h4>What is the difference between an 'intensional' and 'extensional' value set?</h4>
   <ul>
@@ -390,7 +401,8 @@
   <a name="extensional"> </a>
   <h4>When should I use an extensional value sets?</h4>
   <ul>
-	<li>When the code system does not support intensional value sets because it doesn't have a hierarchy or when you only need an enumerated list of codes.</li>
+	<li>When the code system does not support intensional value sets because it doesn't have a hierarchy</li>
+	<li>When you only need an enumerated list of codes.</li>
   </ul>
 
   <a name="valueset-metadata"> </a>
