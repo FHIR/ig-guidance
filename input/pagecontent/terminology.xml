@@ -32,7 +32,7 @@
     <li>Is there a clear benefit to making the data computable?</li>
     <li>Is it a realistic imposition on those performing the data capture to gather coded data of the granularity necessary to support the desired computation?</li>
     <li>Is it realistic for the systems capturing the data to capture it in a coded way?  (Typically, but not always, heavily influenced by whether existing
-      systems capture it in a codeded way.)</li>
+      systems capture it in a coded way.)</li>
   </ol>
   <p>
     Obviously if data is not captured exclusively as coded, then string data should be supported.  However, if coded data is supported, string
@@ -45,22 +45,23 @@
   <p>
     Requiring support for codes can be performed by establishing 'required' or 'extensible' bindings (see <a href="#binding-strength">binding strength below</a>),
     by constraining the allowed data types, and/or by requiring the CodeableConcept.coding element be present via cardinality or a
-    <a href="">constraint</a>.  Requiring string types can also be done via constraining data types and/or by cardinality settings or constraints.
+    <a href="{{site.data.fhir.path}}elementdefinition-definitions.html#ElementDefinition.constraint">constraint</a>.  Requiring string types can also be done via 
+    constraining data types and/or by cardinality settings or constraints.
   </p>
   
   <a name="binding-strength"> </a>
   <h4>How do I decide what binding strength to use?</h4>
   <p>
-    The FHIR core specification provides good detail on the meaining of the different <a href="{{site.data.fhir.path}}???">binding strengths</a>.
+    The FHIR core specification provides good detail on the meaning of the different <a href="{{site.data.fhir.path}}terminologies.html#strength">binding strengths</a>.
     Decisions on strength are driven by the tension between "How much interoperability is needed?" and "What can systems reasonably achieve?".
   </p>
   <p>
     A 'required' binding provides robust interoperability provided that the code systems are well defined with disjoint concepts, and the systems involved
-    actually support the range of codes permitted.  However, it requires that the set of codes cover all possibilities for which the element might need
+    actually support the range of codes needed  However, it requires that the set of codes cover all possibilities for which the element might need
     to be present, including legacy data, exceptional data, and future evolution (though if the value set is <a href="#intensional-extensional">intensional</a>
     and/or the value-set reference is not <a href="#version-specific">version-specific</a>, then future evolution might still be possible).  For a system
     to comply with a 'required' binding, it must map all codes, both now and into the future to the bound value set, and if the binding is not version-specific,
-    it must continue to update those mappings on a regular and ongoing basis.  As such, it is most reasonable when the set of codes to be mapped is both
+    it must continue to update those mappings on a regular and ongoing basis.  As such, using a 'required' binding is most reasonable when the set of codes to be mapped is both
     small and relatively static.
   </p>
   <p>
@@ -68,12 +69,13 @@
     every eventuality.  It still imposes a requirement for the implementer to perform mappings for their codes and thus means that the codes used either
     need to already be used by the system or be relatively small and static.  If a binding is 'extensible', it must not contain any concept that conveys
     the concept of 'other' or 'not elsewhere specified', nor may it contain a high-level concept that encompasses all possible concepts within the element.
-    In that case, it's not possible to have a concept that falls outside the scope of the value set, and it is therefore, de facto, a 'required' binding.
+    In any of cases, it's not possible to have a concept that falls outside the scope of the value set, and it is therefore, de facto, a 'required' binding.
   </p>
   <p>
     'preferred' and 'extensible' bindings are used when there is no existing set of codes that reasonably covers most of the space, there is no consensus within the 
-    community around what codes should be used for the element, or when it's simply not practical to expect systems to translate from the codes they use to a single 
-    set of codes for interoperability.  'Example' bindings are used in the first to situations.  'Preferred' bindings are used in the last.
+    community around what codes should be used for the element, or when it's simply not practical to demand that systems translate from the codes they use to a single 
+    set of codes for interoperability.  'Example' bindings are used in the first two situations.  'Preferred' bindings are used in the last as, while it can't be demanded,
+    it's certainly encouraged/recommended
   </p>
   <p>
     See also the <a href="#binding-types">additional binding types</a> below.
@@ -82,7 +84,7 @@
   <a name="binding-type"> </a>
   <h4>What are the different 'types' of bindings, and how do I use them?</h4>
   <p>
-    In past releases of FHIR, there was a single 'core' binding element and several extensions that allowed for additional types of bindings.  Specifically:
+    In releases of FHIR prior to FHIR R5, there was a single 'core' binding element and several extensions that allowed for additional types of bindings.  Specifically:
   </p>
   <ul>
     <li><a href="">min bindings</a></li>
