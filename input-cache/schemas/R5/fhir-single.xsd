@@ -47,7 +47,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Thu, Jul 13, 2023 08:21+0000 for FHIR v6.0.0-cibuild 
+  Generated on Fri, Jul 28, 2023 23:09+0000 for FHIR v6.0.0-cibuild 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hl7.org/fhir" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://hl7.org/fhir" elementFormDefault="qualified" version="6.0.0-cibuild">
   <!-- Note: When using this schema with some tools, it may also be necessary to declare xmlns:xml="http://www.w3.org/XML/1998/namespace", however this causes performance issues with other tools and thus is not in the base schemas. -->
@@ -26915,7 +26915,7 @@ of the resource representation.</xs:documentation>
               <xs:documentation xml:lang="en">Formal definitions of the condition. These may be references to ontologies, published clinical protocols or research papers.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="observation" type="ConditionDefinition.Observation" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="observation" minOccurs="0" maxOccurs="unbounded" type="canonical">
             <xs:annotation>
               <xs:documentation xml:lang="en">Observations particularly relevant to this condition.</xs:documentation>
            </xs:annotation>
@@ -26943,27 +26943,6 @@ of the resource representation.</xs:documentation>
           <xs:element name="plan" type="ConditionDefinition.Plan" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation xml:lang="en">Plan that is appropriate.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="ConditionDefinition.Observation">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">A definition of a condition and information relevant to managing it.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="BackboneElement">
-        <xs:sequence>
-          <xs:element name="category" minOccurs="0" maxOccurs="1" type="CodeableConcept">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Category that is relevant.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="code" minOccurs="0" maxOccurs="1" type="CodeableConcept">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">Code for relevant Observation.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
