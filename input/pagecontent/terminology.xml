@@ -395,7 +395,7 @@
   <p>
     Post-coordination is a mechanism where codes can be composed using smaller codes together with a grammar.  It is used in a number of
     code systems.  For example, in UCUM, the code 'mL' is composed of the codes 'm' (milli) and 'L' (Liter).  The language code 'en-CA' in
-    BCP-47 is made up of the code "en" (English) and "CA" (Canada), the latter of which comes from a different code system.  SNOMED-CT
+    BCP-47 is made up of the code "en" (English) and "CA" (Canada), the latter of which comes from a different code system.  SNOMED CT
     has a complex post-coordination syntax supporting multiple layers of post-coordination across many axes.
   </p>
   <p>
@@ -449,6 +449,7 @@
     <a href="https://confluence.hl7.org/pages/viewpage.action?pageId=184917604#TerminologyPlayBook-Whataretherulesforbindingtovaluesetswithintellectualpropertyrestrictions?">policies 
     on the adoption of terminologies that are not free for use</a> for the target implementer community when included in HL7 International or HL7 U.S. Realm specifications.
   </p>
+  
   <a name="external"> </a>
   <h4>Selecting an 'external' terminology</h4>
   <p>
@@ -498,11 +499,12 @@
       <b>LOINC:</b> <a href="http://search.loinc.org">search.loinc.org</a> can be used, though it does require registering for a
       (free) membership to the National Library of Medicine (NLM) site.</li>
     <li>
-      <b>SNOMED-CT:</b> <a href="https://browser.ihtsdotools.org/?">browser.ihtsdotools.org</a> can be used.  For an international IG you will want to select the International Edition.  For national IGs, select the appropriate national edition.</li>
+      <b>SNOMED CT:</b> <a href="https://browser.ihtsdotools.org/?">browser.ihtsdotools.org</a> can be used.  For an international IG you will want to select the International Edition.  For national IGs, select the appropriate national edition.</li>
   </ul>
   <p>
     There are also jurisdiction-specific tools for terminology discovery.
   </p>
+  
   <a name="find-au"> </a>
   <h5>Australia</h5>
   <ul>
@@ -682,7 +684,7 @@
     <li>Codes within a single code system should be managed under a single maintenance process and are typically published together.</li>
   </ul>
   <p>
-    While any URI <b>can</b> be used for a code system, HL7 strongly recommends the use of meaningful, and ideally resolvable, URLs.  Such identifiers are easier for developers to
+    While any URI <i>can</i> be used for a code system, HL7 strongly recommends the use of meaningful, and ideally resolvable, URLs.  Such identifiers are easier for developers to
     work with.  The ability to resolve (even if only to an HTML page rather than a FHIR resource) allows a developer or analyst encountering a new code system in an instance
     to learn more about the system - and possibly the codes in it.
   </p>
@@ -733,7 +735,7 @@
     This is usually a bad idea - for two reasons:
   </p>
   <ul>
-    <li>Terminologies are intellectual property, like anything else.  While the <b>concepts</b> represented in terminologies can be coded a variety of ways, the specific
+    <li>Terminologies are intellectual property, like anything else.  While the <i>concepts</i> represented in terminologies can be coded a variety of ways, the specific
       codes used, the display names assigned, the definitions and properties provided, and the relationships asserted are all the property of the individual or organization
       that defined them.</li>
     <li>Even if licensing permissions allow outright copying of content, doing so inevitably impedes interoperability, because while a human might recognize that the copied
@@ -1126,7 +1128,7 @@
     Something like 'not applicable' becomes relevant if it is also likely that the element will be 1..x.
   </p>
   <p>
-    That said, there will be use-cases where these exceptional values are not appropriate - where a code <b>must</b> be known, or where - by definition - the conceptual space
+    That said, there will be use-cases where these exceptional values are not appropriate - where a code <i>must</i> be known, or where - by definition - the conceptual space
     is known to be covered, or where for the use-case, a value must always be applicable.  In these cases, exceptional values should be omitted.  However, be careful
     to account for legacy data, externally sourced data, and various uncommon but still possible edge-cases before deciding to exclude the safety valve that exceptional
     values provide.  Ask the question "Would I rather not receive this element (or even the entire instance) at all if an exceptional value is necessary?".
