@@ -25,7 +25,150 @@
   <p>NOTE: Pull requests against https://github.com/FHIR/ig-guidance to identify additional discovery tools (international or country-specific) are welcome.</p>
 
   <a name="summary"> </a>
-  <h3>Question summary</h3>
+  <h3>Question Summary</h3>
+  <ul>
+    <li>
+      <a href="#general">General terminology design questions</a>
+      <ul>
+        <li>
+          <a href="#coded">Should an element be coded?</a>
+        </li>
+        <li>
+          <a href="#binding-strength">How do I decide what binding strength to use?</a>
+        </li>
+        <li>
+          <a href="#binding-type">What are the different 'types' of bindings, and how do I use them?</a>
+        </li>
+        <li>
+          <a href="#slices">When should slicing be used to introduce multiple bindings?</a>
+        </li>
+        <li>
+          <a href="#order">Should the order of codings matter?</a>
+        </li>
+        <li>
+          <a href="#version-binding">Should bindings be to specific value set versions?</a>
+        </li>
+        <li>
+          <a href="#fixed">Should codes have 'fixed' or 'pattern' values?</a>
+        </li>
+        <li>
+          <a href="#pattern">When defining a pattern for CodeableConcept, what should be declared?</a>
+        </li>
+        <li>
+          <a href="#breaking-change">What constitutes a 'breaking change' when maintaining codes and value sets?</a>
+        </li>
+        <li>
+          <a href="#breaking-change-ok">In what situations are 'breaking changes' to terminology artifacts acceptable?</a>
+        </li>
+        <li>
+          <a href="#post-coord">Should code system post-coordination be used?</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#codesystem">Code System Questions</a>
+      <ul>
+        <li>
+          <a href="#selecting">How do I decide what terminology to use?</a>
+        </li>
+        <li>
+          <a href="#licencing">Licensing</a>
+        </li>
+        <li>
+          <a href="#licencing">Selecting an 'external' terminology</a>
+        </li>
+        <li>
+          <a href="#existing">How do I find existing codes?</a>
+        </li>
+        <li>
+          <a href="#adding-codes">How do I request new codes be added to a code system or changes to an existing code?</a>
+        </li>
+        <li>
+          <a href="#cannot-add">What can I do if I want to add a code to a code system, but cannot?</a>
+        </li>
+        <li>
+          <a href="#temp-codes">What should I do when I need new codes, but the requirements are not final?</a>
+        </li>
+        <li>
+          <a href="#system-location">Where should custom code systems be maintained?</a>
+        </li>
+        <li>
+          <a href="#registering-uri">What URI, OID should I use for a code system someone else has defined?</a>
+        </li>
+        <li>
+          <a href="#defining-uri">What URI should I use for a code system I am defining?</a>
+        </li>
+        <li>
+          <a href="#oids">How do I get a new OID for a code system?</a>
+        </li>
+        <li>
+          <a href="#changing-uri">How do I change the URI or OID for a code system?</a>
+        </li>
+        <li>
+          <a href="#copying">Is it ok to copy codes from one code system into another?</a>
+        </li>
+        <li>
+          <a href="#system-metadata">If I define my own code system, what should the metadata say?</a>
+        </li>
+        <li>
+          <a href="#code-display">If I define new codes, what should the codes and display names look like?</a>
+        </li>
+        <li>
+          <a href="#definition">What constitutes a 'good' definition for a concept?</a>
+        </li>
+        <li>
+          <a href="#properties">Should I have properties or relationships in my code system?</a>
+        </li>
+        <li>
+          <a href="#code-guidelines">Are there any other guidelines I should follow when defining new codes?</a>
+        </li>
+        <li>
+          <a href="#supplement">When should I use a Code System Supplement?</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#valueset">Value Set questions</a>
+      <ul>
+        <li>
+          <a href="#valueset-reuse">When should I re-use a value set definition?</a>
+        </li>
+        <li>
+          <a href="#valueset-location">Where should my value sets be maintained?</a>
+        </li>
+        <li>
+          <a href="#expand">What is the difference between composing and expanding a value set?</a>
+        </li>
+        <li>
+          <a href="#valueset-type">What is the difference between an 'intensional' and 'extensional' value set?</a>
+        </li>
+        <li>
+          <a href="#intensional">When should I use an intensional vs. an extensional value set?</a>
+        </li>
+        <li>
+          <a href="#immutable">When should I flag a value set as immutable?</a>
+        </li>
+        <li>
+          <a href="#valueset-metadata">If I define my own value set, what should the metadata say?</a>
+        </li>
+        <li>
+          <a href="#valueset-versions">Should value sets be tied to specific code system versions?</a>
+        </li>
+        <li>
+          <a href="#valueset-multisystem">What guidelines apply to drawing from multiple code systems in a single value set?</a>
+        </li>
+        <li>
+          <a href="#other">Should value sets include 'Other', 'Unknown', etc.?</a>
+        </li>
+        <li>
+          <a href="#valueset-supplement">When should value sets draw from code system supplements?</a>
+        </li>
+        <li>
+          <a href="#valueset-dependencies">In what circumstances should value sets incorporate other value sets?</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
 
   <a name="general"> </a>
   <h3>General terminology design questions</h3>
@@ -107,8 +250,12 @@
     In releases of FHIR prior to FHIR R5, there was a single 'core' binding element and several extensions that allowed for additional types of bindings.  Specifically:
   </p>
   <ul>
-    <li><a href="https://hl7.org/fhir/r4/extension-elementdefinition-minvalueset.html">min valueset</a></li>
-    <li><a href="https://hl7.org/fhir/r4/extension-elementdefinition-maxvalueset.html">max valueset</a></li>
+    <li>
+      <a href="https://hl7.org/fhir/r4/extension-elementdefinition-minvalueset.html">min valueset</a>
+    </li>
+    <li>
+      <a href="https://hl7.org/fhir/r4/extension-elementdefinition-maxvalueset.html">max valueset</a>
+    </li>
   </ul>
   <p>
     If there was a need to convey additional expectations (e.g. "There must be one coding from ICD10, plus one coding from SNOMED CT"), then the only
@@ -122,13 +269,20 @@
   </p>
   <!-- Currently just using the definitions from the additional binding purpose code system. -->
   <ul>
-    <li><b>maximum</b>: A required binding, for use when the binding strength is 'extensible' or 'preferred'.</li>
-    <li><b>minimum</b>: The minimum allowable value set - any conformant system SHALL support all these codes.</li>
-    <li><b>candidate</b>: This value set is a candidate to substitute for the overall conformance value set in some situations; usually these are defined in the documentation.</li>
-    <li><b>current</b>: New records are required to use this value set, but legacy records may use other codes. The definition of 'new record' is difficult, since systems often create new records based on pre-existing data. Usually 'current' bindings are mandated by an external authority that makes clear rules around this.</li>
-    <li><b>ui</b>: This value set is provided for user look up in a given context. Typically, these valuesets only include a subset of codes relevant for input in a context.</li>
-    <li><b>starter</b>: This value set is a good set of codes to start with when designing your system.</li>
-    <li><b>component</b>: This value set is a component of the base value set. Usually this is called out so that documentation can be written about a portion of the value set.</li>
+    <li>
+      <b>maximum</b>: A required binding, for use when the binding strength is 'extensible' or 'preferred'.</li>
+    <li>
+      <b>minimum</b>: The minimum allowable value set - any conformant system SHALL support all these codes.</li>
+    <li>
+      <b>candidate</b>: This value set is a candidate to substitute for the overall conformance value set in some situations; usually these are defined in the documentation.</li>
+    <li>
+      <b>current</b>: New records are required to use this value set, but legacy records may use other codes. The definition of 'new record' is difficult, since systems often create new records based on pre-existing data. Usually 'current' bindings are mandated by an external authority that makes clear rules around this.</li>
+    <li>
+      <b>ui</b>: This value set is provided for user look up in a given context. Typically, these valuesets only include a subset of codes relevant for input in a context.</li>
+    <li>
+      <b>starter</b>: This value set is a good set of codes to start with when designing your system.</li>
+    <li>
+      <b>component</b>: This value set is a component of the base value set. Usually this is called out so that documentation can be written about a portion of the value set.</li>
   </ul>
   
   <p>
@@ -328,7 +482,8 @@
     used code systems.
   </p>
   <ul>
-    <li><b>HL7:</b> HL7 does not currently provide a straightforward way to search for codes in a code system, though this is a known issue that will hopefully be addressed.  In the interim, there
+    <li>
+      <b>HL7:</b> HL7 does not currently provide a straightforward way to search for codes in a code system, though this is a known issue that will hopefully be addressed.  In the interim, there
       are a couple of workable approaches for technical users who do not mind reading XML or JSON:
       <ul>
         <li>Leverage the GitHub search functionality to <a href="https://github.com/search?q=repo%3AHL7%2FUTG%20path%3A%2F%5Einput%5C%2FsourceOfTruth%5C%2F%2F%20&amp;type=code">search 
@@ -339,9 +494,11 @@
       Unfortunately, these mechanisms only search content hosted at terminology.hl7.org, not content hosted in implementation guides published by HL7, let alone guides published
       elsewhere.<br/>
       Another potentially useful mechanism for searching is the <a href="https://simplifier.net/search?q=">Simplifier registry</a></li>
-    <li><b>LOINC:</b> <a href="http://search.loinc.org">search.loinc.org</a> can be used, though it does require registering for a
+    <li>
+      <b>LOINC:</b> <a href="http://search.loinc.org">search.loinc.org</a> can be used, though it does require registering for a
       (free) membership to the National Library of Medicine (NLM) site.</li>
-    <li><b>SNOMED-CT:</b> <a href="https://browser.ihtsdotools.org/?">browser.ihtsdotools.org</a> can be used.  For an international IG you will want to select the International Edition.  For national IGs, select the appropriate national edition.</li>
+    <li>
+      <b>SNOMED-CT:</b> <a href="https://browser.ihtsdotools.org/?">browser.ihtsdotools.org</a> can be used.  For an international IG you will want to select the International Edition.  For national IGs, select the appropriate national edition.</li>
   </ul>
   <p>
     There are also jurisdiction-specific tools for terminology discovery.
@@ -349,22 +506,27 @@
   <a name="find-au"> </a>
   <h5>Australia</h5>
   <ul>
-    <li><a href="http://ontoserver.csiro.au/shrimp">National Clinical Terminology Service (NCTS)</a></li>
+    <li>
+      <a href="http://ontoserver.csiro.au/shrimp">National Clinical Terminology Service (NCTS)</a>
+    </li>
   </ul>
   
   <a name="find-ca"> </a>
   <h5>Canada</h5>
   <ul>
-    <li><a href="https://tgateway.infoway-inforoute.ca/">Infoway Terminology Gateway</a> (requires registration)</li>
+    <li>
+      <a href="https://tgateway.infoway-inforoute.ca/">Infoway Terminology Gateway</a> (requires registration)</li>
   </ul>  
   
   <a name="find-us"> </a>
   <h5>U.S.</h5>
   <ul>
-    <li><b>Code systems in VSAC:</b> <a href="https://vsac.nlm.nih.gov/context/cs">vsac.nlm.nih.gov/context/cs</a> allows for searching by code or term either 
+    <li>
+      <b>Code systems in VSAC:</b> <a href="https://vsac.nlm.nih.gov/context/cs">vsac.nlm.nih.gov/context/cs</a> allows for searching by code or term either 
       in all code systems or in a specific code system. VSAC also allows for specifying including inactive codes in the search and choosing between a specific 
       version of a code system or all versions.</li>
-    <li><b>Code systems in PHIN VADS:</b> <a href="phinvads.cdc.gov"></a> allows for searching for any specific code system hosted there as well as for any 
+    <li>
+      <b>Code systems in PHIN VADS:</b> <a href="http://phinvads.cdc.gov">PHIN VADS</a> allows for searching for any specific code system hosted there as well as for any 
       concept(s) in any of the hosted code systems.</li>
   </ul>
 
@@ -375,18 +537,20 @@
     The following bullets provide guidance for requesting new codes in commonly used external code systems:
   </p>
   <ul>
-    <li><b>LOINC:</b> New term requests can be submitted via the <a href="https://loinc.org/submissions/request/">LOINC term request form</a>.  
-    LOINC also provides guidance on what information they need to process a request <a href="https://loinc.org/submissions/new-terms/">here</a>.</li>
-    <!-- Will reword to make specific to how an IG dev can request a content change in SNOMED. -->
-    <li><b>SNOMED-CT:</b> New term requests can be submitted via SNOMED's <a href="http://snomed.org/crs">international content request service</a> and 
+    <li>
+      <b>LOINC:</b> New term requests can be submitted via the <a href="https://loinc.org/submissions/request/">LOINC term request form</a>.  
+    LOINC also provides guidance on what information they need to process a request <a href="https://loinc.org/submissions/new-terms/">here</a>.</li><!-- Will reword to make specific to how an IG dev can request a content change in SNOMED. --><li>
+      <b>SNOMED-CT:</b> New term requests can be submitted via SNOMED's <a href="http://snomed.org/crs">international content request service</a> and 
       <a href="https://us-request.ihtsdotools.org/">US content request service</a>.  Guidance on using that service can be found 
       <a href="https://confluence.ihtsdotools.org/display/SCTCR/Accessing+CRS">here</a>.  Note: only authorized requesters can use those pages.</li>
-    <li><b>SNOMED:</b> New term requests go through SNOMED's <a href="https://confluence.ihtsdotools.org/display/SCTCR/CRS+User+Guide">Content Request 
+    <li>
+      <b>SNOMED:</b> New term requests go through SNOMED's <a href="https://confluence.ihtsdotools.org/display/SCTCR/CRS+User+Guide">Content Request 
       Submission process</a> where authorized users submit requests for new terms.  For HL7 members: New term requests for the US realm or HL7 Affiliates
       with a SNOMED National Release Center (NRC) should be made directly to that affiliate's NRC.  New term requests for the Universal realm or an HL7 affiliate 
       without a SNOMED NRC should be submitted to the HL7 Terminology Authority (HTA) using the Context Request Form found 
       <a href="https://confluence.hl7.org/display/TA/Request+content+in+external+terminologies">here</a>.</li>
-    <li><b>terminology.hl7.org</b> Changes to most of these code systems can be initiated by 
+    <li>
+      <b>terminology.hl7.org</b> Changes to most of these code systems can be initiated by 
       <a href="https://jira.hl7.org/secure/CreateIssue.jspa?issuetype=10600&amp;pid=12101">submitting a terminology change request</a> using HL7's UTG project on Jira.  
       Doing this requires <a href="https://jira.hl7.org/secure/CreateIssue.jspa?pid=11200&amp;issuetype=11300">registering for an HL7 Jira user id</a>, but those are 
       freely given after manual review to filter out bots and spammers.  HL7 maintains a confluence page that provides detailed
@@ -470,10 +634,18 @@
     maintained in HL7's terminology repository:
   </p>
   <ul>
-    <li><a href="http://build.fhir.org/ig/HL7/UTG/external_terminologies_csmr.html">External terminologies where we do not expose codes</a></li>
-    <li><a href="http://build.fhir.org/ig/HL7/UTG/external_terminologies_csf.html">External terminologies where we expose a subset of codes</a></li>
-    <li><a href="http://build.fhir.org/ig/HL7/UTG/external_terminologies_ccs.html">External terminologies where we expose the complete set of codes</a></li>
-    <li><a href="http://build.fhir.org/ig/HL7/UTG/codesystems.html">HL7-developed terminologies</a></li>
+    <li>
+      <a href="http://build.fhir.org/ig/HL7/UTG/external_terminologies_csmr.html">External terminologies where we do not expose codes</a>
+    </li>
+    <li>
+      <a href="http://build.fhir.org/ig/HL7/UTG/external_terminologies_csf.html">External terminologies where we expose a subset of codes</a>
+    </li>
+    <li>
+      <a href="http://build.fhir.org/ig/HL7/UTG/external_terminologies_ccs.html">External terminologies where we expose the complete set of codes</a>
+    </li>
+    <li>
+      <a href="http://build.fhir.org/ig/HL7/UTG/codesystems.html">HL7-developed terminologies</a>
+    </li>
   </ul>
   <p>
     If a code system is in any of those lists, the associated URI or OID <b>SHALL</b> be used in conformant HL7 instances.  If there is an international or U.S. national code
@@ -716,23 +888,33 @@
     When evaluating using an existing value set definition rather than creating your own, there are several questions to answer:
   </p>
   <ul>
-    <li><i>Does the defined purpose of the value set align with my intended use?</i><br/>
+    <li>
+      <i>Does the defined purpose of the value set align with my intended use?</i>
+      <br/>
       If not, even if the current set of codes seems to match your needs, it is likely that the value set will evolve in the future in a way that no longer
       meets your needs, or that when you have a desire to evolve the content of the value set, the custodian will be unwilling to make the desired changes.</li>
-    <li><i>Does the set of codes in the existing value set meet my needs?</i><br/>
+    <li>
+      <i>Does the set of codes in the existing value set meet my needs?</i>
+      <br/>
       If the answer is 'no', that does not necessarily mean that the value set <i>cannot</i> be used - but it will mean going through the change process for
       the value set to try to adjust it.  The willingness of the custodian to make the desired changes will then determine if it is appropriate.
     </li>
-    <li><i>Are you confident that the governance process associated with the value set and the declared purpose of use will mean that the value set content will align with your needs in the future?</i><br/>
+    <li>
+      <i>Are you confident that the governance process associated with the value set and the declared purpose of use will mean that the value set content will align with your needs in the future?</i>
+      <br/>
       In some cases, you may not want to give authority to others to change the set of codes that are allowed in your interface, or may not trust that the changes you might need
       in the future will be accepted by the custodian.</li>
-    <li><i>How complex is the value set definition and is there a saving in allowing someone else to maintain it?</i><br/>
+    <li>
+      <i>How complex is the value set definition and is there a saving in allowing someone else to maintain it?</i>
+      <br/>
       Some value sets are extremely easy to define (e.g. "all ICD10 codes") and there is little cost to there being 10 or 1000 different value set definitions that
       assert the same set of codes.  While consistency around what code system identifiers are used is critical to interoperability, multiple valueset identifiers
-      with the same definition does not impede interoperability.  However, if a value set requires ongoing curation, either to maintain an <a href="#extensional">extensional</a>
+      with the same definition does not impede interoperability.  However, if a value set requires ongoing curation, either to maintain an <a href="#valueset-type">extensional</a>
       list of codes, or to continue to adjust complex filters on an <a href="#intensional">intensional</a> definition as the underlying code system(s) evolve, there may
       be a benefit in having that work only done in one place.</li>
-    <li><i>Will I benefit from using the same value set definition as another specification?</i><br/>
+    <li>
+      <i>Will I benefit from using the same value set definition as another specification?</i>
+      <br/>
       If there is any chance of the value set evolving over time, it may be important that the evolution in your spec be the same as what occurs in a different
       specification - meaning that both specifications using the same definition will be beneficial.</li>
   </ul>
