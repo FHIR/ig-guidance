@@ -75,7 +75,7 @@
           <a href="#licencing">Licensing</a>
         </li>
         <li>
-          <a href="#licencing">Selecting an 'external' terminology</a>
+          <a href="#external">Selecting an 'external' terminology</a>
         </li>
         <li>
           <a href="#existing">How do I find existing codes?</a>
@@ -216,7 +216,7 @@
   </p>
   <p>
     A 'required' binding provides robust interoperability provided that the code systems are well defined with disjoint concepts, and the systems involved
-    actually support the range of codes needed  However, it requires that the set of codes cover all possibilities for which the element might need
+    actually support the range of codes needed.  However, it requires that the set of codes cover all possibilities for which the element might need
     to be present, including legacy data, exceptional data, and future evolution (though if the value set is <a href="#valueset-type">intensional</a>
     and/or the value-set reference is not <a href="#version-binding">version-specific</a>, then future evolution might still be possible).  For a system
     to comply with a 'required' binding, it must map all codes, both now and into the future to the bound value set, and if the binding is not version-specific,
@@ -231,7 +231,7 @@
     In any of these cases, it is not possible to have a concept that falls outside the scope of the value set, and it is therefore, de facto, a 'required' binding.
   </p>
   <p>
-    'preferred' and 'extensible' bindings are used when there is no existing set of codes that reasonably covers most of the space, there is no consensus within the 
+    'preferred' and 'example' bindings are used when there is no existing set of codes that reasonably covers most of the space, there is no consensus within the 
     community around what codes should be used for the element, or when it is simply not practical to demand that systems translate from the codes they use to a single 
     set of codes for interoperability.  'Example' bindings are used in the first two situations.  'Preferred' bindings are used in the last - as, while it cannot be demanded,
     it is certainly encouraged/recommended.
@@ -410,8 +410,8 @@
   </p>
   <p>
     However, there are circumstances where enumeration fails.  If an implementation guide wishes to capture a diagnosis, the affected body
-    site (including laterality), and the severity - all as a single code, enumerating all the allowed concepts becomes prohibitively difficult.
-    In such cases, implementers will need to allow their users to select the different concepts and then produce the relevant post-coordinated, following
+    site (including laterality), and the severity, all using a single code, then enumerating all the allowed concepts becomes prohibitively difficult.
+    In such cases, implementers will need to allow their users to select the different concepts and then produce the relevant post-coordinated code, following
     the code system grammar.  Depending on its user interface, a consuming system might need to parse the post-coordinated concept and split the relevant concepts
     up into different pieces of its UI.
   </p>
@@ -449,7 +449,7 @@
     <a href="https://confluence.hl7.org/pages/viewpage.action?pageId=184917604#TerminologyPlayBook-Whataretherulesforbindingtovaluesetswithintellectualpropertyrestrictions?">policies 
     on the adoption of terminologies that are not free for use</a> for the target implementer community when included in HL7 International or HL7 U.S. Realm specifications.
   </p>
-
+  <a name="external"> </a>
   <h4>Selecting an 'external' terminology</h4>
   <p>
     There are a wide range of terminologies available for use.  Some are general purpose; others are domain specific.  Considerations beyond <a href="#licencing">licensing</a> include:
@@ -539,12 +539,9 @@
   <ul>
     <li>
       <b>LOINC:</b> New term requests can be submitted via the <a href="https://loinc.org/submissions/request/">LOINC term request form</a>.  
-    LOINC also provides guidance on what information they need to process a request <a href="https://loinc.org/submissions/new-terms/">here</a>.</li><!-- Will reword to make specific to how an IG dev can request a content change in SNOMED. --><li>
-      <b>SNOMED-CT:</b> New term requests can be submitted via SNOMED's <a href="http://snomed.org/crs">international content request service</a> and 
-      <a href="https://us-request.ihtsdotools.org/">US content request service</a>.  Guidance on using that service can be found 
-      <a href="https://confluence.ihtsdotools.org/display/SCTCR/Accessing+CRS">here</a>.  Note: only authorized requesters can use those pages.</li>
+    LOINC also provides guidance on what information they need to process a request <a href="https://loinc.org/submissions/new-terms/">here</a>.</li>
     <li>
-      <b>SNOMED:</b> New term requests go through SNOMED's <a href="https://confluence.ihtsdotools.org/display/SCTCR/CRS+User+Guide">Content Request 
+      <b>SNOMED CT:</b> New term requests go through SNOMED's <a href="https://confluence.ihtsdotools.org/display/SCTCR/CRS+User+Guide">Content Request 
       Submission process</a> where authorized users submit requests for new terms.  For HL7 members: New term requests for the US realm or HL7 Affiliates
       with a SNOMED National Release Center (NRC) should be made directly to that affiliate's NRC.  New term requests for the Universal realm or an HL7 affiliate 
       without a SNOMED NRC should be submitted to the HL7 Terminology Authority (HTA) using the Context Request Form found 
@@ -573,7 +570,7 @@
     is never legal - because 'MyNewDiagnosisCode' is not a code defined as an official part of the ICD-10 code system.
   </p>
   <p>
-    In situations like these, if you cannot add the codes you need into the 'desired' code system, simply place them into a different code system or (if necessary),
+    In situations like these, if you cannot add the codes you need into the 'desired' code system, simply place them into a different code system or, if necessary,
     create a new code system to contain them.  Your value set can then point to the sets of codes from both systems.
   </p>
   <p>
@@ -584,7 +581,7 @@
   <a name="temp-codes"> </a>
   <h4>What should I do when I need new codes, but the requirements are not final?</h4>
   <p>
-    Typically, when adding codes to existing code systems, those systems will place changes on what types of changes are possible once the code has been accepted.
+    Typically, when adding codes to existing code systems, those systems will place requirements on what types of changes are possible once the code has been accepted.
     This can be problematic if the specification that needs those codes is still in the early development stages and the specific requirements for needed codes
     has not yet been settled.  Codes may be needed for early testing and proof-of-concept may be needed, but there is a good chance that the specific code requirements
     (name, definition, relationships, granularity, etc.) may change before the specification becomes stable.  Making such changes is often discouraged or prohibited,
@@ -655,7 +652,7 @@
     In some cases, HL7 might have started the process of assigning a URI or OID but not yet transitioned the content to the official terminology site.  IG authors should
     also check this <a href="https://confluence.hl7.org/display/TA/External+Terminologies+-+Information">external terminology work in progress page</a>.  If not, HL7 has
     a <a href="https://confluence.hl7.org/display/TA/External+Code+System+Owner+Engagement+Process">process for seeking the registration of a new external terminology</a>.
-    This process can provide a 'temporary' identifier for us during initial development work while HL7 negotiates with the official terminology source over what the official
+    This process can provide a 'temporary' identifier for use during initial development work while HL7 negotiates with the official terminology source over what the official
     identifier should be.
   </p>
   <p>
@@ -685,7 +682,7 @@
     <li>Codes within a single code system should be managed under a single maintenance process and are typically published together.</li>
   </ul>
   <p>
-    While any URI *can* be used for a code system, HL7 strongly recommends the use of meaningful, and ideally resolvable, URLs.  Such identifiers are easier for developers to
+    While any URI <b>can</b> be used for a code system, HL7 strongly recommends the use of meaningful, and ideally resolvable, URLs.  Such identifiers are easier for developers to
     work with.  The ability to resolve (even if only to an HTML page rather than a FHIR resource) allows a developer or analyst encountering a new code system in an instance
     to learn more about the system - and possibly the codes in it.
   </p>
@@ -701,7 +698,7 @@
   </ul>
   <p>
     All implementers performing v3 to FHIR conversions will already <i>have</i> to have a conversion layer to convert from OIDs to meaningful URIs for all the code systems
-    where HL7 international has defined standard URIs (SNOMED, LOINC, UCUM, etc.) as well as new ones defined in the future.  The 
+    where HL7 international has defined standard URIs (SNOMED CT, LOINC, UCUM, etc.) as well as new ones defined in the future.  The 
     <a href="{{site.data.fhir.path}}namingsystem.html">NamingSystem</a> provides a convenient mechanism for storing and tracking the maps between OIDs and URIs. Given that this 
     infrastructure must already exist, it makes sense to take advantage of it even for local code systems and thereby avoid the long-term implementer burden that OIDs will
     impose on the FHIR community long after v3 to FHIR conversion ceases to be relevant.
@@ -736,10 +733,10 @@
     This is usually a bad idea - for two reasons:
   </p>
   <ul>
-    <li>Terminologies are intellectual property, like anything else.  While the *concepts* represented in terminologies can be coded a variety of ways, the specific
+    <li>Terminologies are intellectual property, like anything else.  While the <b>concepts</b> represented in terminologies can be coded a variety of ways, the specific
       codes used, the display names assigned, the definitions and properties provided, and the relationships asserted are all the property of the individual or organization
       that defined them.</li>
-    <li>Even licensing permissions allow outright copying of content, doing so inevitably impedes interoperability, because while a human might recognize that the copied
+    <li>Even if licensing permissions allow outright copying of content, doing so inevitably impedes interoperability, because while a human might recognize that the copied
       code means the same as the original code, computer systems will not.  Making computer systems recognize the equivalence requires creating maps, writing code, and 
       spending time and money.</li>
   </ul>
@@ -952,7 +949,7 @@
       </ul>
       <i>Drawbacks</i>:
       <ul>
-        <li>There may be limits on what types a value sets a shared repository is willing to host.</li>
+        <li>There may be limits on what types of value sets a shared repository is willing to host.</li>
         <li>The governance process for the shared repository may create delays (and sometimes barriers) to making desired changes.</li>
         <li>The value set may involve based on feedback from others that are undesirable for your specification.</li>
         <li>The value set definition may change at any time, meaning that if the specification value set references are not <a href="#valueset-versions">versioned</a>, implementers
@@ -1105,7 +1102,7 @@
       code systems, which makes it difficult to reason across systems.</li>
   </ul>
   <p>
-    Drawing concepts from multiple code systems does mean that there can be differences in styles around display names, definitions, properties, etc. that may make
+    Drawing concepts from multiple code systems does mean that there can be differences in styles around display names, definitions, properties, etc. that may
     also impact decisions on whether combining from multiple sources will work well - though <a href="#supplement">code system supplements</a> may be able to relieve
     some of these concerns.
   </p>
@@ -1114,7 +1111,7 @@
   <h4>Should value sets include 'Other', 'Unknown', etc.?</h4>
   <p>
     In CDA and other v3-based specifications, exceptional values such as Other, Unknown, Not Applicable, etc. are conveyed in a separate data element from regular coded
-    data - nullFlavor.  Any concepts represented in nullFlavor <b>SHALL NOT</b> be included in value sets intended for use by v3 implementations.
+    data - nullFlavor.  Any concepts represented in nullFlavor <b>SHOULD NOT</b> be included in value sets intended for use by v3 implementations.
   </p>
   <p>
     However, in FHIR and v2, such concepts are sent alongside coded data and, when needed, <b>SHOULD</b> be sent as part of the value sets alongside other codes (though
@@ -1129,7 +1126,7 @@
     Something like 'not applicable' becomes relevant if it is also likely that the element will be 1..x.
   </p>
   <p>
-    That said, there will be use-cases where these exceptional values are not appropriate - where a code *must* be known, or where - by definition - the conceptual space
+    That said, there will be use-cases where these exceptional values are not appropriate - where a code <b>must</b> be known, or where - by definition - the conceptual space
     is known to be covered, or where for the use-case, a value must always be applicable.  In these cases, exceptional values should be omitted.  However, be careful
     to account for legacy data, externally sourced data, and various uncommon but still possible edge-cases before deciding to exclude the safety valve that exceptional
     values provide.  Ask the question "Would I rather not receive this element (or even the entire instance) at all if an exceptional value is necessary?".
