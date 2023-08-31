@@ -45,6 +45,11 @@
         <generation value="html"/>
       </page>
       <page>
+        <nameUrl value="terminology.html"/>
+        <title value="Working with Terminology"/>
+        <generation value="html"/>
+      </page>
+      <page>
         <nameUrl value="tooling.html"/>
         <title value="IG Tooling"/>
         <generation value="html"/>

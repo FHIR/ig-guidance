@@ -116,29 +116,7 @@ writing intuitive, consistent, clear and  concise IG text.
 
 ### Terminology
 
-* Leverage external terminologies whenever you can.
-    * For higher maturity, expectation is that you're using external terminologies for non-'code' elements unless it's simply not possible
-* You  *cannot* create 'required' or 'extensible' bindings to terminologies that aren't "free for use" in the realm that you're implementing in
-    * SNOMED CT is ok in US IGs, but not in international IGs (unless SNOMED has granted an open license for everyone to freely use those codes)
-* If you need to define temporary FHIR codes for low-maturity artifacts as you're just experimenting, make very clear that they're "temporary"
-* If using terminologies that use advanced capabilities (subsumption, post-coordination, or even value set expansions), consider whether the implementation 
-  community is likely to support these.
-* Be cautious of 'required' bindings that don't have an "other"
-    * If there's a required binding and the element is min=1, then you can't send the instance if no code exists.
-    * Ensure an escape valve exists if one is needed (including for legacy content)
-* If you can't use required or extensible, try to at least define "preferred" if interoperability matters for an element
-* Consider whether vocabulary bindings should be "locked" to the IG version or unconstrained
-    * Version-specific means the definition will be more stable, but means the only way to update the codes used is to release a new version of the IG.
-      sometimes that's desirable, sometimes not
-* Don't use OIDs to identify code systems or identifiers
-    * When implementaters have v3 experience, they may well have OIDs for some of these.  Because you can prefix the OID with "uri:oid:" and get a valid URN,
-      the temptation will be to do this because it's cheaper and it eases conversion.  However, it increases the costs for the community as a whole.
-    * OIDs are  *not* human readable which makes errors easier and debugging harder
-    * OIDs cannot be resolved, which removes a helpful tool for implementers trying to discover what a code means or an identifier refers to
-    * Most of the world understands the concept of an identifier.  Few understand OIDs.  Using OIDs means that you incur a permanent learning curve for your
-      specification
-    * If FHIR has defined a standard URL for a code system/identifier type, you have no choice but to use the HL7 code - the v3 OID isn't allowed
-    * The NamingSystem resource exists to allow simple translation
+Terminology is complex enough that it has its own page.  See the [terminology FAQs](terminology.html).
 
 
 ### Security and Privacy Considerations
