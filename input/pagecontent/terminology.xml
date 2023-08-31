@@ -217,13 +217,12 @@
   <table>
     <tbody>
       <tr>
-        <th><a href="{{site.data.fhir.path}}terminologies.html#required">Required</a> - Must have at least one coding from the value set.  Can't have text by itself.</th>
+        <th><a href="{{site.data.fhir.path}}terminologies.html#required">Required</a> - Must have at least one coding from the value set.  Cannot have CodeableConcept.text by itself.</th>
         <th><a href="{{site.data.fhir.path}}terminologies.html#extensible">Extensible</a> - Must have at least one coding from the value set <i>if concept can be represented at some granularity by one of the codes</i>.  Can have text by itself and/or a non-valueset code if concept doesn't fall inside the value set.</th>
         <th><a href="{{site.data.fhir.path}}terminologies.html#preferred">Preferred</a> or <a href="{{site.data.fhir.path}}terminologies.html#example">Example</a> - Send whatever you like, from the value set or not, including just text.</th>
       </tr>
     </tbody>
   </table>
-  
   <p>
     Decisions on strength are driven by the tension between "How much interoperability is needed?" and "What can systems reasonably achieve?".
   </p>
@@ -358,6 +357,22 @@
       (and have implementers migrate to the new IG version) to make any changes to the allowed set of codes.  For intensional bindings, an IG update 
       will be necessary to tweak filters to account for code system evolution.  Updating the value set definition often requires less process/overhead
       and can be done more quickly, making non-versioned references appealing if adaptation is expected to be necessary between IG releases.</li>
+  </ul>
+
+  <a name="version-binding"> </a>
+  <h4>Should codings require CodeSystem version?</h4>
+  <p>
+    The <a href="{{site.data.fhir.path}}datatypes.html#Coding">Coding</a> data type allows declaring the version of the code system that is represented,
+    but this is not typically declared in instances.  There are two specific circumstances when declaring version is necessary (or at least useful) in
+    an instance:
+  </p>
+  <ul>
+    <li>If the code system does not follow good terminology practices and changes the meaning of codes between releases without changing the code system
+      URI, the <code>Coding.version</code> is necessary to ensure to know the meaning of the code.</li>
+    <li>For code systems such as SNOMED CT, the version can identify the specific edition, which may be helpful for validators that only have access
+      to some editions, but not all.  This is primarily useful where the context of the exchange does not make the edition implicit.  (For example,
+      declaring the U.S. SNOMED edition in interfaces that are intended only for use in the U.S. is generally unnecessary, but it might be useful when
+      populating an International Patient Summary document that might conceivably be shared across borders.)</li>
   </ul>
 
   <a name="fixed"> </a>
