@@ -218,7 +218,7 @@
     <tbody>
       <tr>
         <th><a href="{{site.data.fhir.path}}terminologies.html#required">Required</a> - Must have at least one coding from the value set.  Cannot have CodeableConcept.text by itself.</th>
-        <th><a href="{{site.data.fhir.path}}terminologies.html#extensible">Extensible</a> - Must have at least one coding from the value set <i>if concept can be represented at some granularity by one of the codes</i>.  Can have text by itself and/or a non-valueset code if concept doesn't fall inside the value set.</th>
+        <th><a href="{{site.data.fhir.path}}terminologies.html#extensible">Extensible</a> - Must have at least one coding from the value set <i>if the concept can be represented at some granularity by one of the codes</i>.  Can have text by itself and/or a non-valueset code if the concept doesn't fall inside the value set.</th>
         <th><a href="{{site.data.fhir.path}}terminologies.html#preferred">Preferred</a> or <a href="{{site.data.fhir.path}}terminologies.html#example">Example</a> - Send whatever you like, from the value set or not, including just text.</th>
       </tr>
     </tbody>
@@ -367,8 +367,8 @@
     an instance:
   </p>
   <ul>
-    <li>If the code system does not follow good terminology practices and changes the meaning of codes between releases without changing the code system
-      URI, the <code>Coding.version</code> is necessary to ensure to know the meaning of the code.</li>
+    <li>If the code system allows the meaning of codes to change between releases without changing the code system URI (against good terminology practice,
+      but might not be prohibited in some code systems), the <code>Coding.version</code> is necessary to ensure to know the meaning of the code.</li>
     <li>For code systems such as SNOMED CT, the version can identify the specific edition, which may be helpful for validators that only have access
       to some editions, but not all.  This is primarily useful where the context of the exchange does not make the edition implicit.  (For example,
       declaring the U.S. SNOMED edition in interfaces that are intended only for use in the U.S. is generally unnecessary, but it might be useful when
