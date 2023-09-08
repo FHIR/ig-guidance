@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ImplementationGuide xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../input-cache/schemas-r5/fhir-single.xsd">
+<ImplementationGuide xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../input-cache/schemas/r5/fhir-single.xsd">
   <id value="hl7.fhir.uv.howto"/>
   <url value="http://hl7.org/fhir/uv/howto/ImplementationGuide/hl7.fhir.uv.howto"/>
   <version value="0.1.0"/>
@@ -23,80 +23,98 @@
   </jurisdiction>
   <packageId value="hl7.fhir.uv.howto"/>
   <license value="CC0-1.0"/>
-  <fhirVersion value="4.0.1"/>
+  <fhirVersion value="5.0.0"/>
   <definition>
     <page>
-      <nameUrl value="toc.html"/>
+      <sourceUrl value="toc.html"/>
+      <name value="toc.html"/>
       <title value="Table of Contents"/>
       <generation value="html"/>
       <page>
-        <nameUrl value="index.html"/>
+        <sourceUrl value="index.html"/>
+        <name value="index.html"/>
         <title value="IG Home Page"/>
         <generation value="html"/>
       </page>
       <page>
-        <nameUrl value="background.html"/>
+        <sourceUrl value="background.html"/>
+        <name value="background.html"/>
         <title value="Background"/>
         <generation value="html"/>
       </page>
       <page>
-        <nameUrl value="readingIgs.html"/>
+        <sourceUrl value="readingIgs.html"/>
+        <name value="readingIgs.html"/>
         <title value="Reading Implemenation Guides"/>
         <generation value="html"/>
       </page>
       <page>
-        <nameUrl value="terminology.html"/>
+        <sourceUrl value="terminology.html"/>
+        <name value="terminology.html"/>
         <title value="Working with Terminology"/>
         <generation value="html"/>
       </page>
       <page>
-        <nameUrl value="tooling.html"/>
+        <sourceUrl value="tooling.html"/>
+        <name value="tooling.html"/>
         <title value="IG Tooling"/>
         <generation value="html"/>
       </page>
       <page>
-        <nameUrl value="using-templates.html"/>
+        <sourceUrl value="using-templates.html"/>
+        <name value="using-templates.html"/>
         <title value="Using the HL7 Templates"/>
         <generation value="html"/>
       </page>
       <page>
-        <nameUrl value="best-practice.html"/>
+        <sourceUrl value="best-practice.html"/>
+        <name value="best-practice.html"/>
         <title value="IG Best Practices"/>
         <generation value="markdown"/>
         <page>
-          <nameUrl value="diagrams.html"/>
+          <sourceUrl value="diagrams.html"/>
+          <name value="diagrams.html"/>
           <title value="Adding diagrams"/>
           <generation value="markdown"/>
         </page>
-
       </page>
       <page>
-        <nameUrl value="template.html"/>
+        <sourceUrl value="template.html"/>
+        <name value="template.html"/>
         <title value="Extending the HL7 IG Templates"/>
         <generation value="html"/>
         <page>
-          <nameUrl value="colors.html"/>
+          <sourceUrl value="colors.html"/>
+          <name value="colors.html"/>
           <title value="Changing the IG colors"/>
           <generation value="markdown"/>
         </page>
       </page>
       <page>
-        <nameUrl value="downloads.html"/>
+        <sourceUrl value="downloads.html"/>
+        <name value="downloads.html"/>
         <title value="Useful Downloads"/>
         <generation value="html"/>
       </page>
       <page>
-        <nameUrl value="changes.html"/>
+        <sourceUrl value="changes.html"/>
+        <name value="changes.html"/>
         <title value="IG Change History"/>
         <generation value="html"/>
       </page>
     </page>
     <parameter>
-      <code value="copyrightyear"/>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="copyrightyear"/>
+      </code>       
       <value value="2019+"/>
     </parameter>
     <parameter>
-      <code value="releaselabel"/>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="releaselabel"/>
+      </code>
       <value value="CI Build"/>
     </parameter>
   </definition>
