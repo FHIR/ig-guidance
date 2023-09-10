@@ -9,14 +9,14 @@
   </p>
 
 <pre>
-{&#8203;% sql select name as Name, value as Value from Metadata %}
+{&#8203;% sql select Name, Value from Metadata %}
 </pre>
 
 <p>
 This syntax will generate this table in the built IG:
 </p>
 
-{% sql select name as Name, value as Value from Metadata %}
+{% sql select Name, Value from Metadata %}
 
 <p>
 The SQL engine that evaluates the queries is SQLite3. The database the SQL is evaluated against is built as part of building the IG, 
@@ -28,13 +28,40 @@ Notes for Authors:
 <ul>
  <li>Authors wishing to use SQL should use an SQLite3 tool to develop their queries against package.db</li>
  <li>The tables in the package.db are a moving target, but authors can find Metadata, Resources (a list of all resources), Concepts (Concepts defined in code systems), along with Designations, Properties and ConceptProperties. 
-  In addition, authors will find the tables ValueSet and ConceptMap that contain the results of expanding value sets and checking concept maps.</li>
- <li>If authors wish to affect the output, they can include a display string before the display like this:</li>
+  In addition, authors will find the tables ValueSetMembers and ConceptMappings that contain the results of expanding value sets and checking concept maps.</li>
 </ul>
 
-<pre>
-{&#8203;% fmt:grid;a;md;l:0 sql select name as Name, Description, web as Value from Resources %}
-</pre>
+ <li>If authors wish to affect the output, they can include a display string before the display like this:</li>
 
+<pre>
+{&#8203;% sql fmt:lines;a;md;l:1 select name as Name, Description, web from Resources %}
+</pre>
+<p>
+Which produces this table: 
+</p>
+
+{% sql fmt:lines;a;md;l:1 select name as Name, Description, web from Resources %}
+
+<p>
+Documentation:
+</p>
+<ul>
+ <li>The syntax is <code>fmt:</code> followed by a series of semi-colon delimited codes</li>
+ <li>The first code is the css style to use for the table. If it's blank, <code>grid</code> will be used (the default). Look in the css to see what styles are defined</li>
+ <li>The rest of the codes are the format control for the each column. Any columns not listed are treated as <code>AutoDetect</code></li>
+ <li>Possible codes are: <code>a</code> (auto-detect), <code>s</code> (plain string, no auto-detect), <code>md</code> (treat as markdown), <code>l:x</code> (don't add the row; treat as the link for column x (1 based))</li>
+</ul>
+
+<h2>View Definitions</h2>
+
+<p>
+Once the definition of ViewDefinition by the SQL on FHIR project settles, the IG publisher will provide 
+a way for Authors to register ViewDefinitions with the IG Publisher and then the IG publisher will 
+generate tables inb the SQLite DB for each of the registered View Definitions.
+</p>
+<p>
+Authors wishing to take advantage of this will need to be aware that ViewDefinitions are experimental,
+and the defintion or the table created may change without warning. (for now)
+</p>
 
 </div>
