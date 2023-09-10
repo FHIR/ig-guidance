@@ -1,4 +1,4 @@
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas-r5/fhir-single.xsd">
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas/r5/fhir-single.xsd">
   <a name="overview"> </a>
   <h3>Overview</h3>
   <p>
@@ -311,8 +311,8 @@
           <p>
             This is a special folder for content that will appear multiple places within the IG.  In general, most of this is handled by the template
             itself.  However, in some cases, it will be necessary for the same content to appear on multiple pages within the same IG.  Such markdown
-            and/or XHTML content can be placed here and then referenced using Latex within other 'page' files within the IG.  This is 'advanced' behavior
-            and authors planning to do this should read the <a href="template.html#todo">Using IG Templates</a> section.
+            and/or XHTML content can be placed here and then referenced using Liquid within other 'page' files within the IG.  This is 'advanced' behavior
+            and authors planning to do this should read the <a href="template.html#sharedContent">Shared Content</a> section.
           </p>
           <p>
             However, there is one file that all igs will need - <code>menu.xml</code>.  This is an XHTML file that defines the content of the main menu.
