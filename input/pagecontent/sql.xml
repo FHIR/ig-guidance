@@ -52,7 +52,7 @@ Documentation:
  <li>Possible codes are: <code>a</code> (auto-detect), <code>s</code> (plain string, no auto-detect), <code>md</code> (treat as markdown), <code>l:x</code> (don't add the row; treat as the link for column x (1 based))</li>
 </ul>
 
-<h2>View Definitions</h2>
+<h3>View Definitions</h3>
 
 <p>
 Once the definition of ViewDefinition by the SQL on FHIR project settles, the IG publisher will provide 
