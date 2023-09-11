@@ -1,2 +1,6 @@
-// Add warning and/or information messages here after you've confirmed that they aren't really a problem
-// (And include comments like this justifying why)
+== Suppressed Messages ==
+# Add warning and/or information messages here after you've confirmed that they aren't really a problem
+# (And include comments like this justifying why)
+
+# This value set should never have been deprecated
+INFORMATION: ImplementationGuide/hl7.fhir.uv.howto: ImplementationGuide.jurisdiction[0]: Reference to deprecated item http://hl7.org/fhir/ValueSet/jurisdiction|5.0.0

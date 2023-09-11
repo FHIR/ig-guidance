@@ -1,4 +1,4 @@
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas-r5/fhir-single.xsd">
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas/r5/fhir-single.xsd">
 <a name="summary"> </a>
 <h3 id="summary">Summary</h3>
 <p>Some projects may want to publish their IGs with a different look and feel or changed features. This can be done by creating a custom template (which is a template extension) and pointing the IG Publisher to use that custom template.</p>
@@ -112,4 +112,22 @@
 <p>To see the results of the customization - and you should do it often to make sure that the changes do not break the publisher – just run the IG Publisher.</p>
 <p></p>
 <p></p>
+
+<a name="shared"> </a>
+<h4 id="shared">Shared content</h4>
+<p>
+  Sometimes there is boiler-plate content that needs to be included in multiple implementation guides that leverage a particular
+  template.  This might be legal terms, disclaimers, shared use-case information, contact information, etc.  Such content can be
+  placed in the 'includes' folder of the template as a .md or .xml file.  It can then be referenced using a liquid 'include' from
+  the different IGs that need to use it.  For example, <code>{{ "{% include burdenReduction.md " }}%}</code>
+</p>
+
+<a name="liquid"> </a>
+<h4 id="liquid">Liquid templates for narrative</h4>
+<p>
+  The IG publisher supports a liquid-based approach to defining the narrative content for different types of resources.
+</p>
+<p>
+  TODO - flesh this out
+</p>
 </div>

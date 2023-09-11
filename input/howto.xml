@@ -123,5 +123,12 @@
       </code>
       <value value="CI Build"/>
     </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="globals-in-artifacts"/>
+      </code>       
+      <value value="true"/>
+    </parameter>
   </definition>
 </ImplementationGuide>
