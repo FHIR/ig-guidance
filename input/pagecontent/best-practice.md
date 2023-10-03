@@ -11,7 +11,7 @@ feedback from the community.  At some point, we may even seek formal review of t
 
 ### Pages and organization
 
-* Each IG should display non-normative content (background, use-cases, downloads, etc.) from normative material (content that sets conformance 
+* Each IG should display non-normative content (background, use-cases, downloads, etc.) separately from normative material (content that sets conformance 
 criteria for compliant implementations). 
 * In addition to the standard index, toc and artifacts pages, most IGs should have a 'background' page, a 'downloads' page and one or more pages that
 define the normative content
@@ -39,7 +39,7 @@ writing intuitive, consistent, clear and  concise IG text.
   based on their instance.  As such, both backward and forward hyperlinks are appropriate – especially for content in distinct sections.
 * Single, large pages are better then numerous short pages
     * Single pages can easily be searched using Ctrl-F and can be scrolled around to see related content.  Multiple small pages make it easy to get lost
-      and/or misscontent
+      and/or miss content
 * Put "good" anchor names on all pages (harder to do this for markdown)
     * You never know when someone might need to link to a particular page in the spec.  While, the publisher will auto-generate link points, these will be 
       version-specific.  The anchor names you define will persist across versions
@@ -77,7 +77,7 @@ writing intuitive, consistent, clear and  concise IG text.
 
 * Manage artifact volume
     * Consider "What is computably useful?" - I.e. What do you actually need to validate automatically and what might be better (more clear) as text
-      * In some cases, consider producing both a computable and 'human' friendly profile where the formeris a constraint on the latter
+      * In some cases, consider producing both a computable and 'human' friendly profile where the former is a constraint on the latter
       * At the same time, do try to be computable most of the time. Human-readable text is frequently ambiguous and very expensive to enforce
     * What is reasonably reviewable/implementable?  Yes, you could write 200 profiles.  However, if balloters can't realistically check all of them and confirm 
       that they're correct and/or implementers aren't going to be able to implement that sort of volume in the next 5 years, you're wasting your time
