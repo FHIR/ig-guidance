@@ -27,10 +27,8 @@ Notes for Authors:
 </p>
 <ul>
  <li>Authors wishing to use SQL should use an SQLite3 tool to develop their queries against package.db</li>
- <li>The tables in the package.db are a moving target, but authors can find Metadata, Resources (a list of all resources), Concepts (Concepts defined in code systems), along with Designations, Properties and ConceptProperties. 
-  In addition, authors will find the tables ValueSetMembers and ConceptMappings that contain the results of expanding value sets and checking concept maps.</li>
+ <li>The tables in the package.db are a moving target. See below for documentation</li>
 </ul>
-
  <li>If authors wish to affect the output, they can include a display string before the display like this:</li>
 
 <pre>
@@ -52,6 +50,7 @@ Documentation:
  <li>Possible codes are: <code>a</code> (auto-detect), <code>s</code> (plain string, no auto-detect), <code>md</code> (treat as markdown), <code>l:x</code> (don't add the row; treat as the link for column x (1 based))</li>
 </ul>
 
+<a name="view"> </a>
 <h3>View Definitions</h3>
 
 <p>
@@ -64,4 +63,146 @@ Authors wishing to take advantage of this will need to be aware that ViewDefinit
 and the defintion or the table created may change without warning. (for now)
 </p>
 
+<a name="base"> </a>
+<h3>Base Tables</h3>
+
+<p>
+The following tables are always created by the IG publisher:
+</p>
+
+<table class="grid">
+<tr> <th>Table / Field Name</th> <th>Type</th> <th>Nullable?</th> <th>Description</th></tr>
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">Metadata</td><td>Metadata about the IG including things such as build times</td></tr>
+<tr> <td>Key</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
+<tr> <td>Name</td> <td>string</td> <td>False</td> <td>Name of Metadata item</td></tr>
+<tr> <td>Value</td> <td>string</td> <td>False</td> <td>Value</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">Resources</td><td>A list of all resources defined in this IG. Not including contained resources </td></tr>
+<tr> <td>Key</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
+<tr> <td>Type</td> <td>string</td> <td>False</td> <td>Resource Type</td></tr>
+<tr> <td>Id</td> <td>string</td> <td>False</td> <td>Resource Id</td></tr>
+<tr> <td>Web</td> <td>string</td> <td>False</td> <td>URL to refer to resource</td></tr>
+<tr> <td>Url</td> <td>string</td> <td>True</td> <td>CanonicalResource.url (if present)</td></tr>
+<tr> <td>Version</td> <td>string</td> <td>True</td> <td>CanonicalResource.version (if present)</td></tr>
+<tr> <td>Status</td> <td>string</td> <td>True</td> <td>CanonicalResource.status (if present)</td></tr>
+<tr> <td>Date</td> <td>string</td> <td>True</td> <td>CanonicalResource.date (if present)</td></tr>
+<tr> <td>Name</td> <td>string</td> <td>True</td> <td>CanonicalResource.name (if present)</td></tr>
+<tr> <td>Title</td> <td>string</td> <td>True</td> <td>CanonicalResource.title (if present)</td></tr>
+<tr> <td>Experimental</td> <td>string</td> <td>True</td> <td>CanonicalResource.experimental (if present)</td></tr>
+<tr> <td>Realm</td> <td>string</td> <td>True</td> <td>derived from CanonicalResource.jurisdiction (if present)</td></tr>
+<tr> <td>Description</td> <td>string</td> <td>True</td> <td>CanonicalResource.description (if present)</td></tr>
+<tr> <td>Purpose</td> <td>string</td> <td>True</td> <td>CanonicalResource.purpose (if present)</td></tr>
+<tr> <td>Copyright</td> <td>string</td> <td>True</td> <td>CanonicalResource.copyright (if present)</td></tr>
+<tr> <td>CopyrightLabel</td> <td>string</td> <td>True</td> <td>CanonicalResource.copyrightLabel (if present)</td></tr>
+<tr> <td>Json</td> <td>binary</td> <td>False</td> <td>JSON source for resource</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">Properties</td><td>Code System properties defined by CodeSystems in the IG</td></tr>
+<tr> <td>Key</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
+<tr> <td>ResourceKey</td> <td>integer</td> <td>False</td> <td>Reference to Resources.Key</td></tr>
+<tr> <td>Code</td> <td>string</td> <td>False</td> <td>CodeSystem.property.code</td></tr>
+<tr> <td>Uri</td> <td>string</td> <td>True</td> <td>CodeSystem.property.uri</td></tr>
+<tr> <td>Description</td> <td>string</td> <td>True</td> <td>CodeSystem.property.description</td></tr>
+<tr> <td>Type</td> <td>string</td> <td>True</td> <td>CodeSystem.property.type</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">Concepts</td><td>A list of all the codes defined in the code systems in the IG</td></tr>
+<tr> <td>Key</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
+<tr> <td>ResourceKey</td> <td>integer</td> <td>False</td> <td>Reference to Resources.Key</td></tr>
+<tr> <td>ParentKey</td> <td>integer</td> <td>True</td> <td>Reference tp Concepts.Key if not a root concept</td></tr>
+<tr> <td>Code</td> <td>string</td> <td>True</td> <td>CodeSystem.concept.code</td></tr>
+<tr> <td>Display</td> <td>string</td> <td>True</td> <td>CodeSystem.concept.display</td></tr>
+<tr> <td>Definition</td> <td>string</td> <td>True</td> <td>CodeSystem.concept.definition</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">ConceptProperties</td><td>Properties defined in the concepts in the Concepts table</td></tr>
+<tr> <td>Key</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
+<tr> <td>ResourceKey</td> <td>integer</td> <td>False</td> <td>Reference to Resources.Key</td></tr>
+<tr> <td>ConceptKey</td> <td>integer</td> <td>False</td> <td>Reference to Concepts.Key</td></tr>
+<tr> <td>PropertyKey</td> <td>integer</td> <td>True</td> <td>Reference to Properties.Key</td></tr>
+<tr> <td>Code</td> <td>string</td> <td>True</td> <td>CodeSystem.concept.property.code</td></tr>
+<tr> <td>Value</td> <td>string</td> <td>True</td> <td>CodeSystem.concept.property.code</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">Designations</td><td>Designations defined in the concepts in the Concepts table</td></tr>
+<tr> <td>Key</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
+<tr> <td>ResourceKey</td> <td>integer</td> <td>False</td> <td>Reference to Resources.Key</td></tr>
+<tr> <td>ConceptKey</td> <td>integer</td> <td>False</td> <td>Reference to Concepts.Key</td></tr>
+<tr> <td>UseSystem</td> <td>string</td> <td>True</td> <td>CodeSystem.concept.designation.use.system</td></tr>
+<tr> <td>UseCode</td> <td>string</td> <td>True</td> <td>CodeSystem.concept.designation.use.code</td></tr>
+<tr> <td>Lang</td> <td>string</td> <td>True</td> <td>CodeSystem.concept.designation.lang</td></tr>
+<tr> <td>Value</td> <td>text</td> <td>True</td> <td>CodeSystem.concept.designation.value</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">ConceptMappings</td><td>Mappings Defined in ConceptMaps in the IG</td></tr>
+<tr> <td>Key</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
+<tr> <td>ResourceKey</td> <td>integer</td> <td>False</td> <td>Reference to Resources.Key</td></tr>
+<tr> <td>SourceSystem</td> <td>string</td> <td>True</td> <td>ConceptMap.group.source</td></tr>
+<tr> <td>SourceVersion</td> <td>string</td> <td>True</td> <td>ConceptMap.group.sourceVersion</td></tr>
+<tr> <td>SourceCode</td> <td>string</td> <td>True</td> <td>ConceptMap.group.element.code</td></tr>
+<tr> <td>Relationship</td> <td>string</td> <td>True</td> <td>ConceptMap.group.element.target.relationship</td></tr>
+<tr> <td>TargetSystem</td> <td>string</td> <td>True</td> <td>ConceptMap.group.target</td></tr>
+<tr> <td>TargetVersion</td> <td>string</td> <td>True</td> <td>ConceptMap.group.targetVersion</td></tr>
+<tr> <td>TargetCode</td> <td>string</td> <td>True</td> <td>ConceptMap.group.element.target.code</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">ValueSet_Codes</td><td>ValueSet Expansion Table (flat expansions only) for ValueSets defined in this IG</td></tr>
+<tr> <td>Key</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
+<tr> <td>ResourceKey</td> <td>integer</td> <td>False</td> <td>Reference to Resources.Key</td></tr>
+<tr> <td>ValueSetUri</td> <td>string</td> <td>False</td> <td>ValueSet.url</td></tr>
+<tr> <td>ValueSetVersion</td> <td>string</td> <td>False</td> <td>ValueSet.version</td></tr>
+<tr> <td>System</td> <td>string</td> <td>False</td> <td>ValueSet.expansion.contains.system</td></tr>
+<tr> <td>Version</td> <td>string</td> <td>True</td> <td>ValueSet.expansion.contains.version</td></tr>
+<tr> <td>Code</td> <td>string</td> <td>False</td> <td>ValueSet.expansion.contains.code</td></tr>
+<tr> <td>Display</td> <td>string</td> <td>True</td> <td>ValueSet.expansion.contains.display</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">CodeSystemList</td><td>List of all code systems for the IG. ViewType = 1 somewhat overlaps with the Resources table, but is more convenient for some uses</td></tr>
+<tr> <td>CodeSystemListKey</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
+<tr> <td>ViewType</td> <td>integer</td> <td>False</td> <td>1 = all code systems in IG. 2 = all code systems used directly by this ig. 3 = all code systems used by this ig and it's dependencies</td></tr>
+<tr> <td>ResourceKey</td> <td>integer</td> <td>True</td> <td>Reference to Resources.Key (if from this IG)</td></tr>
+<tr> <td>Url</td> <td>string</td> <td>True</td> <td>CodeSystem.url</td></tr>
+<tr> <td>Version</td> <td>string</td> <td>True</td> <td>CodeSystem.version</td></tr>
+<tr> <td>Status</td> <td>string</td> <td>True</td> <td>CodeSystem.status</td></tr>
+<tr> <td>Name</td> <td>string</td> <td>True</td> <td>CodeSystem.name</td></tr>
+<tr> <td>Title</td> <td>string</td> <td>True</td> <td>CodeSystem.title</td></tr>
+<tr> <td>Description</td> <td>string</td> <td>True</td> <td>CodeSystem.description</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">CodeSystemListOIDs</td><td>OIDs for the Code Systems</td></tr>
+<tr> <td>CodeSystemListKey</td> <td>integer</td> <td>False</td> <td>Reference to CodeSystemList.CodeSystemListKey</td></tr>
+<tr> <td>OID</td> <td>string</td> <td>False</td> <td>OID for the code system</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">CodeSystemListRefs</td><td>All resources found that reference the code system</td></tr>
+<tr> <td>CodeSystemListKey</td> <td>integer</td> <td>False</td> <td>Reference to CodeSystemList.CodeSystemListKey</td></tr>
+<tr> <td>Type</td> <td>string</td> <td>False</td> <td>ResourceType</td></tr>
+<tr> <td>Id</td> <td>string</td> <td>False</td> <td>Resource Ig</td></tr>
+<tr> <td>ResourceKey</td> <td>integer</td> <td>True</td> <td>Reference to Resources.Key (if from this IG)</td></tr>
+<tr> <td>Title</td> <td>string</td> <td>True</td> <td>A human description of the resource  - if known</td></tr>
+<tr> <td>Web</td> <td>string</td> <td>True</td> <td>URL for reference to the resource</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">ValueSetList</td><td>List of all value sets for the IG. ViewType = 1 somewhat overlaps with the Resources table, but is more convenient for some uses</td></tr>
+<tr> <td>ValueSetListKey</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
+<tr> <td>ViewType</td> <td>integer</td> <td>False</td> <td>1 = all value sets in IG. 2 = all value sets used directly by this ig. 3 = all code systems used by this ig and it's dependencies</td></tr>
+<tr> <td>ResourceKey</td> <td>integer</td> <td>True</td> <td>Reference to Resources.Key (if from this IG)</td></tr>
+<tr> <td>Url</td> <td>string</td> <td>True</td> <td>ValueSet.url</td></tr>
+<tr> <td>Version</td> <td>string</td> <td>True</td> <td>ValueSet.version</td></tr>
+<tr> <td>Status</td> <td>string</td> <td>True</td> <td>ValueSet.status</td></tr>
+<tr> <td>Name</td> <td>string</td> <td>True</td> <td>ValueSet.name</td></tr>
+<tr> <td>Title</td> <td>string</td> <td>True</td> <td>ValueSet.title</td></tr>
+<tr> <td>Description</td> <td>string</td> <td>True</td> <td>ValueSet.description</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">ValueSetListOIDs</td><td>OIDs for the Value Sets</td></tr>
+<tr> <td>ValueSetListKey</td> <td>integer</td> <td>False</td> <td>Reference to ValueSetList.ValueSetListKey</td></tr>
+<tr> <td>OID</td> <td>string</td> <td>False</td> <td>OID for the value set</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">ValueSetListSystems</td><td>List of Code systems used by the value set</td></tr>
+<tr> <td>ValueSetListKey</td> <td>integer</td> <td>False</td> <td>Reference to ValueSetList.ValueSetListKey</td></tr>
+<tr> <td>URL</td> <td>string</td> <td>False</td> <td>A code system used by the value set</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">ValueSetListSources</td><td>List of stated source (= Code system source category)</td></tr>
+<tr> <td>ValueSetListKey</td> <td>integer</td> <td>False</td> <td>Reference to ValueSetList.ValueSetListKey</td></tr>
+<tr> <td>Source</td> <td>string</td> <td>False</td> <td>stated source ( Code system source category)</td></tr>
+
+<tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">ValueSetListRefs</td><td>All resources found that reference the value set</td></tr>
+<tr> <td>ValueSetListKey</td> <td>integer</td> <td>False</td> <td>Reference to ValueSetList.ValueSetListKey</td></tr>
+<tr> <td>Type</td> <td>string</td> <td>False</td> <td>Resource Type</td></tr>
+<tr> <td>Id</td> <td>string</td> <td>False</td> <td>Resource.id</td></tr>
+<tr> <td>ResourceKey</td> <td>integer</td> <td>True</td> <td>Reference to Resources.Key (if from this IG)</td></tr>
+<tr> <td>Title</td> <td>string</td> <td>True</td> <td>A human description of the resource  - if known</td></tr>
+<tr> <td>Web</td> <td>string</td> <td>True</td> <td>URL for reference to the resource</td></tr>
+
+</table>
 </div>
