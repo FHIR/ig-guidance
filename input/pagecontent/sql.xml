@@ -54,13 +54,46 @@ Documentation:
 <h3>View Definitions</h3>
 
 <p>
-Once the definition of ViewDefinition by the SQL on FHIR project settles, the IG publisher will provide 
-a way for Authors to register ViewDefinitions with the IG Publisher and then the IG publisher will 
-generate tables inb the SQLite DB for each of the registered View Definitions.
+You can use <a href="https://build.fhir.org/ig/FHIR/sql-on-fhir-v2/StructureDefinition-ViewDefinition.html">ViewDefinitions</a> 
+to generate custom SQL tables that are also added to the package.db file. These can be used when pages are generated (as above), 
+but might also be useful when the packages are used at run-time etc. 
 </p>
 <p>
-Authors wishing to take advantage of this will need to be aware that ViewDefinitions are experimental,
-and the defintion or the table created may change without warning. (for now)
+ViewDefinitions are registered with the IG publisher using one or more viewDefinition parameters in 
+the ImplementationGuide Resource that refer to the ViewDefinition to execute by the path to the local 
+JSON file that contains the ViewDefinition. Note that templates are able to register ViewDefinitions 
+using the same mechanism.
+</p>
+<p>
+Each ViewDefinition generates a table in the output package.db. Table names must be unique (including the list below).
+It's the responsibility of the IG author to ensure that the names (taken from ViewDefinition.name) have to be unique. 
+</p>
+<p><i>
+Note that ViewDefinitions are experimental, and the definition or the table created may change without warning. (for now)
+</i></p>
+
+<h4>Scope</h4>
+<p>
+By default, the view is executed against the resources defined in the Implementation Guide itself. If desired,
+additional resources can be brought into scope, but this might have a considerable performance penalty. To 
+specify additional package to bring into scope, use the extension <code>http://hl7.org/fhir/tools/StructureDefinition/view-definition-scope</code>.
+</p>
+<pre>
+<code class="json">
+{
+  "name" : "TableName",
+  "resource" : "StructureDefinition",
+  "extension" : [{
+    "url" : "http://hl7.org/fhir/tools/StructureDefinition/view-definition-scope",
+    "valueCode" : "mask"
+  }]
+}
+</code>
+</pre>
+<p>
+Where the mask is a package id that might include a wild card, e.g. <code>hl7.fhir.us.core</code>, or <code>hl7.fhir.*</code>, or just <code>*</code>.
+In any of these cases, the scope of the package specifier is limited to the set of packages that are in scope 
+for the IG by it's listed dependencies and the recursive dependencies of any of those packages.
 </p>
 
 <a name="base"> </a>
