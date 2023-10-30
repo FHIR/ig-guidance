@@ -1,0 +1,30 @@
+{
+  "name" : "ValueSetView",
+  "resource" : "ValueSet",
+  "extension" : [{
+    "url" : "http://hl7.org/fhir/tools/StructureDefinition/view-definition-scope",
+    "valueCode" : "*"
+  }],
+  "select" : [{
+    "column" : [{
+      "name" : "name",
+      "path" : "name"
+    }],
+    "unionAll"  : [{
+      "column" : [{
+        "path" : "$this.substring(8)",
+        "name" : "oid"
+      }],
+      "forEach" : "url.where(startsWith('urn:oid:'))"
+    },{
+      "column" : [{
+        "path" : "value.substring(8)",
+        "name" : "oid"
+      }],
+      "forEach" : "identifier.where(value.startsWith('urn:oid'))"
+    }]
+  }],
+  "where"  : [{
+    "path" : "ValueSet.name.exists()"
+  }]
+}

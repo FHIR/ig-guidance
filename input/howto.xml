@@ -130,5 +130,12 @@
       </code>       
       <value value="true"/>
     </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="viewDefinition"/>
+      </code>       
+      <value value="sql/sql-view-valueset.json"/>
+    </parameter>
   </definition>
 </ImplementationGuide>
