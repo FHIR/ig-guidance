@@ -541,6 +541,12 @@
     the id is the resource id, the suffix is 'intro' for introduction and 'notes' for notes. The extension is either md or xml depending on whether it's
     markdown or xhtml.
   </p>
+  <p>
+    The same can also be done for tabs within a particular artifact.  For example, putting intros or notes on the examples tab or mappings tab for a particular
+    profile or extension definition.  The syntax is: [ArtifactType]-[id]-[tabsuffix]-[suffix].[extension] where tabsuffix is the supplemental part of the page
+    name for that particular tab.  For example, if the URL of the 'mappings' tab for an artifact is "StructureDefinition-myprofile-mappings.html", to define
+    an intro markdown for that page, you would need to name the markdown file "StructureDefinition-myprofile-mappings-intro.md".
+  </p>
 
   <a name="warnings"> </a>
   <h5>Handling errors and warnings</h5>
