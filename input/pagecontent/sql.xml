@@ -90,6 +90,11 @@ Number of Metadata Items: &#123;&#8203;&#123; itemQuery[0].n &#x7D;&#x7D;
 </code>
 </pre>
 
+
+<p>
+This queries the Metadata table to count items, saves the results to <code>_data/itemQuery.json</code>, and then generate an HTML output including the count.
+</p>
+
 <p>
 Which produces this output:
 </p>
@@ -100,11 +105,6 @@ Which produces this output:
 %}
 
 Number of Metadata Items: {{ itemQuery[0].n }}
-</p>
-
-
-<p>
-This queries the Concepts table to get five codes and display values from the IG, saves the results to <code>_data/someConcepts.json</code>, and then iterates over that data to generate an HTML list.
 </p>
 
 <a name="view"> </a>
