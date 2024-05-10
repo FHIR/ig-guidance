@@ -50,6 +50,63 @@ Documentation:
  <li>Possible codes are: <code>a</code> (auto-detect), <code>s</code> (plain string, no auto-detect), <code>md</code> (treat as markdown), <code>l:x</code> (don't add the row; treat as the link for column x (1 based))</li>
 </ul>
 
+
+<a name="sqltodata"> </a>
+<h3>Embedding SQL Results as JSON Data</h3>
+
+<p>
+In addition to displaying SQL query results directly on the page, you can also execute a query and save the results as a JSON data file that can be used in Jekyll/Liquid templates. This allows you to query the IG database, generate JSON data, and then use that data to dynamically build content.
+</p>
+
+<p>
+To use this feature, use the <code>{&#8203;% sqlToData %}</code> tag with the following syntax:
+</p>
+
+<pre><code>{&#8203;% sqlToData myFileName SELECT ... %}</code></pre>
+
+<p>
+Where:
+</p>
+<ul>
+    <li><code>myFileName</code> is the name you want to give the <code>_data</code> JSON file (without ".json" extension). The same content will also be assigned to a liquid variable that you use to access the data in Jekyll.</li>
+  <li><code>SELECT ...</code> is your SQL query</li>
+</ul>
+
+<p>
+The query results will be saved to <code>_data/myFileName.json</code> and can be accessed in Jekyll using <code>site.data.myFileName</code>. The same content will be assigned to the <code>myFileName</code> variable in the current context. The result is an array of rows where reach rows is a JSON object whoe keys are column names and values are column values.
+</p>
+
+<p>
+For example:
+</p>
+
+<pre>
+<code>
+{&#8203;% sqlToData itemQuery
+  SELECT count(*) as n from metadata
+%}
+
+Number of Metadata Items: &#123;&#8203;&#123; itemQuery[0].n &#x7D;&#x7D; 
+</code>
+</pre>
+
+
+<p>
+This queries the Metadata table to count items, saves the results to <code>_data/itemQuery.json</code>, and then generate an HTML output including the count.
+</p>
+
+<p>
+Which produces this output:
+</p>
+
+<p>
+{% sqlToData itemQuery
+  SELECT count(*) as n from metadata
+%}
+
+Number of Metadata Items: {{ itemQuery[0].n }}
+</p>
+
 <a name="view"> </a>
 <h3>View Definitions</h3>
 
