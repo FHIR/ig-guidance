@@ -4,3 +4,9 @@ temp
 template
 output
 *.jar
+
+input/.DS_Store
+
+.DS_Store
+
+input-cache/txcache/

@@ -61,6 +61,12 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="languages.html"/>
+        <name value="languages.html"/>
+        <title value="Producing Multi-Language IGs"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="tooling.html"/>
         <name value="tooling.html"/>
         <title value="IG Tooling"/>
