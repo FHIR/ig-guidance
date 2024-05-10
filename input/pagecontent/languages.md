@@ -118,7 +118,9 @@ The easiest way to do this is to clone an [existing Language pack](https://githu
 rename the ig resource, and update the values in it.
 
 if the language pack is being maintained by an HL7 affiliate, the correct code for the language pack is ```hl7.fhir.[rX].[lang].xml``` where 
-rX is the version being translated e.g. ```r4```, and [lang] is the language and possibly region e.g. ```es``` for Spanish.
+rX is the version being translated e.g. ```r4```, and [lang] is the language and possibly region e.g. ```es``` for Spanish. If the language 
+pack is not maintained by an HL7 affiliate, then the name should not start with ```hl7```; what to use is at the discretion of the creating 
+authority.
 
 Then set up the content (this shows XML, but it can also be in JSON):
 
