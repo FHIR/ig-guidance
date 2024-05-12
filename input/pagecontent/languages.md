@@ -171,6 +171,26 @@ displays, and can provide the others if desired.
 This works like other IGs, and if you have an existing IG publication infrastructure, you can (/should)
 use that. If you don't, HL7 can publish the Language packs on your behalf (contact [the FHIR director](mailto:fhir-director@hl7.org)).
 
+#### Using the Language Pack
+
+The language pack can be read by humans, but also contains an NPM package that is distributed by 
+the FHIR NPM system. The NPM package contains a series of CodeSystem supplements that supplement
+the explicit or derived code system with a series of concepts that contain the alternate language content.
+
+All translation supplement resources may have translations provided for some metadata on the resource itself:
+* Name
+* Title
+* Purpose
+* Description
+* Publisher
+* Copyright
+
+The following resource types can be translated:
+
+* CodeSystem. CodeSystem supplements contain a flat list of codes that have translated content. In addition to the display, the definition, designations and string and markdown extensions may be translated. 
+* Questionnaire. Each questionnaire item creates a code for the item.id with the display of the item. prefixes, options, and initial values create subcodes (item@(thing)) so that they can be translated (if they are present) 
+* StructureDefinition. Each element definition in a structure/profile creates a code for the elementDefinition.id with the definition of the item. The properties requirements, comment, meaningWhenMissing, orderMeaning, isModifierMeaning and binding.description create subcodes (item@(thing)) so that they can be translated (if they are present) 
+
 ---
 
 ### Working with the Java Language files
@@ -234,4 +254,15 @@ The ```msgid_plural``` provides the english plural form, to help translators und
 
 ### External Terminologies & SNOMED CT Distribution
 
-**TODO**
+The IG publisher will automatically ask for content in the right language when it 
+consults a terminology server. The expectation of the terminology servers is that 
+if a display isn't available in the requested language, it'll fall back to the 
+default language, and some kind of default language will be used. Note that this
+is expected not to be in the desired language. 
+
+Terminology server authors should consult [this language documentation](https://github.com/FHIR/fhir-test-cases/blob/master/tx/languages.md)
+for the expectations of terminology servers in the IG publisher eco-system. 
+
+Choosing which SNOMED CT distribution isn't the same as choosing a language, but it's an interconnected 
+issue. You can specify which SNOMED CT distribution to use by
+
