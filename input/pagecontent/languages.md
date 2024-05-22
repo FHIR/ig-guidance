@@ -117,7 +117,7 @@ Create a non-FSH IG from scratch. Note: Shorthand/FSH is not used for language p
 The easiest way to do this is to clone an [existing Language pack](https://github.com/FHIR/hl7.fhir.r4.es), remove all the content in /input/translations, and 
 rename the ig resource, and update the values in it.
 
-if the language pack is being maintained by an HL7 affiliate, the correct code for the language pack is ```hl7.fhir.[rX].[lang].xml``` where 
+if the language pack is being maintained by an HL7 affiliate, the correct code for the language pack is ```hl7.fhir.[rX].[lang]``` where 
 rX is the version being translated e.g. ```r4```, and [lang] is the language and possibly region e.g. ```es``` for Spanish. If the language 
 pack is not maintained by an HL7 affiliate, then the name should not start with ```hl7```; what to use is at the discretion of the creating 
 authority.
@@ -176,6 +176,12 @@ use that. If you don't, HL7 can publish the Language packs on your behalf (conta
 The language pack can be read by humans, but also contains an NPM package that is distributed by 
 the FHIR NPM system. The NPM package contains a series of CodeSystem supplements that supplement
 the explicit or derived code system with a series of concepts that contain the alternate language content.
+These supplements can be hosted by a terminology service and made available to software to make use 
+of the translations (or they can read them directly). The NPM also includes the translations in the following 
+formats:
+* .po
+* .properties (Java)
+* .resx (DotNet)
 
 All translation supplement resources may have translations provided for some metadata on the resource itself:
 * Name

@@ -32,6 +32,12 @@
         <a href="sql.html">Working with SQL</a>
       </li>
       <li>
+        <a href="diagrams-plantuml.html">PlantUml Diagrams</a>
+      </li>
+      <li>
+        <a href="diagrams-mermaid.html">Mermaid Diagrams</a>
+      </li>
+      <li>
         <a href="languages.html">Writing Multi-lingual IGs</a>
       </li>
     </ul>

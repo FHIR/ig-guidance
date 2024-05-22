@@ -84,9 +84,15 @@
         <title value="IG Best Practices"/>
         <generation value="markdown"/>
         <page>
-          <sourceUrl value="diagrams.html"/>
-          <name value="diagrams.html"/>
-          <title value="Adding diagrams"/>
+          <sourceUrl value="diagrams-plantuml.html"/>
+          <name value="diagrams-plantuml.html"/>
+          <title value="Adding diagrams (PlantUml)"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="diagrams-mermaid.html"/>
+          <name value="diagrams-mermaid.html"/>
+          <title value="Adding diagrams (Mermaid)"/>
           <generation value="markdown"/>
         </page>
       </page>
