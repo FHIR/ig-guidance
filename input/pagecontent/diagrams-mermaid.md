@@ -30,6 +30,18 @@ graph TD;
 </div>
 ```
 
+If you're writing markdown, you can use a `<div>` as shown above, or you can use a <code>{% raw %}```mermaid{% endraw %}</code> code block like:
+
+````markdown
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+````
+
 It renders as:
 
 <div class="mermaid">
