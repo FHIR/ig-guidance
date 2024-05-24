@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ImplementationGuide xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../input-cache/schemas/r5/fhir-single.xsd">
   <id value="hl7.fhir.uv.howto"/>
+  <extension url="http://hl7.org/fhir/StructureDefinition/structuredefinition-wg">
+    <valueCode value="fmg"/>
+  </extension>
   <url value="http://hl7.org/fhir/uv/howto/ImplementationGuide/hl7.fhir.uv.howto"/>
   <version value="0.1.0"/>
   <name value="HowToCreateIGs"/>
   <title value="Guidance for FHIR IG Creation"/>
   <status value="draft"/>
   <experimental value="false"/>
-  <publisher value="HL7 International - FHIR Management Group"/>
+  <publisher value="HL7 International / FHIR Management Group"/>
   <contact>
     <telecom>
-      <system value="other"/>
-      <value value="http://hl7.org/Special/committees/fhirmg"/>
+      <system value="url"/>
+      <value value="http://www.hl7.org/Special/committees/fhirmg"/>
     </telecom>
   </contact>
   <description value="Provides guidance on the process to define implementation guides using the HL7 IG Publisher and HL7-managed IG templates.  It also provides guidance on 'best practices' around IG development and information about how to develop and maintain IG templates."/>
