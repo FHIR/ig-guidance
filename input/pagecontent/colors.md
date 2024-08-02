@@ -2,17 +2,6 @@
 Changing the IG colors can be done by manipulating the css variables, e.g. by overriding the color definition variables.
 
 
-<div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/1999/xhtml ../../schema/fhir-xhtml.xsd" xmlns="http://www.w3.org/1999/xhtml">
-<blockquote class="stu-note">
-	<strong>This note (styled 'stu-note') contains a warning message.</strong>
-	This message may be used to draw the readers' attention to some points, e.g. to request feedback, or be aware of any constraints, or disclaimers.
-</blockquote>
-</div>
-
-<p class="dragon">This box (styled 'dragon') serves to warn about issues or pitfalls</p>
-
-
-
 ### Color overview
 The colors that can be identified are:
 
