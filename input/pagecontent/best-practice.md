@@ -128,6 +128,9 @@ This box is styled 'dragon' serves to warn about issues or pitfalls
     * It's better to slice and set constraints that let you extract the specific repetition(s) you need than to prevent others from sending the data they have
     * If you constrain max, it means you're forcing implementations to create a custom implementation interface that just strips data out that could be
       ignored for free
+    * Patient harm can occur if information is blocked at the source.
+        * e.g.: Recent travel information may be irrelevant in many cases, until there is an outbreak of Ebola in a certain region, when it suddenly becomes a vital piece of information. Prohibiting the inclusion of recent travel information in that case will not allow a system or a person to adjust their business rules to reflect changed circumstances.
+        * e.g.: Setting the maximum cardinality to limit the number of medications that can be included could cause vital patient information to be lost.
 * Be cautious about constraints enforcing business rules
     * legacy data and/or external data may not comply
     * business rules will often change more frequently than systems do (and aren't constrained by backward-compatibility rules)
