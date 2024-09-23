@@ -71,7 +71,7 @@
       </tr>
       <tr>
         <td>
-          <a href="#root.input">[igroot]/input-cache</a>
+          <a href="#root.input-cache">[igroot]/input-cache</a>
         </td>
         <td>Contains downloaded and/or generated files that are typically retained across multiple runs of the publisher.  Some of the contents of this
           folder will typically also be managed under source control for performance reasons.  (Further discussion below.)</td>
@@ -337,7 +337,7 @@
     </tbody>
   </table>
 
-	<a name="root.input"> </a>
+	<a name="root.input-cache"> </a>
 	<h5>[igroot]/input-cache</h5>
 	<p>
     This section of the IG won't cover the content of this folder in great detail.  The main things to know are:
