@@ -80,6 +80,12 @@
           <title value="Adding diagrams"/>
           <generation value="markdown"/>
         </page>
+        <page>
+          <sourceUrl value="fragments.html"/>
+          <name value="fragments.html"/>
+          <title value="Adding Instance Fragments"/>
+          <generation value="html"/>
+        </page>
       </page>
       <page>
         <sourceUrl value="template.html"/>

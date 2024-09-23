@@ -337,7 +337,7 @@
     </tbody>
   </table>
 
-	<a name="root.input"> </a>
+	<a name="root.input-cache"> </a>
 	<h5>[igroot]/input-cache</h5>
 	<p>
     This section of the IG won't cover the content of this folder in great detail.  The main things to know are:
