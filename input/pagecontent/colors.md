@@ -95,4 +95,3 @@ To change the colors, simply override (by adding a new CSS) the values of the co
 }
 ```
 
-
