@@ -25,6 +25,13 @@
   <license value="CC0-1.0"/>
   <fhirVersion value="5.0.0"/>
   <definition>
+    <resource>
+      <reference>
+        <reference value="Patient/example"/>
+      </reference>
+      <name value="Example patient"/>
+      <description value="Example used to show the use of instance fragments"/>
+    </resource>
     <page>
       <sourceUrl value="toc.html"/>
       <name value="toc.html"/>
@@ -58,6 +65,12 @@
         <sourceUrl value="sql.html"/>
         <name value="sql.html"/>
         <title value="Working with SQL"/>
+        <generation value="html"/>
+      </page>
+      <page>
+        <sourceUrl value="fragments.html"/>
+        <name value="fragments.html"/>
+        <title value="Using Instance Fragments"/>
         <generation value="html"/>
       </page>
       <page>

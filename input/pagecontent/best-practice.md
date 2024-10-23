@@ -63,6 +63,36 @@ writing intuitive, consistent, clear and  concise IG text.
 * Explain the relationship of the IG to any other guides (both formal dependencies and informal relationships).  Also include a reference to the IG registry
   as a location to find more IGs of interest.
 
+#### Styles
+
+There are defined styles for narrative:
+
+* `stu-note`
+* `dragon`
+* `note-to-balloters`
+* `modified-content`
+* `new-content`
+* `feedback`
+
+<div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/1999/xhtml ../../schema/fhir-xhtml.xsd" xmlns="http://www.w3.org/1999/xhtml">
+<blockquote class="stu-note">
+	<strong>This note (styled 'stu-note') contains a warning message.</strong>
+	This message may be used to draw the readers' attention to some points, e.g. to request feedback, or be aware of any constraints, or disclaimers.
+</blockquote>
+</div>
+
+<div class="dragon">
+This box is styled 'dragon' serves to warn about issues or pitfalls
+</div>
+
+<p class="note-to-balloters">This paragraph is styled `note-to-balloters`</p>
+
+<p class="modified-content">This paragraph is styled `modified-content`</p>
+
+<p class="new-content">This paragraph is styled `new-content`</p>
+
+<p class="feedback">This paragraph is styled `feedback`</p>
+
 
 ### Images and Diagrams
 
@@ -98,6 +128,9 @@ writing intuitive, consistent, clear and  concise IG text.
     * It's better to slice and set constraints that let you extract the specific repetition(s) you need than to prevent others from sending the data they have
     * If you constrain max, it means you're forcing implementations to create a custom implementation interface that just strips data out that could be
       ignored for free
+    * Patient harm can occur if information is blocked at the source.
+        * e.g.: Recent travel information may be irrelevant in many cases, until there is an outbreak of Ebola in a certain region, when it suddenly becomes a vital piece of information. Prohibiting the inclusion of recent travel information in that case will not allow a system or a person to adjust their business rules to reflect changed circumstances.
+        * e.g.: Setting the maximum cardinality to limit the number of medications that can be included could cause vital patient information to be lost.
 * Be cautious about constraints enforcing business rules
     * legacy data and/or external data may not comply
     * business rules will often change more frequently than systems do (and aren't constrained by backward-compatibility rules)

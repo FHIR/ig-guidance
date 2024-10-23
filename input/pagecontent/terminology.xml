@@ -49,6 +49,9 @@
           <a href="#version-binding">Should bindings be to specific value set versions?</a>
         </li>
         <li>
+          <a href="#codesystem-version">Should codings require CodeSystem version?</a>
+        </li>
+        <li>
           <a href="#fixed">Should codes have 'fixed' or 'pattern' values?</a>
         </li>
         <li>
@@ -359,7 +362,7 @@
       and can be done more quickly, making non-versioned references appealing if adaptation is expected to be necessary between IG releases.</li>
   </ul>
 
-  <a name="version-binding"> </a>
+  <a name="codesystem-version"> </a>
   <h4>Should codings require CodeSystem version?</h4>
   <p>
     The <a href="{{site.data.fhir.path}}datatypes.html#Coding">Coding</a> data type allows declaring the version of the code system that is represented,

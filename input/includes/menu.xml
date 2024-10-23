@@ -32,6 +32,9 @@
         <a href="sql.html">Working with SQL</a>
       </li>
       <li>
+        <a href="fragments.html">Using Instance Fragments</a>
+      </li>
+      <li>
         <a href="diagrams-plantuml.html">PlantUml Diagrams</a>
       </li>
       <li>
