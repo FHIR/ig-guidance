@@ -28,28 +28,74 @@ Notes for Authors:
 <ul>
  <li>Authors wishing to use SQL should use an SQLite3 tool to develop their queries against package.db</li>
  <li>The tables in the package.db are a moving target. See below for documentation</li>
+ <li>If authors wish to affect the output, they can instead use the json format for the query, which looks like this:</li>
 </ul>
- <li>If authors wish to affect the output, they can include a display string before the display like this:</li>
 
 <pre>
-{&#8203;% sql fmt:lines;a;md;l:1 select name as Name, Description, web from Resources %}
+{&#8203;% sql {
+  "query" : "select name as Name, Description, web from Resources",
+  "class" : "lines",
+  "columns" : [
+    { "name" : "Name", "type" : "link", "source" : "Name", "target" : "web"},
+    { "name" : "Description", "type" : "markdown", "source" : "Description"}
+  ]
+} %}
 </pre>
 <p>
 Which produces this table: 
 </p>
 
-{% sql fmt:lines;a;md;l:1 select name as Name, Description, web from Resources %}
+{% sql {
+  "query" : "select name as Name, Description, web from Resources",
+  "class" : "lines",
+  "columns" : [
+    { "name" : "Name", "type" : "link", "source" : "Name", "target" : "web"},
+    { "name" : "Description", "type" : "markdown", "source" : "Description"}
+  ]
+} %}
+
+
+<a name="json"> </a>
+<h3>JSON Control format</h3>
 
 <p>
-Documentation:
+The JSON format has the following properties:
 </p>
 <ul>
- <li>The syntax is <code>fmt:</code> followed by a series of semi-colon delimited codes</li>
- <li>The first code is the css style to use for the table. If it's blank, <code>grid</code> will be used (the default). Look in the css to see what styles are defined</li>
- <li>The rest of the codes are the format control for the each column. Any columns not listed are treated as <code>AutoDetect</code></li>
- <li>Possible codes are: <code>a</code> (auto-detect), <code>s</code> (plain string, no auto-detect), <code>md</code> (treat as markdown), <code>l:x</code> (don't add the row; treat as the link for column x (1 based))</li>
+ <li><b>query</b>: the sql to execute</li>
+ <li><b>class</b>: the css class name for the table. Default = grid</li>
+ <li><b>titles</b>: A boolean for whether to include column titles. Default = true</li>
+ <li><b>columns</b>: A JSON array with a list of column objects. If this is empty, or missing, the columns will be auto-populated with a type if 'auto'</li>
 </ul>
 
+<p>
+Each column has one of more of the following properties:
+</p>
+<ul>
+ <li><b>source</b>: The SQL result field from which the column value is taken. The column will be blank if there is no value. Madatory</li>
+ <li><b>title</b>: The name to give to the column. Defaults to the <code>source</code> if not provided</li>
+ <li><b>type</b>: The type of the data in the column - see below</li>
+ <li><b>target</b>: The result field that contains the target - see in the type table</li>
+ <li><b>system</b>: A fixed URL or the result field that contains the code system URL - see in the type table</li>
+ <li><b>display</b>: The result field that contains the code display - see in the type table</li>
+ <li><b>version</b>: The result field that contains the code version - see in the type table</li>
+</ul>
+
+<p>
+This table summarises the types of column:
+</p>
+
+<table class="grid">
+ <tr><td><b>Type</b></td><td><b></b>Description</td></tr>
+ <tr><td>auto</td><td>The type of the content will be automatically interprted as best as it can be from the value of the cell e.g. text, markdown, or canonical or URL</td></tr>
+ <tr><td>link</td><td>The column is rendered as a link where the source column is the text, and the target column contains the URL</td></tr>
+ <tr><td>text</td><td>The column is rendered as plain text</td></tr>
+ <tr><td>markdown</td><td>The column is rendered as markdown</td></tr>
+ <tr><td>url</td><td>The column is rendered as a URL using the URL as the target</td></tr>
+ <tr><td>canonical</td><td>The column is rendered as a link to the canonical resource identified in the source result fiel</td></tr>
+ <tr><td>resource</td><td>The column is rendered as a link to an IG authored resource, using the best name known. The result field is a getResourceKey() or getReferenceKey() value</td></tr>
+ <tr><td>coding</td><td>The column is rendered as a coded value using the source as the code, and the system, version and display as provided, if available</td></tr>
+</table>
 
 <a name="sqltodata"> </a>
 <h3>Embedding SQL Results as JSON Data</h3>
@@ -113,7 +159,7 @@ Number of Metadata Items: {{ itemQuery[0].n }}
 <p>
 You can use <a href="https://build.fhir.org/ig/FHIR/sql-on-fhir-v2/StructureDefinition-ViewDefinition.html">ViewDefinitions</a> 
 to generate custom SQL tables that are also added to the package.db file. These can be used when pages are generated (as above), 
-but might also be useful when the packages are used at run-time etc. 
+but might also be useful when the packages are used at run-time etc. The outputs are also saved to a json file with the same name as the name of the view definition.
 </p>
 <p>
 ViewDefinitions are registered with the IG publisher using one or more viewDefinition parameters in 
@@ -123,13 +169,15 @@ using the same mechanism.
 </p>
 <p>
 Each ViewDefinition generates a table in the output package.db. Table names must be unique (including the list below).
-It's the responsibility of the IG author to ensure that the names (taken from ViewDefinition.name) have to be unique. 
+It's the responsibility of the IG author to ensure that the names (taken from ViewDefinition.name) are unique. 
 </p>
 <p><i>
 Note that ViewDefinitions are experimental, and the definition or the table created may change without warning. (for now)
 </i></p>
 
+<a name="scope"> </a>
 <h4>Scope</h4>
+
 <p>
 By default, the view is executed against the resources defined in the Implementation Guide itself. If desired,
 additional resources can be brought into scope, but this might have a considerable performance penalty. To 
