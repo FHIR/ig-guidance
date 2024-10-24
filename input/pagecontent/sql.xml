@@ -9,7 +9,7 @@
   </p>
 
 <pre>
-{&#8203;% sql select Name, Value from Metadata %}
+{%! sql select Name, Value from Metadata %}
 </pre>
 
 <p>
@@ -32,7 +32,7 @@ Notes for Authors:
 </ul>
 
 <pre>
-{&#8203;% sql {
+{%! sql {
   "query" : "select name as Name, Description, web from Resources",
   "class" : "lines",
   "columns" : [
@@ -108,7 +108,7 @@ In addition to displaying SQL query results directly on the page, you can also e
 To use this feature, use the <code>{&#8203;% sqlToData %}</code> tag with the following syntax:
 </p>
 
-<pre><code>{&#8203;% sqlToData myFileName SELECT ... %}</code></pre>
+<pre><code>{%! sqlToData myFileName SELECT ... %}</code></pre>
 
 <p>
 Where:
@@ -128,7 +128,7 @@ For example:
 
 <pre>
 <code>
-{&#8203;% sqlToData itemQuery
+{%! sqlToData itemQuery
   SELECT count(*) as n from metadata
 %}
 
