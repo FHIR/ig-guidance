@@ -285,11 +285,11 @@
             contents apart based on the type of content - generally to make it easier to find files.
           </p>
           <p>
-            Narrative content for the IG can be authored using either markdown (.md files) or XHTML (.xml files).  See
+            Narrative content for the IG can be authored using either markdown (.md files) or XHTML (.xml files). See
             <a href="#narrative-fmt">narrative formats</a>.
             The processing of the content of the page folders will vary.  Those .md and .xml files named to act as intro sections or notes sections will
             be injected into the base web pages for their respective resources.  Other .md and .xml files will be processed and turned into HTML pages
-            representing the narrative content for the IG.  All other files will be copied to the output folder unchanged.
+            representing the narrative content for the IG.
           </p>
           <p>
             Additional guidance on what sort of pages to create - as well as how to organize them can be found <a href="#pages">below</a>
@@ -301,7 +301,6 @@
             <li>pages (for the markdown or XHTML page content)</li>
             <li>pagecontent (same purpose as pages - use whichever name you prefer)</li>
             <li>intro-notes (intended for -intro and -notes files -see <a href="#intros">below</a> for more details.</li>
-            <li>images (for jpg, png and other image files - or any binary content that should be copied to the published website.</li>
           </ul>
         </td>
       </tr>
@@ -322,6 +321,15 @@
           <p>
             NOTE: The representation of menus is more complicated than we'd like it to be - we hope to come up with a simpler way to represent this
             content in the future.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>images</td>
+        <td>
+          <p>
+            For .jpg, .png and other image files - or any binary content that should be
+            copied to the published website. Files will be copied to the output folder unchanged.
           </p>
         </td>
       </tr>
