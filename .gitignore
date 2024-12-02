@@ -11,3 +11,5 @@ input/.DS_Store
 
 input-cache/txcache/
 /FHIR-howto.xml
+
+tests/Patient-data.json

@@ -1,0 +1,48 @@
+{
+  "resourceType" : "Bundle",
+  "id" : "b0a5e4277-83c4-4adb-87e2-e3efe3369b6f",
+  "meta" : {
+    "lastUpdated" : "{{ Globals.dateTime }}"
+  },
+  "type" : "collection",
+  "entry" : [
+  {%  for row in rows %} 
+  {
+    "fullUrl" : "http://hl7.org/fhir/Patient/{{ row.counter }}",
+    "resource" : {
+      "resourceType" : "Patient",  
+      "id" : "{{ row.counter }}",
+      "meta" : {
+        "lastUpdated" : "{{ Globals.dateTime }}"
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">{{ row.last_name }}, {{ row.first_name }}. MRN: {{ row.patient_id}} </div>",
+      }
+      "identifier:" : [{
+        "type" : {
+          "coding" : {
+            "system" : "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code" : "SS"
+          }
+        }
+        "system" : "https://github.com/projectcypress/cypress/patient",
+        "value" : "{{ row.patient_id }}",
+      }],
+      "active"  : "true",
+      "name" : [{
+        "use" : "official",
+        "family" : "{{ row.last_name }}",
+        "given" : "{{ row.first_name }}"
+      }],
+      "gender" : "{{ row.gender }}",
+      "birthDate" : "{{ row.birthdate }}",
+      "managingOrganization" : {
+        "reference" : "Organization/{{ row.organization }}",
+      }
+    }
+  }
+  {% endfor %}
+  ]
+}
+    

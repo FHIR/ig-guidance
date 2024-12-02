@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas/R5/fhir-single.xsd">
+  <p>
+    This page includes frequently asked questions related to the injection of JSON and XML into the narrative portion of implementation guides (IGs).  
+  </p>
+  <p>
+    A JSON or an XML file can be presented in a page content like this:
+  </p>
+
+<pre>
+{%! json tests/testcases.json liquid/testcases.liquid %}
+</pre>
+
+<p>
+This feature is used to allow the presentation of information from arbitrary JSON 
+and XML files into the page HTML. The primary anticipated use of this feature is 
+to present documentation about the test cases includiung in the IG (using the 
+<a href="https://hl7.org/fhir/tools/CodeSystem-ig-parameters.html#ig-parameters-path-test">path-test</a>
+parameter). Typically, these test cases have a JSON or an XML file (or files) that 
+describe the tests in terms of suites, tests etc. A custom author provided liquid 
+template takes the information in the selected file, and presents that as HTML so
+that the test cases (or other content) can be generated directly from the source 
+without having to maintain the information twice with the risk of divergence.
+</p>
+<p>
+It's not anticipated that this feature will be used with FHIR resources, though 
+since they are JSON or XML files, they can be treated in this fashion too.
+</p>
+
+<p>
+The syntax is simple: 
+</p>
+<ul>
+ <li>Either <code>json</code> or <code>xml</code></li>
+ <li>The name of the file to load, relative to the root folder that contains the <code>ig.ini</code> file</li>
+ <li>The name of the liquid template to use to present the data.</li>
+</ul>
+
+<p>
+The liquid syntax is <a href="https://confluence.hl7.org/display/FHIR/FHIR+Liquid+Profile">the
+FHIR variant of the basic liquid syntax</a>, which uses FHIRPath for expressions. For arbitrary
+JSON and XML files, there is no type information available to the FHIRPath engine, and in XML, the 
+engine can't differentiate between attributes and elements that have the same name. Also note 
+that filters are introduced with a <code>||</code> since a single <code>|</code> is a FHIRPath 
+operator.
+</p>
+
+
+</div>

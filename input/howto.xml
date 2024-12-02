@@ -68,6 +68,12 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="jsonxml.html"/>
+        <name value="jsonxml.html"/>
+        <title value="Presenting JSON and XML files"/>
+        <generation value="html"/>
+      </page>
+      <page>
         <sourceUrl value="fragments.html"/>
         <name value="fragments.html"/>
         <title value="Using Instance Fragments"/>
@@ -83,6 +89,12 @@
         <sourceUrl value="tooling.html"/>
         <name value="tooling.html"/>
         <title value="IG Tooling"/>
+        <generation value="html"/>
+      </page>
+      <page>
+        <sourceUrl value="testfactory.html"/>
+        <name value="testfactory.html"/>
+        <title value="Working with Test Data Factories"/>
         <generation value="html"/>
       </page>
       <page>
@@ -161,6 +173,13 @@
         <code value="viewDefinition"/>
       </code>       
       <value value="input/sql/sql-view-valueset.json"/>
+    </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="test-data-factory"/>
+      </code>       
+      <value value="factories/factory.ini"/>
     </parameter>
   </definition>
 </ImplementationGuide>

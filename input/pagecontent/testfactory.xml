@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas/R5/fhir-single.xsd">
+  
+  <p>
+    The IG publisher can generate a set of resources in a test data directory from a spreadsheet.
+    The factory is controlled by an inifile that sets up the parameters for the factory.
+  </p>
+
+<pre>
+[factory]
+liquid={template-file}
+data={data-file}
+format=json | xml
+filename={filename}}
+mode=bundle | instance
+output={test-folder}
+</pre>
+
+<p>
+where:
+</p>
+<ul>
+<li><b>template-file</b> is a relative path to a liquid template that uses <a href="https://confluence.hl7.org/display/FHIR/FHIR+Liquid+Profile">the
+  FHIR variant of the basic liquid syntax</a>, which uses FHIRPath for expressions</li>
+<li><b>data-file</b>: A relative path to a CSV file containing the data, where the first row contains the names of the columns</li>
+<li><b>filename</b>: A script that controls the name of the output file </li>
+<li><b>test-folder</b>: the folder where the output will be created</li>
+</ul>
+
+<p>
+The publisher reads the data, and then what happens depends on the mode.
+</p>
+
+<h4>Processing rules</h4>
+
+<p>
+The spreadsheet should not contain any names containing spaces, or '-'. 
+Also, the sheet cannot contain a column named 'counter'.
+</p>
+<p>
+The liquid template does not need to get the commas correct in json - the json is reprocessed once the liquid script is complete 
+to fix up the commas.
+</p>
+
+<h4>Bundle Mode</h4>
+
+<p>
+The liquid template is passed once, and the property <code>rows</code> contains the row data.
+Once the liquid template has been run, the output is stored in the named file. 
+</p>
+
+<h4>Instance Mode</h4>
+
+<p>
+The liquid template is processed once for each row. The available properties are those found in the spreadsheet. 
+Once the liquid template has been run, the output is stored in the file as named by the name property, which can also use liquid tags for columns in the data. 
+</p>
+
+
+</div>

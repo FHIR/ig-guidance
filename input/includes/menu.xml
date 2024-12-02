@@ -32,6 +32,9 @@
         <a href="sql.html">Working with SQL</a>
       </li>
       <li>
+        <a href="jsonxml.html">Presenting JSON and XML content</a>
+      </li>
+      <li>
         <a href="fragments.html">Using Instance Fragments</a>
       </li>
       <li>
@@ -42,6 +45,9 @@
       </li>
       <li>
         <a href="languages.html">Writing Multi-lingual IGs</a>
+      </li>
+      <li>
+        <a href="testfactory.html">Using Test Data Factories</a>
       </li>
     </ul>
   </li>
