@@ -36,6 +36,10 @@
         "given" : "{{ row.first_name }}"
       }],
       "gender" : "{{ row.gender }}",
+      "address" : [{
+        "use" : "official",
+        "country" : "{{ countries.cell(Globals.random(245)+1, 'name') }}"
+      }],
       "birthDate" : "{{ row.birthdate }}",
       "managingOrganization" : {
         "reference" : "Organization/{{ row.organization }}",

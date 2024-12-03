@@ -11,9 +11,12 @@
 liquid={template-file}
 data={data-file}
 format=json | xml
-filename={filename}}
+filename={filename}
 mode=bundle | instance
 output={test-folder}
+
+[table]
+name=file
 </pre>
 
 <p>
@@ -31,6 +34,7 @@ where:
 The publisher reads the data, and then what happens depends on the mode.
 </p>
 
+<a name="processing"> </a>
 <h4>Processing rules</h4>
 
 <p>
@@ -42,6 +46,7 @@ The liquid template does not need to get the commas correct in json - the json i
 to fix up the commas.
 </p>
 
+<a name="bundle"> </a>
 <h4>Bundle Mode</h4>
 
 <p>
@@ -49,6 +54,7 @@ The liquid template is passed once, and the property <code>rows</code> contains 
 Once the liquid template has been run, the output is stored in the named file. 
 </p>
 
+<a name="instance"> </a>
 <h4>Instance Mode</h4>
 
 <p>
@@ -56,5 +62,19 @@ The liquid template is processed once for each row. The available properties are
 Once the liquid template has been run, the output is stored in the file as named by the name property, which can also use liquid tags for columns in the data. 
 </p>
 
+<a name="data"> </a>
+<h4>Data Lookup</h4>
+<p>
+The <code>[tables]</code> section contains a list of named files. 
+The data in the files will be available in the liquid template using 
+<code>[name].cell(row, col)</code> where:
+</p>
+
+<ul>
+<li><code>[name]</code> is the name in the ini file</li>
+<li>the file contains data in csv format</li>
+<li><code>cell(row,col)</code> gives access to the data. 
+ Row is an integer, and column is either an integer or a name</li>
+</ul>
 
 </div>
