@@ -98,6 +98,12 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="testing.html"/>
+        <name value="testing.html"/>
+        <title value="Testing Support"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="using-templates.html"/>
         <name value="using-templates.html"/>
         <title value="Using the HL7 Templates"/>

@@ -3,11 +3,12 @@
   
   <p>
     The IG publisher can generate a set of resources in a test data directory from a spreadsheet.
-    The factory is controlled by an inifile that sets up the parameters for the factory.
+    The factory is controlled by an ini file that sets up the parameters for the factory.
   </p>
 
 <pre>
 [factory]
+profile={url}
 liquid={template-file}
 data={data-file}
 format=json | xml
@@ -23,9 +24,12 @@ name=file
 where:
 </p>
 <ul>
-<li><b>template-file</b> is a relative path to a liquid template that uses <a href="https://confluence.hl7.org/display/FHIR/FHIR+Liquid+Profile">the
+<li>You nominate either profile, or a liquid template</li>
+<li><b>profile url</b>: the URL of a profile to use as the template for generating the instance</li>
+<li><b>template-file</b>: a relative path to a liquid template that uses <a href="https://confluence.hl7.org/display/FHIR/FHIR+Liquid+Profile">the
   FHIR variant of the basic liquid syntax</a>, which uses FHIRPath for expressions</li>
-<li><b>data-file</b>: A relative path to a CSV file containing the data, where the first row contains the names of the columns</li>
+<li><b>data-file</b>: A relative path to a CSV or excel file containing the data, where the first row contains the names of the columns</li>
+<li><b>data-mapping</b> <i>(optional)</i>: A json file describing how the data file maps into the generated instances (see below)</li>
 <li><b>filename</b>: A script that controls the name of the output file </li>
 <li><b>test-folder</b>: the folder where the output will be created</li>
 </ul>
@@ -34,16 +38,33 @@ where:
 The publisher reads the data, and then what happens depends on the mode.
 </p>
 
+<a name="liquid"> </a>
+<h4>Liquid Templates</h4>
+<p>
+A liquid template is conceptually simple: a liquid template that constructs an instance of a resource from a set of data. 
+The author provides the template, and the data generation is predictable - just based on what the template and the data source provide.
+E.g. the data source as a set of columns and the liquid template refers to the columns, laying them out in the resource.
+</p>
+
+<a name="liquid"> </a>
+<h4>Profile Based Generation</h4>
+<p>
+Profile based generation works differently - there is no script laying out the content. Instead, the instances are generated 
+using random data based on the defined profile, including fixed values and pattern values. In addition, data may be included
+from a csv or excel table that provides data to use to inject in the resources at the appropriate locations. 
+See <a href="#DataMapping"> below</a>.
+</p>
+
 <a name="processing"> </a>
 <h4>Processing rules</h4>
 
 <p>
-The spreadsheet should not contain any names containing spaces, or '-'. 
-Also, the sheet cannot contain a column named 'counter'.
+The spreadsheet should not contain any names containing spaces, or '-'. Also, the sheet cannot contain a column named 'counter'.
+Or else a data mapping file must be used (see below).
 </p>
 <p>
-The liquid template does not need to get the commas correct in json - the json is reprocessed once the liquid script is complete 
-to fix up the commas.
+For a liquid template, the template does not need to get the commas correct in json - the json is reprocessed once the liquid script is complete 
+to fix up the commas. (it must produce valid <a href="https://json5.org">json5</a> output)
 </p>
 
 <a name="bundle"> </a>
