@@ -95,7 +95,7 @@
         <sourceUrl value="testfactory.html"/>
         <name value="testfactory.html"/>
         <title value="Working with Test Data Factories"/>
-        <generation value="html"/>
+        <generation value="markdown"/>
       </page>
       <page>
         <sourceUrl value="testing.html"/>
