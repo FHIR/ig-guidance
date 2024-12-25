@@ -183,9 +183,9 @@
     <parameter>
       <code>
         <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
-        <code value="test-data-factory"/>
+        <code value="test-data-factories"/>
       </code>       
-      <value value="factories/factory.ini"/>
+      <value value="factories/factories.json"/>
     </parameter>
   </definition>
 </ImplementationGuide>

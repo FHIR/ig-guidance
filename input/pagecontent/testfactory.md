@@ -1,16 +1,16 @@
-The IG publisher can generate a set of resources in a test data directory from a spreadsheet.
-The factory is controlled by an ini file that sets up the parameters for the factory.
+The IG publisher can generate a set of resources in a test data directory from a table of data.
+The factory is controlled by an json file that sets up the parameters for the factory.
 
 There are two kinds of factories: 
 * Liquid Template
 * Profile Generation
 
-Note that you can have multiple factories that reuse the same data files
+Note that you can have multiple factories that reuse the same source data tables
 
 ### Liquid Templates
 
 A liquid template is conceptually simple: a liquid template that constructs an instance of a resource from a set of data. 
-The author provides the template, and the data generation is predictable - just based on what the template and the data source provide.
+The author provides the liquid script, and the data generation is predictable - just based on what the template and the data source provide.
 E.g. the data source as a set of columns and the liquid template refers to the columns, laying them out in the resource. One instance
 is created for each row in the column. 
 
@@ -27,57 +27,98 @@ Profile based generation works differently - there is no script laying out the c
 are generated based on the defined profile, including fixed values, pattern values and bindings. The data used
 in these generated test instances comes from one of three sources (in order of preference):
 
-* Locally provided data in the form of a spreadsheet with a mapping script (see below)
+* Locally provided data in the form of a spreadsheet with mapping details (see below)
 * All the data used in published examples in the FHIR ecosystem
 * Randomly generated garbage data (if there's nothing from the ecosystem)
 
 The details of how the locally provided data works is described below. 
 
+### Defining a Test Factory
+
+Test Data Factories are defined using the parameter `test-data-factories`:
+
+```xml
+  <parameter>
+    <code>
+      <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+      <code value="test-data-factories"/>
+    </code>       
+    <value value="factories/factories.json"/>
+  </parameter>
+```
+
+Multiple `test-data-factories` are allowed, but since each json file can define multiple 
+factories, there's usually only one entry. By convention, factories are defined in the 
+folder 'factories' but this is not required. The value points to an json file with this format:
+
 ### Test Factory Control File
 
-```ini
-[factory]
-type=liquid|template
-data={data-file}
-liquid={template-file}
-profile={url}
-mappings={mapping-file}
-filename={filename}
-format=json | xml
-bundle=true|false
-log={log-name}
+```json5
+{
+  "factories-version" : 1,
+  "factories" : [{
+    // one entry for each factory
+  }
+}
+````
 
-[table]
-name=file
+Each entry in the factory control file has the following format:
+
+```json5
+{
+  "name" : "{factory-name}",
+  "type" : "liquid|profile",
+  "liquid" : "{template-file}",
+  "profile" : "{url}",
+  "data" : "{data-source}",
+  "filename" : "{filename}",
+  "format" : "json|xml",
+  "bundle" : true|false,
+  "tables" : {
+    "name" : "{data-source}",
+  },
+  "filter" : "{fhirpath expression}",
+  "mappings" : [{
+    // mapping details - see below
+  }]
 ```
 
 where:
 
-* `type` - whether to use a liquid template or the profile driven factory
-* `data-file`: A relative path to a CSV or excel file containing the data, where the first row contains the names of the columns
-* `liquid`: a relative path to a liquid template that builds a resource 
-* `profile`: the URL of a profile to use as the template for generating the instance
-* `mapping`: A json file describing how the data file maps into the generated instances (described below)
-* `filename`: A script that controls the name of the output file (see immediately below)
-* `format`: the format of the generated file (doesn't have to match the format that a liquid template produces)
-* `bundle`: if true, the generated resources will be wrapped into a bundle and only a single file created
-* `log`: the name by which the factory should be logged (see below)
+* `name` (**mandatory**): the name of the factory
+* `type` (**mandatory**): whether to use a liquid template or the profile driven factory
+* `data-source` (**mandatory**): A path to a source data table containing the data to drive generation (see below)
+* `liquid` (**if liquid**): a relative path to a liquid template that builds a resource 
+* `profile` (**if profile**): the URL of a profile to use as the template for generating the instance
+* `filename` (**mandatory**): A script that controls the name of the output file (see immediately below)
+* `format` (optional): the format of the generated file (doesn't have to match the format that a liquid template produces)
+* `bundle` (optional): if true, the generated resources will be wrapped into a bundle and only a single file created
+* `tables` (optional): other tables
+* `filter` (optional): if present, a FHIR Path expression that must evaluate to true or the row is ignored when processing the source data
+* `mapping` (**if profile**): Describes how the data table maps into the generated instances (described below)
 * As specified in the mode, you nominate either a liquid template or a profile and a mapping script.
 
-Also, you can nominate other tables, where the table is a relative path to a CSV or excel file containing a table of data.
+### Source Data Tables 
+
+Source Data can be provided in multiple different forms:
+
+* As a text file containing comma separated values (.csv)
+* As an excel spreadsheet file (.xlsx). Note that you nominate the sheet name by appending `;{name}` to the filename. In the absence of a sheet name, the first sheet will be used.
+* An SQLite db file (*.db). Note that you nominate the table or view name by appending `;{name}` to the filename (required)
+* A value set. Nominate the canonical URL of the ValueSet. 
+
+For both .csv and .xlsx, the first row contains the names of the columns.
+
+For all data sources, an additional column named `counter` is created, which is the index of the 
+current row, a serially incrementing number starting a `1`. None of the data sources can provide a 
+column name 'counter' of their own.
 
 ### Output Filename
 
 The output filename controls where the generated data goes. It is a relative path (relative to the repository root folder).
 When `bundle=true`, it's a static filename for the single bundle produced by the generation. In the case where individual
-resources are produced, the filename is a script that looks like this: `test/$type$-{$id}.json`
-
-The following variables can be used in the filename: 
-
-* `$type$` - the resource type 
-* `$id$` - the id of the resource
-* `$counter$` - a factory scoped serially incrementing counter starting at 1
-* `$format$` - either json or xml depending on the format for the factory
+resources are produced, the filename is a script that looks like this: `test/Patient-{$counter$}.json`, where any `$xxx$` 
+will be interpreted as a reference to a named column in the primary data source
 
 ### Generation Log
 
@@ -86,30 +127,45 @@ One reason it's provided is to help users see the paths in the profile generatio
 
 ### Liquid Processing Rules
 
-The spreadsheet should not contain any names containing spaces, or '-'. Also, the sheet cannot contain a column named 'counter'.
-Or else a data mapping file must be used (see below).
+The liquid template must produce resources in the specified format. If the template produces JSON, the commas do
+not need to be correct - the json is reprocessed once the liquid script is complete to fix up the commas (it 
+must produce valid <a href="https://json5.org">json5</a> output).
 
-For a liquid template, the template does not need to get the commas correct in json - the json is reprocessed once the liquid script is complete 
-to fix up the commas. (it must produce valid <a href="https://json5.org">json5</a> output)
+{% raw %}
+Each row of the data table is passed to the liquid template as a 'row' object whose properties are the named columns
+in the data table. E.g. if the data table has a column `name`, then the liquid statement `{{ row.name }}` inserts 
+the value of the name column in the row. The data table should not contain any names containing spaces, or '-'.
+{% endraw %}
+
+The liquid template can produce a resource of any type (doesn't have to produce the same type). If `bundle=true`, the 
+Liquid template should not produce a Bundle resource unless the desire is to have a Bundle of Bundles - the liquid 
+script will run once for each row of data.
 
 #### Data Lookup
 
-The `[tables]` section in the ini file contains a list of named files. 
+The `tables` section of the configuration contains a list of named files. 
 The data in the files will be available in the liquid template using 
 `[name].cell(row, col)` where:
 
 * `[name]` is the name in the ini file
 * `cell(row,col)` gives access to the data. Row is an integer (1 based), and column is either an integer (1 based) or a name
+* `lookup(lookupCol, value, outputCol)` looks up a value in lookupCol, and returns the value in outputCol (or null)
+
+#### Globals
+
+In addition, a Global object is available as `Globals.` which has the following properties:
+* `dateTime`: the date and time in FHIR format of the instant that processing started 
+* `path`: the path to the base FHIR specification (correct version path)
 
 ### Profile Based Generation
 
 In this mode, the instances are generated based on the information in the profile.
 The tighter the profile, the more coherent the generated instance will be.
 
-The intention of the spreadsheet approach is to support a user provided database. For this reason, 
-the source has two parts: the source data, and a mappings script that describes how data in the 
-spreadsheet is converted to FHIR data. The intention here is to support non-technical (e.g. clinical) 
-users to provide the sample data. One instance is created per table row.
+If provided, an instance will be generated for each row in the primary data source. 
+The intention with regard to the primary data source is to support user provided information. 
+For this reason, there is a mapping table that maps between the source source data and proper FHIR data. 
+The intention here is to support non-technical (e.g. clinical) users to provide the sample data.
 
 Because the data providers aren't expected or required to be technical, here's a list of things the mapping script 
 can do to massage the data into shape ready to go in a resource: 
@@ -119,36 +175,51 @@ can do to massage the data into shape ready to go in a resource:
 * extract a value from a column text 
 * look up a value based on a number/code
 
-The mapping script looks like this:
+Entry mapping entry looks like this:
 
 ````json5
 {
-  "format-version" : 1,
-  "values" : [{
-    "path" : "{path}",
-    "source" : [{
-      "property" : "{prop-name}",
-      "column" : "{name}",
-      "regex" : "{regex}",
-      "constant" : "value"
-    }]
+  "path" : "{path}",
+  "fhirType" : "{type}",
+  "if" : "{fhirpath expression}",
+  "expression" : "{fhirpath expression}",
+  "parts" : [{
+    "name" : "{prop-name}",
+    "expression" : "{fhirpath expression}"
   }]
 }
 ````
 
 Documentation:
 
-* `path`: the path in the generated instance where the data will go. The path must match the correct path from the generation log
-* `values`: one or more source columns in the spreadsheet that contribute source to this value 
-  * If there's only one column, which matches a FHIR primitive type, there should be no property name provided
-  * If more than one column is named, the value is a complex that must match a FHIR Data type, and property names must be provided 
-* `property`: When provided, the property names must match the names of the FHIR properties e.g. code, or period.start
-* `column`: the name in the provided main data spreadsheet
-* `regex`: a regex that extracts the data from the column 
-* `constant`: Sometimes a fixed value is needed - e.g. providing a code system URL. In this case, provide a `constant` rather than a `column` (and no `regex`)
+* `path`: the path in the generated instance where the data will go
+  * The path must match a correct path from the generation log
+  * The first entry that matches the set of paths will be used 
+  * the path value can be one of the following (but just see the log)
+    * The stated path in the profile
+    * The underlying StructureDefinition.snapshot.element.id
+    * The underlying StructureDefinition.snapshot.element.path
+    * A hybrid id - either StructureDefinition.snapshot.element.id or ([extension.url]).value 
+* `fhirType` - use when the type is polymorphic and not fixed in the profile. Can be either the name of a type, or a FHIRPath expression that returns the name of a type
+* `if` - if this is present, evaluate the expression, and only use the entry if the result is true
+* `expression`: An expression which evaluates to the value. See below for details
+* `parts`: a series of named expressions where the name of each part corresponds to a property name of a type
+* Each part contains either an expression, or a set of parts  
 
-Note that a single column can appear in the values list more than once, usually with different regexes.
+There is 3 ways to refer to a column from the source data in the expression:
 
-Examples:
+* just by name, when the name of the column is a valid FHIRPath token e.g. ```"expression" : "patientId"``` where ```patientId``` is the name of the column in the source data
+* using the function column(name):  e.g. ```"expression" : "column('Patient ID')"``` where ```Patient ID``` is the name of the column in the source data
+* using the function dateColumn(name) to wrangle with date formats e.g.  ```"expression" : "column('Date of Birth', 'M/d/yyyy')"``` where ```Date of Birth``` is the name of the column in the source data, and ```M/d/yyyy``` is the format of the column. For format advice, see <https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html>. 
 
+Notes:
+* all columns and cells have surrounding whitespace trimmed from the value 
+* the date time formatter runs in English mode
+* date handling in excel is complicated, so pay attention to the date formats in the log
 
+### Examples
+
+This IG includes some examples. You can find the output from the examples in the package,
+or you can look in the package source to see how they work 
+
+{% json factories/factories.json factories/factories.liquid %}

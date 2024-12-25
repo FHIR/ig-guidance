@@ -11,3 +11,7 @@ input/.DS_Store
 
 input-cache/txcache/
 /FHIR-howto.xml
+
+factories/log/
+
+tests/
