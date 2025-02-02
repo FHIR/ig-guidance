@@ -92,15 +92,21 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="testing.html"/>
+        <name value="testing.html"/>
+        <title value="Testing Support"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="testfactory.html"/>
         <name value="testfactory.html"/>
         <title value="Working with Test Data Factories"/>
         <generation value="markdown"/>
       </page>
       <page>
-        <sourceUrl value="testing.html"/>
-        <name value="testing.html"/>
-        <title value="Testing Support"/>
+        <sourceUrl value="matchetypes.html"/>
+        <name value="matchetypes.html"/>
+        <title value="Using Matchetypes"/>
         <generation value="markdown"/>
       </page>
       <page>
