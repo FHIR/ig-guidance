@@ -33,10 +33,10 @@ Notes for Authors:
 
 <pre>
 {%! sql {
-  "query" : "select name as Name, Description, web from Resources",
+  "query" : "select name as Name, Description, Web from Resources",
   "class" : "lines",
   "columns" : [
-    { "name" : "Name", "type" : "link", "source" : "Name", "target" : "web"},
+    { "name" : "Name", "type" : "link", "source" : "Name", "target" : "Web"},
     { "name" : "Description", "type" : "markdown", "source" : "Description"}
   ]
 } %}
@@ -46,10 +46,10 @@ Which produces this table:
 </p>
 
 {% sql {
-  "query" : "select name as Name, Description, web from Resources",
+  "query" : "select name as Name, Description, Web from Resources",
   "class" : "lines",
   "columns" : [
-    { "name" : "Name", "type" : "link", "source" : "Name", "target" : "web"},
+    { "name" : "Name", "type" : "link", "source" : "Name", "target" : "Web"},
     { "name" : "Description", "type" : "markdown", "source" : "Description"}
   ]
 } %}
