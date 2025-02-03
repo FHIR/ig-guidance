@@ -23,7 +23,7 @@ Matchetypes are intended for use in these kind of contexts: writing test cases t
 specified outputs with a little variation, where the test cases are suitable for using some 
 kind of diff program (winmerge, Beyond Compare) to view and manage the output expectations. 
 For this reason, matchetypes are usually in the same format as the resource they are testing 
-against, but in fact tha this is not necessary.
+against, but in fact this is not necessary.
 
 Note that at some points, the allowable differences in output can exceed the differences that 
 can be expressed using matchetypes, and they stop being an effective - efficient - way to 
@@ -54,12 +54,12 @@ checks that the matchetypes are otherwise valid resources.
 
 ### Extensions
 
-There are three extensions used with matchetypes:
+There are four extensions used with matchetypes:
 
 * ```http://hl7.org/fhir/tools/StructureDefinition/matchetype```: marks a resource as a Matchetype
 * ```http://hl7.org/fhir/tools/StructureDefinition/matchetype-optional```: Indicates which output elements are optional
-* ```http://hl7.org/fhir/tools/StructureDefinition/matchetype-count```: Indicates that it is only the count that matters
 * ```http://hl7.org/fhir/tools/StructureDefinition/matchetype-sort```: Sort a list prior to comparison
+* ```http://hl7.org/fhir/tools/StructureDefinition/matchetype-count```: Indicates that it is only the count that matters
 
 #### Marking a resource as a Matchetype
 
@@ -128,23 +128,6 @@ optional:
   // details...
 ```
 
-#### Comparison by count
-
-Sometimes, there is no way to require a particular set of information, but it is possible
-to say how many entries there can be:
-
-```json5
-  "extension" : [{
-    "url" : "http://hl7.org/fhir/tools/StructureDefinition/matchetype-count",
-    "valueString" : "concept"
-  }],
-  // details...
-```
-
-This means that whatever concept contains, it must contain the same number of entries 
-as the matchetype. Note that the use for this is a very narrow corner case, but it has
-arisen in real world usage.
-
 #### Sorting resources 
 
 In order to use the matchetype on a list, it's really necessary that the list itself
@@ -186,6 +169,23 @@ extension.
 ```
 
 The parameters will be sorted alphbetically by name.
+
+#### Comparison by count
+
+Sometimes, there is no way to require a particular set of information, but it is possible
+to say how many entries there can be:
+
+```json5
+  "extension" : [{
+    "url" : "http://hl7.org/fhir/tools/StructureDefinition/matchetype-count",
+    "valueString" : "concept"
+  }],
+  // details...
+```
+
+This means that whatever concept contains, it must contain the same number of entries 
+as the matchetype. Note that the use for this is a very narrow corner case, but it has
+arisen in real world usage.
 
 ### Primitive Values 
 
