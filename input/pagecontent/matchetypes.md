@@ -69,12 +69,14 @@ matchetype archetype:
 ```json5
   "extension" : [{
     "url" : "http://hl7.org/fhir/tools/StructureDefinition/matchetype",
-    "valueBoolean" : true
+    "valueCode" : "complete"
   }]
 ```
+In addition to marking the resource as a matchetype, the extension advises the matchetype how 
+to evaluate the matchetype, whether it is evaluated in `complete` or `partial` mode.
 
-This extension doesn't so anything specific other than ensure that the purpose of the invalid
-resource is clear. 
+* `complete`: All the elements in the matchetype must be present, and nothing else can be present
+* `partial`: All the elements in the matchetype must be present, and any other elements can also be present 
 
 #### Managing Optional Values 
 
