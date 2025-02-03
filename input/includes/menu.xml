@@ -46,6 +46,22 @@
       <li>
         <a href="languages.html">Writing Multi-lingual IGs</a>
       </li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Testing Support<b class="caret">
+      </b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="testing.html">Testing Overview</a>
+      </li>
+      <li>
+        <a href="profile-test-cases.html">Testing Profiles</a>
+      </li>
+      <li>
+        <a href="matchetypes.html">Using Matchetypes</a>
+      </li>
       <li>
         <a href="testfactory.html">Using Test Data Factories</a>
       </li>
