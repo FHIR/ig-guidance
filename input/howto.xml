@@ -200,5 +200,12 @@
       </code>       
       <value value="factories/factories.json"/>
     </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="path-factory"/>
+      </code>       
+      <value value="input/factories"/>
+    </parameter>
   </definition>
 </ImplementationGuide>

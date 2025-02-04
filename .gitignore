@@ -15,3 +15,7 @@ input-cache/txcache/
 factories/log/
 
 tests/
+
+input/factories/
+
+factories/~$patient-cases.xlsx
