@@ -4,10 +4,9 @@ This page summarises the support that the IG publisher offers to authors to
 support the testing process, both for testing the IG and for testing implementations
 that intend/claim to implement the IG. 
 
-In general, the expectation is that an IG doesn't include testing collateral; the
-testing collateral is found elsewhere. This is usually because it's hard to test 
-what the IG specifies with testing additional functionality, just in order to actually
-have tests. In addition, testing the IG is an iterative responsive process where 
+In general, the expectation is that an IG doesn't include implementation testing collateral; the
+testing collateral targeted at implementations of the IG is found elsewhere. This is usually 
+because testing the IG is an iterative responsive process where 
 the test cases change due to testing experience. On the other hand, some IGs define
 the test cases as part of writing the IG, and changing the test cases is considered
 changing the IG itself. 
@@ -19,33 +18,13 @@ another IG.
 ### Testing Profiles
 
 The simplest kind of testing material is resources that are provided to test 
-profiles, especially the invariants in the profiles. In general, IGs should 
-not contain resource examples that are not valid - that is, that don't conform
-to the profiles. So in order to provide resources that don't conform to the 
-resources, they are not provided as examples in the normal way. Instead, 
-the file ```tests/profile-test-cases.json``` is used. This is a JSON file that 
-has the following format:
-
-```js
-{
-  "format" : 1,
-  "test-cases" : [{
-    "file" : "path-to-file.xml|json",
-    "profile" : "url of profile",
-    "invariants" : ["keys"], // list of invariant keys that should fail
-    "errors" : ["fragments"], // list of error fragments
-  }]  
-}
-```
-
-* During the build process, the IG publisher iterates the file, testing the instances against the nominated profiles
-* the instances should fail
-* the IG publisher will check that error messages associated with the nominated invariant keys fail and that errors are produced containing the fragment messages
-* a record of the process will be produced in qa-profile-tests.html in the output folder
+profiles, especially the invariants in the profiles. For further information,
+so [Profile Test Cases](profile-test-cases.html).
 
 ### Generating Test Instances 
 
 You can generate test instances in two different ways: 
+
 * Using a Liquid template 
 * Using a profile factory 
 
@@ -56,6 +35,7 @@ See <a href="testfactory.html">Using a Test Factory</a> for further details.
 Testing collateral can be included in the package using the parameter 
 <a href="https://hl7.org/fhir/tools/CodeSystem-ig-parameters.html#ig-parameters-path-test">path-test</a>. Any content 
 found in a folder named in this parameter will be added to the <code>tests</code> folder in the generated package.
+This often includes the test material from the previous two sections.
 
 ### Including Test Information in the narrative
 
@@ -82,3 +62,5 @@ where there might be a new version every few days during active testing cycles.
 
 For this reason, testing collateral can be published in a different mode, where only the latest 
 version is published, and only zip archives of past 
+
+(Todo)

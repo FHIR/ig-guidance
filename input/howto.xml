@@ -92,18 +92,6 @@
         <generation value="html"/>
       </page>
       <page>
-        <sourceUrl value="testfactory.html"/>
-        <name value="testfactory.html"/>
-        <title value="Working with Test Data Factories"/>
-        <generation value="markdown"/>
-      </page>
-      <page>
-        <sourceUrl value="testing.html"/>
-        <name value="testing.html"/>
-        <title value="Testing Support"/>
-        <generation value="markdown"/>
-      </page>
-      <page>
         <sourceUrl value="using-templates.html"/>
         <name value="using-templates.html"/>
         <title value="Using the HL7 Templates"/>
@@ -127,6 +115,31 @@
           <generation value="markdown"/>
         </page>
       </page>
+      <page>
+        <sourceUrl value="testing.html"/>
+        <name value="testing.html"/>
+        <title value="Testing Support"/>
+        <generation value="markdown"/>
+        <page>
+          <sourceUrl value="testfactory.html"/>
+          <name value="testfactory.html"/>
+          <title value="Working with Test Data Factories"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="matchetypes.html"/>
+          <name value="matchetypes.html"/>
+          <title value="Using Matchetypes"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="profile-test-cases.html"/>
+          <name value="profile-test-cases.html"/>
+          <title value="Profile Test Cases"/>
+          <generation value="markdown"/>
+        </page>
+      </page>
+     
       <page>
         <sourceUrl value="template.html"/>
         <name value="template.html"/>
@@ -186,6 +199,13 @@
         <code value="test-data-factories"/>
       </code>       
       <value value="factories/factories.json"/>
+    </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="path-factory"/>
+      </code>       
+      <value value="input/factories"/>
     </parameter>
   </definition>
 </ImplementationGuide>
