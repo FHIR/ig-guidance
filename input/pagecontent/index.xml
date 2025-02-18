@@ -72,6 +72,13 @@
         <td>This template inherits from the hl7.base.template and adds in the CDA product family logo and color scheme.</td>
       </tr>
       <tr>
+        <td>hl7.ehrs.template</td>
+        <td>
+          <a href="https://github.com/HL7/ig-template-ehrs">https://github.com/HL7/ig-template-ehrs</a>
+        </td>
+        <td>This template inherits from the hl7.base.template and adds in the EHR-S product family logo and validation rules.</td>
+      </tr>
+      <tr>
         <td>hl7.other.template</td>
         <td>
           <a href="https://github.com/HL7/ig-template-other">https://github.com/HL7/ig-template-other</a>
