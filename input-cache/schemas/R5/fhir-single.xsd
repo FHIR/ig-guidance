@@ -47,7 +47,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Fri, Jan 31, 2025 23:19+0000 for FHIR v6.0.0-ballot2 
+  Generated on Fri, Feb 21, 2025 15:24+0000 for FHIR v6.0.0-ballot2 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hl7.org/fhir" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://hl7.org/fhir" elementFormDefault="qualified" version="6.0.0-ballot2">
   <!-- Note: When using this schema with some tools, it may also be necessary to declare xmlns:xml="http://www.w3.org/XML/1998/namespace", however this causes performance issues with other tools and thus is not in the base schemas. -->
@@ -16075,12 +16075,12 @@ A coverage may only be responsible for specific types of charges, and the sequen
   </xs:complexType>
   <xs:element name="ActorDefinition" type="ActorDefinition">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Describes an actor - a human or an application that plays a role in data exchange, and that may have obligations associated with the role the actor plays.</xs:documentation>
+      <xs:documentation xml:lang="en">Provides a definition of an actor - a system, individual, non-system device, or collective - that plays a role in a process, such as data exchange, along with associated obligations.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="ActorDefinition">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Describes an actor - a human or an application that plays a role in data exchange, and that may have obligations associated with the role the actor plays.</xs:documentation>
+      <xs:documentation xml:lang="en">Provides a definition of an actor - a system, individual, non-system device, or collective - that plays a role in a process, such as data exchange, along with associated obligations.</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -16193,9 +16193,9 @@ A coverage may only be responsible for specific types of charges, and the sequen
               <xs:documentation xml:lang="en">The capability statement for the actor (if the concept is applicable).</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="derivedFrom" minOccurs="0" maxOccurs="unbounded" type="canonical">
+          <xs:element name="baseDefinition" minOccurs="0" maxOccurs="unbounded" type="canonical">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A url that identifies the definition of this actor in another IG (which IG must be listed in the dependencies). This actor inherits all the obligations etc. as defined in the other IG.</xs:documentation>
+              <xs:documentation xml:lang="en">An ActorDefinition that is a super-type of this actor.  This actor inherits all of the obligations that apply to the referenced actor definition and can be used wherever the referenced ActorDefinition can.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -16204,14 +16204,64 @@ A coverage may only be responsible for specific types of charges, and the sequen
   </xs:complexType>
   <xs:simpleType name="ExampleScenarioActorTypeEnum">
     <xs:restriction base="code-primitive">
-      <xs:enumeration value="person">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">Person</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
       <xs:enumeration value="system">
         <xs:annotation>
           <xs:documentation xml:lang="en">System</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="non-system">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Non System</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="individual">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Individual</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="patient">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Patient</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="practitioner">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Practitioner</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="related-person">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Related Person</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="device">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Device</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="collective">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Collective</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="care-team">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Care Team</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="group">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Group</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="healthcare-service">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Healthcare Service</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="organization">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Organization</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
@@ -16497,7 +16547,7 @@ A coverage may only be responsible for specific types of charges, and the sequen
               <xs:documentation xml:lang="en">The date on which the existence of the AdverseEvent was first recorded.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="resultingEffect" minOccurs="0" maxOccurs="unbounded" type="Reference">
+          <xs:element name="resultingEffect" minOccurs="0" maxOccurs="unbounded" type="CodeableReference">
             <xs:annotation>
               <xs:documentation xml:lang="en">Information about the condition that occurred as a result of the adverse event, such as hives due to the exposure to a substance (for example, a drug or a chemical) or a broken leg as a result of the fall.</xs:documentation>
            </xs:annotation>
@@ -33528,6 +33578,11 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
               <xs:documentation xml:lang="en">The date on which the resource content was last reviewed. Review happens periodically after approval but does not change the original approval date.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="author" minOccurs="0" maxOccurs="unbounded" type="ContactDetail">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">An individiual, organization, or device primarily involved in the creation and maintenance of the content.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="publisher" minOccurs="0" maxOccurs="1" type="string">
             <xs:annotation>
               <xs:documentation xml:lang="en">The name of the organization or individual responsible for the release and ongoing maintenance of the evidence.</xs:documentation>
@@ -33538,9 +33593,9 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
               <xs:documentation xml:lang="en">Contact details to assist a user in finding and communicating with the publisher.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="author" minOccurs="0" maxOccurs="unbounded" type="ContactDetail">
+          <xs:element name="recorder" minOccurs="0" maxOccurs="unbounded" type="ContactDetail">
             <xs:annotation>
-              <xs:documentation xml:lang="en">An individiual, organization, or device primarily involved in the creation and maintenance of the content.</xs:documentation>
+              <xs:documentation xml:lang="en">Who entered the data for the evidence.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="editor" minOccurs="0" maxOccurs="unbounded" type="ContactDetail">
@@ -33570,12 +33625,12 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="copyright" minOccurs="0" maxOccurs="1" type="markdown">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A copyright statement relating to the Evidence and/or its contents. Copyright statements are generally legal restrictions on the use and publishing of the Evidence.</xs:documentation>
+              <xs:documentation xml:lang="en">A copyright statement relating to the Evidence and/or its contents. Copyright statements are legal notices of intellectual property ownership and may include restrictions on the use and publishing of the Evidence.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="copyrightLabel" minOccurs="0" maxOccurs="1" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A short string (&lt;50 characters), suitable for inclusion in a page footer that identifies the copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All rights reserved', 'Some rights reserved').</xs:documentation>
+              <xs:documentation xml:lang="en">A short string (&lt;50 characters), suitable for inclusion in a page footer that identifies the copyright holder, effective period, and optionally whether rights are restricted. (e.g. 'All rights reserved', 'Some rights reserved').</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="relatedArtifact" minOccurs="0" maxOccurs="unbounded" type="RelatedArtifact">
@@ -33585,12 +33640,12 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="description" minOccurs="0" maxOccurs="1" type="markdown">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A free text natural language description of the evidence from a consumer's perspective.</xs:documentation>
+              <xs:documentation xml:lang="en">A natural language summary of the evidence.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="assertion" minOccurs="0" maxOccurs="1" type="markdown">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Declarative description of the Evidence.</xs:documentation>
+              <xs:documentation xml:lang="en">Declarative description of the Evidence, such as conclusion or bottom line statement.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="note" minOccurs="0" maxOccurs="unbounded" type="Annotation">
@@ -33598,14 +33653,14 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
               <xs:documentation xml:lang="en">Footnotes and/or explanatory notes.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="variableDefinition" type="Evidence.VariableDefinition" minOccurs="1" maxOccurs="unbounded">
+          <xs:element name="variableDefinition" type="Evidence.VariableDefinition" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Evidence variable such as population, exposure, or outcome.</xs:documentation>
+              <xs:documentation xml:lang="en">Description, classification, and definition of a single variable. The collection of variables defines what the evidence is about.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="synthesisType" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+          <xs:element name="synthesisType" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The method to combine studies.</xs:documentation>
+              <xs:documentation xml:lang="en">The design of the synthesis (combination of studies) that produced this evidence. The design is described with any number of synthesis characteristics, such as type of meta-analysis.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="studyDesign" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
@@ -33661,12 +33716,12 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="observed" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Definition of the actual variable related to the statistic(s).</xs:documentation>
+              <xs:documentation xml:lang="en">Definition of the actual variable related to the statistic(s), i.e., the population being the actual study sample or the measured variable (exposure, outcome, or covariate) being the actual observation that occurred or will occur in the study.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="intended" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Definition of the intended variable related to the Evidence.</xs:documentation>
+              <xs:documentation xml:lang="en">Definition of the intended variable related to the Evidence, i.e., the population, exposure, or outcome for which the statistical finding is being interpreted.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="directnessMatch" minOccurs="0" maxOccurs="1" type="CodeableConcept">
@@ -33687,7 +33742,7 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
         <xs:sequence>
           <xs:element name="description" minOccurs="0" maxOccurs="1" type="markdown">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A description of the content value of the statistic.</xs:documentation>
+              <xs:documentation xml:lang="en">A natural language summary of the statistic.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="note" minOccurs="0" maxOccurs="unbounded" type="Annotation">
@@ -33697,12 +33752,12 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="statisticType" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Type of statistic, e.g., relative risk.</xs:documentation>
+              <xs:documentation xml:lang="en">Type of statistic, e.g., relative risk. The statistic type is a classification that formally defines the relationship between the variables (noted in Evidence.variableDefinition) and the value specification (noted in Evidence.statistic.quantity).</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="category" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">When the measured variable is handled categorically, the category element is used to define which category the statistic is reporting.</xs:documentation>
+              <xs:documentation xml:lang="en">When the measured variable (outcome) is handled categorically, the category element is used to define which category the statistic is reporting.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="quantity" minOccurs="0" maxOccurs="1" type="Quantity">
@@ -33722,7 +33777,7 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="sampleSize" type="Evidence.SampleSize" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Number of samples in the statistic.</xs:documentation>
+              <xs:documentation xml:lang="en">Count of participants in the study sample.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="attributeEstimate" type="Evidence.AttributeEstimate" minOccurs="0" maxOccurs="unbounded">
@@ -33748,7 +33803,7 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
         <xs:sequence>
           <xs:element name="description" minOccurs="0" maxOccurs="1" type="markdown">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Human-readable summary of population sample size.</xs:documentation>
+              <xs:documentation xml:lang="en">Human-readable summary of study sample size. A human-readable string to clarify or explain concepts about the sample size.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="note" minOccurs="0" maxOccurs="unbounded" type="Annotation">
@@ -33758,12 +33813,12 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="numberOfStudies" minOccurs="0" maxOccurs="1" type="unsignedInt">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Number of participants in the population.</xs:documentation>
+              <xs:documentation xml:lang="en">Count of studies or samples combined to become the total sample for the statistic.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="numberOfParticipants" minOccurs="0" maxOccurs="1" type="unsignedInt">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A human-readable string to clarify or explain concepts about the sample size.</xs:documentation>
+              <xs:documentation xml:lang="en">Count of members in the total sample for the statistic.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="knownDataCount" minOccurs="0" maxOccurs="1" type="unsignedInt">
@@ -33799,17 +33854,17 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="quantity" minOccurs="0" maxOccurs="1" type="Quantity">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The singular quantity of the attribute estimate, for attribute estimates represented as single values; also used to report unit of measure.</xs:documentation>
+              <xs:documentation xml:lang="en">The singular quantity of the attribute estimate, for attribute estimates represented as single values, which may include a unit of measure.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="level" minOccurs="0" maxOccurs="1" type="decimal">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Use 95 for a 95% confidence interval.</xs:documentation>
+              <xs:documentation xml:lang="en">Use 0.95 for a 95% confidence interval.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="range" minOccurs="0" maxOccurs="1" type="Range">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Lower bound of confidence interval.</xs:documentation>
+              <xs:documentation xml:lang="en">Lower and upper bound values of the attribute estimate.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="attributeEstimate" type="Evidence.AttributeEstimate" minOccurs="0" maxOccurs="unbounded">
@@ -33848,7 +33903,7 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="applied" minOccurs="0" maxOccurs="1" type="boolean">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The analysis that was applied.</xs:documentation>
+              <xs:documentation xml:lang="en">This model characteristic is part of the analysis that was applied, whether or not the analysis followed the plan.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="variable" type="Evidence.Variable" minOccurs="0" maxOccurs="unbounded">
@@ -33858,7 +33913,7 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="attribute" type="Evidence.AttributeEstimate" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">An attribute of the statistic used as a model characteristic.</xs:documentation>
+              <xs:documentation xml:lang="en">An attribute of the model characteristic.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -33874,7 +33929,7 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
         <xs:sequence>
           <xs:element name="variableDefinition" minOccurs="1" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Description of the variable.</xs:documentation>
+              <xs:documentation xml:lang="en">Description and definition of the variable.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="handling" minOccurs="0" maxOccurs="1" type="EvidenceVariableHandling">
@@ -33884,17 +33939,17 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="valueCategory" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Description for grouping of ordinal or polychotomous variables.</xs:documentation>
+              <xs:documentation xml:lang="en">Qualitative label used for grouping values of a dichotomous, ordinal, or polychotomous variable.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="valueQuantity" minOccurs="0" maxOccurs="unbounded" type="Quantity">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Discrete value for grouping of ordinal or polychotomous variables.</xs:documentation>
+              <xs:documentation xml:lang="en">Quantitative label used for grouping values of a dichotomous, ordinal, or polychotomous variable.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="valueRange" minOccurs="0" maxOccurs="unbounded" type="Range">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Range of values for grouping of ordinal or polychotomous variables.</xs:documentation>
+              <xs:documentation xml:lang="en">Range of quantitative labels used for grouping values of a dichotomous, ordinal, or polychotomous variable.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -33928,7 +33983,7 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
               <xs:documentation xml:lang="en">Assessment or judgement of the aspect.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="rater" minOccurs="0" maxOccurs="1" type="string">
+          <xs:element name="rater" minOccurs="0" maxOccurs="unbounded" type="string">
             <xs:annotation>
               <xs:documentation xml:lang="en">Individual or group who did the rating.</xs:documentation>
            </xs:annotation>
@@ -34639,6 +34694,11 @@ See guidance around (not) making local changes to elements [here](canonicalresou
               <xs:documentation xml:lang="en">The mapping (order of elements) to reach the element containing the  data element in the dataset.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="component" type="EvidenceVariable.DataStorage" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">A part of the value for a variable that is stored in 2 or more parts.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -34845,7 +34905,7 @@ See guidance around (not) making local changes to elements [here](canonicalresou
               <xs:documentation xml:lang="en">A unique string within the scenario that is used to reference the actor.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="type" minOccurs="1" maxOccurs="1" type="ExampleScenarioActorType">
+          <xs:element name="type" minOccurs="0" maxOccurs="1" type="ExampleScenarioActorType">
             <xs:annotation>
               <xs:documentation xml:lang="en">The category of actor - person or system.</xs:documentation>
            </xs:annotation>
@@ -34858,6 +34918,11 @@ See guidance around (not) making local changes to elements [here](canonicalresou
           <xs:element name="description" minOccurs="0" maxOccurs="1" type="markdown">
             <xs:annotation>
               <xs:documentation xml:lang="en">An explanation of who/what the actor is and its role in the scenario.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="definition" minOccurs="0" maxOccurs="1" type="canonical">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The formal definition of the actor in the scenario.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -48956,12 +49021,12 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:element name="MolecularDefinition" type="MolecularDefinition">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="MolecularDefinition">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -48969,27 +49034,42 @@ The primary difference between a medicationstatement and a medicationadministrat
         <xs:sequence>
           <xs:element name="identifier" minOccurs="0" maxOccurs="unbounded" type="Identifier">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A unique identifier for this particular resource instance.</xs:documentation>
+              <xs:documentation xml:lang="en">A unique identifier for a particular instance of this resource.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="type" minOccurs="0" maxOccurs="1" type="SequenceType">
+          <xs:element name="description" minOccurs="0" maxOccurs="1" type="markdown">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The type of the Molecular Definition (Amino Acid, DNA, RNA).</xs:documentation>
+              <xs:documentation xml:lang="en">A description of the molecular entity in a human friendly format.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="location" type="MolecularDefinition.Location" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="moleculeType" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The molecular location of this molecule.</xs:documentation>
+              <xs:documentation xml:lang="en">The type of molecule (e.g., DNA, RNA, amino acid). This is a broad concept that refers to the general physical composition of the molecule, intended to facilitate searching and to provide domain context for profiles and instances. The terminology binding may be expanded to support additional types of molecules in the future (e.g., peptide nucleic acids, oligosaccharides).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="type" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Classifications of an instance of the resource into arbitrary types, based on domain semantics. For example, this element could indicate that an instance of moleculeType 'RNA' could have a type of 'mRNA' or 'siRNA'.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="topology" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The structural topology of the molecular entity. For sequences (e.g., DNA), this could specify 'linear' and 'circular'. More complex entities might be branched or have a quaternary structure.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="memberState" minOccurs="0" maxOccurs="unbounded" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A member or part of this molecule.</xs:documentation>
+              <xs:documentation xml:lang="en">Reserved for future profiles (e.g., haplotype, genotype).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="location" type="MolecularDefinition.Location" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">A defined location on a molecular entity. Location definitions may vary with respect to coordinate space and precision or level of granularity.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="representation" type="MolecularDefinition.Representation" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The representation of this molecular definition, e.g., as a literal or repeated elements.</xs:documentation>
+              <xs:documentation xml:lang="en">A representation of a molecular entity, specifically including sequence. Note this element is intended to define the entity primarily through computable, discrete elements that express domain semantics rather than replicating a particular file format or relational schema.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -48998,24 +49078,24 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.Location">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="sequenceLocation" type="MolecularDefinition.SequenceLocation" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The Location of this molecule in context of a sequence.</xs:documentation>
+              <xs:documentation xml:lang="en">A location on a sequence, defined using a nucleotide coordinate system.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="cytobandLocation" type="MolecularDefinition.CytobandLocation" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The location of this molecule in context of a cytoband.</xs:documentation>
+              <xs:documentation xml:lang="en">A location on a sequence, defined using cytobands.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="featureLocation" type="MolecularDefinition.FeatureLocation" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="featureLocation" minOccurs="0" maxOccurs="unbounded" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The location of this molecule in context of a feature.</xs:documentation>
+              <xs:documentation xml:lang="en">Reserved and possibly deprecated.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -49024,24 +49104,24 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.SequenceLocation">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="sequenceContext" minOccurs="1" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The reference Sequence that contains this location.</xs:documentation>
+              <xs:documentation xml:lang="en">A reference to a sequence on which the location is defined.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="coordinateInterval" type="MolecularDefinition.CoordinateInterval" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The coordinate interval for this location.</xs:documentation>
+              <xs:documentation xml:lang="en">An interval on a sequence, defined by coordinate-based start and end coordinates.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="strand" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The identification of the strand direction, i.e, forward vs reverse strand.</xs:documentation>
+              <xs:documentation xml:lang="en">The specific strand at the coordinateInterval, when the interval alone is not sufficient to define a location (e.g., double stranded DNA). Example values include 'forward' and 'reverse'.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -49050,26 +49130,26 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.CoordinateInterval">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
-          <xs:element name="numberingSystem" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+          <xs:element name="coordinateSystem" type="MolecularDefinition.CoordinateSystem" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The coordinate system of this interval.</xs:documentation>
+              <xs:documentation xml:lang="en">A definition of the coordinate system. Examples include 1-based character counting, and 0-based interval counting.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:choice minOccurs="0" maxOccurs="1" >
             <xs:annotation>
-              <xs:documentation xml:lang="en">The start of this interval.</xs:documentation>
+              <xs:documentation xml:lang="en">The start location of the interval expressed as a precise coordinate (Quantity) or expressed as a range (Range) that is defined by low (range start) and high (range end). Open-ended ranges, where one end is unbounded, may be supported.</xs:documentation>
             </xs:annotation>
             <xs:element name="startQuantity" type="Quantity"/>
             <xs:element name="startRange" type="Range"/>
           </xs:choice>
           <xs:choice minOccurs="0" maxOccurs="1" >
             <xs:annotation>
-              <xs:documentation xml:lang="en">The end of this interval.</xs:documentation>
+              <xs:documentation xml:lang="en">The end location of the interval expressed as a precise coordinate (Quantity) or as a range (Range) that is defined by low (range start) and high (range end). Open-ended ranges, where one end is unbounded, may be supported..</xs:documentation>
             </xs:annotation>
             <xs:element name="endQuantity" type="Quantity"/>
             <xs:element name="endRange" type="Range"/>
@@ -49078,9 +49158,35 @@ The primary difference between a medicationstatement and a medicationadministrat
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="MolecularDefinition.CoordinateSystem">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="system" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">A definition of the coordinate system. Examples include 1-based character counting, and 0-based interval counting.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="origin" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The location of the origin (0 or 1, depending on the coordinate system). For example, this could specify the origin is at the start of the sequence (e.g., 5’ end or N-terminus), the beginning of a designated feature (e.g., A in the ATG translation initiation codon), or the end of a designated feature (e.g., 3’ end of an exon, from which an offset is calculated into the following intron).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="normalizationMethod" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The normalization method used for determining a location within the coordinate system. Examples include left shift (e.g., VCF), right shift (e.g., HGVS), or fully justified (e.g., VOCA).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="MolecularDefinition.CytobandLocation">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -49101,7 +49207,7 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.GenomeAssembly">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -49123,7 +49229,7 @@ The primary difference between a medicationstatement and a medicationadministrat
           </xs:element>
           <xs:choice minOccurs="0" maxOccurs="1" >
             <xs:annotation>
-              <xs:documentation xml:lang="en">The description of this genome assemble.</xs:documentation>
+              <xs:documentation xml:lang="en">The description of this genome assembly.</xs:documentation>
             </xs:annotation>
             <xs:element name="descriptionMarkdown" type="markdown"/>
             <xs:element name="descriptionString" type="string"/>
@@ -49134,7 +49240,7 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.CytobandInterval">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -49160,7 +49266,7 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.StartCytoband">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -49199,7 +49305,7 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.EndCytoband">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -49236,67 +49342,51 @@ The primary difference between a medicationstatement and a medicationadministrat
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="MolecularDefinition.FeatureLocation">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="BackboneElement">
-        <xs:sequence>
-          <xs:element name="geneId" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The gene Id where this molecule occurs.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="MolecularDefinition.Representation">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="focus" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A representation focus, e.g., reference or alternative state.</xs:documentation>
+              <xs:documentation xml:lang="en">The domain concept that is the focus of the representation. This element is used to disambiguate the representations of the “reference” and the “alternate” alleles at a given location, for example.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="code" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A representation code.</xs:documentation>
+              <xs:documentation xml:lang="en">A code (e.g., sequence accession number) used to represent a molecular entity.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="literal" type="MolecularDefinition.Literal" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A literal representation.</xs:documentation>
+              <xs:documentation xml:lang="en">A molecular entity defined as a string literal.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="resolvable" minOccurs="0" maxOccurs="1" type="Attachment">
+          <xs:element name="resolvable" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A resolvable representation of a molecule that optionally contains formatting in addition to the specification of the primary sequence itself. The sequence may be provided inline as an attached document or through a resolvable URI.</xs:documentation>
+              <xs:documentation xml:lang="en">A resolvable representation of a molecular entity, which may be specified as a URI and/or attached document (in a defined format).</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="extracted" type="MolecularDefinition.Extracted" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A Molecular Sequence that is represented as an extracted portion of a different Molecular Sequence.</xs:documentation>
+              <xs:documentation xml:lang="en">A molecular entity that is represented as a portion of a different entity. For example, this element can represent a subsequence (e.g., genetic region) that is part of and conceptually extracted from a longer sequence (e.g., chromosome sequence). The “parent” entity is specified in startingMolecule and the location of the intended molecular entity on the parent entity is defined by coordinateInterval.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="repeated" type="MolecularDefinition.Repeated" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A Molecular Sequence that is represented as a repeated sequence motif.</xs:documentation>
+              <xs:documentation xml:lang="en">A representation of a molecular entity that is expressed as a number of copies of a repeated motif.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="concatenated" type="MolecularDefinition.Concatenated" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A Molecular Sequence that is represented as an ordered concatenation of two or more Molecular Sequences.</xs:documentation>
+              <xs:documentation xml:lang="en">A representation comprised of an ordered concatenation of two or more molecular entities.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="relative" type="MolecularDefinition.Relative" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A Molecular Definition that is represented as an ordered series of edits on a specified starting sequence.</xs:documentation>
+              <xs:documentation xml:lang="en">A molecular entity represented as an ordered series of edits on a specified starting entity. This representation can be used to define one entity relative to another.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -49305,19 +49395,19 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.Literal">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="encoding" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The encoding used for the expression of the primary sequence. This defines the characters that may be used in the primary sequence and it permits the explicit inclusion/exclusion of IUPAC ambiguity codes.</xs:documentation>
+              <xs:documentation xml:lang="en">The encoding used for the expression of the entity. For a primary sequence, this element represents the alphabet used (e.g., 1 character DNA without ambiguity codes, 3 character amino acid codes).</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="value" minOccurs="1" maxOccurs="1" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The primary (linear) sequence, expressed as a literal string.</xs:documentation>
+              <xs:documentation xml:lang="en">A string literal representation of the molecular entity, using a specific encoding. For example, this may be the primary sequence of a strand of DNA.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -49326,34 +49416,80 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.Extracted">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="startingMolecule" minOccurs="1" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The Molecular Sequence that serves as the parent sequence, from which the intended sequence will be extracted.</xs:documentation>
+              <xs:documentation xml:lang="en">A reference to the molecular entity that serves as the conceptual 'parent' from which the intended entity is derived. For example, this could be a chromosome sequence on which a coordinateInterval is defined.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="start" minOccurs="1" maxOccurs="1" type="integer">
+          <xs:element name="coordinateInterval" type="MolecularDefinition.CoordinateInterval1" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The start coordinate (on the parent sequence) of the interval that defines the subsequence to be extracted.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="end" minOccurs="1" maxOccurs="1" type="integer">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The end coordinate (on the parent sequence) of the interval that defines the subsequence to be extracted.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="coordinateSystem" minOccurs="1" maxOccurs="1" type="CodeableConcept">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The coordinate system used to define the interval that defines the subsequence to be extracted. Coordinate systems are usually 0- or 1-based.</xs:documentation>
+              <xs:documentation xml:lang="en">The interval on startingMolecule that defines the portion to be extracted in order to create the intended entity.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="reverseComplement" minOccurs="0" maxOccurs="1" type="boolean">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A flag that indicates whether the extracted sequence should be reverse complemented.</xs:documentation>
+              <xs:documentation xml:lang="en">A flag that indicates whether the extracted sequence should be reverse complemented in order to produce the intended entity. This element is only relevant to molecular entities that support the concept of reverse complement (e.g., double stranded DNA).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MolecularDefinition.CoordinateInterval1">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="coordinateSystem" type="MolecularDefinition.CoordinateSystem1" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The coordinate system used to define the location, which may vary depending on application or context of use.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:choice minOccurs="0" maxOccurs="1" >
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The start location of the interval expressed as a precise coordinate (Quantity) or expressed as a range (Range) that is defined by low (range start) and high (range end). Open-ended ranges, where one end is unbounded, may be supported.</xs:documentation>
+            </xs:annotation>
+            <xs:element name="startQuantity" type="Quantity"/>
+            <xs:element name="startRange" type="Range"/>
+          </xs:choice>
+          <xs:choice minOccurs="0" maxOccurs="1" >
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The end location of the interval expressed as a precise coordinate (Quantity) or as a range (Range) that is defined by low (range start) and high (range end). Open-ended ranges, where one end is unbounded, may be supported..</xs:documentation>
+            </xs:annotation>
+            <xs:element name="endQuantity" type="Quantity"/>
+            <xs:element name="endRange" type="Range"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MolecularDefinition.CoordinateSystem1">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="system" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">A definition of the coordinate system. Examples include 1-based character counting, and 0-based interval counting.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="origin" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The location of the origin (0 or 1, depending on the coordinate system). For example, this could specify the origin is at the start of the sequence (e.g., 5’ end or N-terminus), the beginning of a designated feature (e.g., A in the ATG translation initiation codon), or the end of a designated feature (e.g., 3’ end of an exon, from which an offset is calculated into the following intron).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="normalizationMethod" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The normalization method used for determining a location within the coordinate system. Examples include left shift (e.g., VCF), right shift (e.g., HGVS), or fully justified (e.g., VOCA).</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -49362,19 +49498,19 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.Repeated">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="sequenceMotif" minOccurs="1" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The sequence that defines the repeated motif.</xs:documentation>
+              <xs:documentation xml:lang="en">The motif that is repeated in tandem, which ultimately defines the intended molecular entity.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="copyCount" minOccurs="1" maxOccurs="1" type="integer">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The number of repeats (copies) of the sequence motif.</xs:documentation>
+              <xs:documentation xml:lang="en">The number of times the motif is repeated to create the intended molecular entity.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -49383,14 +49519,14 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.Concatenated">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="sequenceElement" type="MolecularDefinition.SequenceElement" minOccurs="1" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">One element of a concatenated Molecular Sequence.</xs:documentation>
+              <xs:documentation xml:lang="en">One of the concatenated entities within the concatenated representation.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -49399,19 +49535,19 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.SequenceElement">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="sequence" minOccurs="1" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The Molecular Sequence corresponding to this element.</xs:documentation>
+              <xs:documentation xml:lang="en">A reference to the sequence that defines this specific concatenated element.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="ordinalIndex" minOccurs="1" maxOccurs="1" type="integer">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The ordinal position of this sequence element within the concatenated Molecular Sequence.</xs:documentation>
+              <xs:documentation xml:lang="en">The ordinal index of the element within the concatenated representation.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -49420,19 +49556,19 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.Relative">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="startingMolecule" minOccurs="1" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The Molecular Sequence that serves as the starting sequence, on which edits will be applied.</xs:documentation>
+              <xs:documentation xml:lang="en">The molecular entity that serves as the starting point, on which edits will be applied.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="edit" type="MolecularDefinition.Edit" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">An edit (change) made to a sequence.</xs:documentation>
+              <xs:documentation xml:lang="en">A defined edit (change) to be applied to the molecular entity.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -49441,72 +49577,88 @@ The primary difference between a medicationstatement and a medicationadministrat
   </xs:complexType>
   <xs:complexType name="MolecularDefinition.Edit">
     <xs:annotation>
-      <xs:documentation xml:lang="en">Representation of a molecular definition.</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
           <xs:element name="editOrder" minOccurs="0" maxOccurs="1" type="integer">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The order of this edit, relative to other edits on the starting sequence.</xs:documentation>
+              <xs:documentation xml:lang="en">Defines the order of edits when multiple edits are to be applied to the startingMolecule. This is important when edits may overlap (intervals) or when edits change the length of the entity.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="coordinateSystem" minOccurs="1" maxOccurs="1" type="CodeableConcept">
+          <xs:element name="coordinateInterval" type="MolecularDefinition.CoordinateInterval2" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The coordinate system used to define the edited intervals on the starting sequence. Coordinate systems are usually 0- or 1-based.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="start" minOccurs="1" maxOccurs="1" type="integer">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The start coordinate of the interval that will be edited.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="end" minOccurs="1" maxOccurs="1" type="integer">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The end coordinate of the interval that will be edited.</xs:documentation>
+              <xs:documentation xml:lang="en">The interval on startingMolecule that defines the portion to be extracted in order to create the intended entity.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="replacementMolecule" minOccurs="1" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The sequence that defines the replacement sequence used in the edit operation.</xs:documentation>
+              <xs:documentation xml:lang="en">The molecular entity that serves as the replacement in the edit operation. After the edit has been applied, the state of the entity at the specified coordinateInterval is defined by the state of the replacementMolecule.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="replacedMolecule" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The sequence on the 'starting' sequence for the edit operation, defined by the specified interval, that will be replaced during the edit.</xs:documentation>
+              <xs:documentation xml:lang="en">The portion of the molecular entity that is replaced by the replacementMolecule as a result of the edit. The value of this element can be derived as the state of the entity at the specified coordinateInterval, prior to the edit being applied. It is provided for convenience.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="SequenceTypeEnum">
-    <xs:restriction base="code-primitive">
-      <xs:enumeration value="aa">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">AA Sequence</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="dna">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">DNA Sequence</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="rna">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">RNA Sequence</xs:documentation>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:complexType name="SequenceType">
+  <xs:complexType name="MolecularDefinition.CoordinateInterval2">
     <xs:annotation>
-      <xs:documentation xml:lang="en"></xs:documentation>
-      <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="Element">
-        <xs:attribute name="value" type="SequenceTypeEnum" use="optional"/>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="coordinateSystem" type="MolecularDefinition.CoordinateSystem2" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The coordinate system used to define the location, which may vary depending on application or context of use.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:choice minOccurs="0" maxOccurs="1" >
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The start location of the interval expressed as a precise coordinate (Quantity) or expressed as a range (Range) that is defined by low (range start) and high (range end). Open-ended ranges, where one end is unbounded, may be supported.</xs:documentation>
+            </xs:annotation>
+            <xs:element name="startQuantity" type="Quantity"/>
+            <xs:element name="startRange" type="Range"/>
+          </xs:choice>
+          <xs:choice minOccurs="0" maxOccurs="1" >
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The end location of the interval expressed as a precise coordinate (Quantity) or as a range (Range) that is defined by low (range start) and high (range end). Open-ended ranges, where one end is unbounded, may be supported..</xs:documentation>
+            </xs:annotation>
+            <xs:element name="endQuantity" type="Quantity"/>
+            <xs:element name="endRange" type="Range"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MolecularDefinition.CoordinateSystem2">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Definitional content for a molecular entity, such as a nucleotide or protein sequence.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="system" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">A definition of the coordinate system. Examples include 1-based character counting, and 0-based interval counting.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="origin" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The location of the origin (0 or 1, depending on the coordinate system). For example, this could specify the origin is at the start of the sequence (e.g., 5’ end or N-terminus), the beginning of a designated feature (e.g., A in the ATG translation initiation codon), or the end of a designated feature (e.g., 3’ end of an exon, from which an offset is calculated into the following intron).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="normalizationMethod" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The normalization method used for determining a location within the coordinate system. Examples include left shift (e.g., VCF), right shift (e.g., HGVS), or fully justified (e.g., VOCA).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -49736,6 +49888,36 @@ The primary difference between a medicationstatement and a medicationadministrat
            </xs:annotation>
           </xs:element>
         </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="SequenceTypeEnum">
+    <xs:restriction base="code-primitive">
+      <xs:enumeration value="aa">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">AA Sequence</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="dna">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">DNA Sequence</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="rna">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">RNA Sequence</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SequenceType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en"></xs:documentation>
+      <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Element">
+        <xs:attribute name="value" type="SequenceTypeEnum" use="optional"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -53643,9 +53825,9 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
               <xs:documentation xml:lang="en">A description or definition of which activities are allowed to be done on the data.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="limit" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
+          <xs:element name="limit" type="Permission.Limit" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">What limits apply to the use of the data.</xs:documentation>
+              <xs:documentation xml:lang="en">What restrictions must be applied to the use of the data by the actor.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -53745,6 +53927,32 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           <xs:element name="reference" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
               <xs:documentation xml:lang="en">The actor(s) authorized for the defined activity.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Permission.Limit">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Permission resource holds access rules for a given data and context.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BackboneElement">
+        <xs:sequence>
+          <xs:element name="control" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">One or more coded restriction such as a refrain or obligation.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="tag" minOccurs="0" maxOccurs="unbounded" type="Coding">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">When this rule authorized data use, any data that is tagged with the code here must be redacted from the data provided for that authorized use.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="element" minOccurs="0" maxOccurs="unbounded" type="string">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">When this rule authorized data use, the data at the path indicated here, must be redacted from the authorized data provided for that authorized use.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -55424,7 +55632,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:choice>
           <xs:element name="recorded" minOccurs="0" maxOccurs="1" type="instant">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The instant of time at which the activity was recorded.</xs:documentation>
+              <xs:documentation xml:lang="en">The date and time at which the provenance information was recorded / updated, whether in the FHIR Provenance resource or in some other form that is later communicated in the FHIR Provenance.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="policy" minOccurs="0" maxOccurs="unbounded" type="uri">
@@ -63030,12 +63238,12 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:element name="Task" type="Task">
     <xs:annotation>
-      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a [[[Task]]] (explicit or contained) as a means to track the execution data (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
+      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a Task (explicit or contained) as a means to track the execution progress (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
     </xs:annotation>
   </xs:element>
   <xs:complexType name="Task">
     <xs:annotation>
-      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a [[[Task]]] (explicit or contained) as a means to track the execution data (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
+      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a Task (explicit or contained) as a means to track the execution progress (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
       <xs:documentation xml:lang="en">If the element is present, it must have either a @value, an @id, or extensions</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
@@ -63212,7 +63420,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:complexType name="Task.Performer">
     <xs:annotation>
-      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a [[[Task]]] (explicit or contained) as a means to track the execution data (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
+      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a Task (explicit or contained) as a means to track the execution progress (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -63233,7 +63441,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:complexType name="Task.Restriction">
     <xs:annotation>
-      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a [[[Task]]] (explicit or contained) as a means to track the execution data (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
+      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a Task (explicit or contained) as a means to track the execution progress (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -63259,7 +63467,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:complexType name="Task.Input">
     <xs:annotation>
-      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a [[[Task]]] (explicit or contained) as a means to track the execution data (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
+      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a Task (explicit or contained) as a means to track the execution progress (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -63334,7 +63542,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
   </xs:complexType>
   <xs:complexType name="Task.Output">
     <xs:annotation>
-      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a [[[Task]]] (explicit or contained) as a means to track the execution data (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
+      <xs:documentation xml:lang="en">A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution progress. While very simple workflows can be implemented with [[[Request]]] alone, most workflows would require a Task (explicit or contained) as a means to track the execution progress (i.e. inputs, outputs, status). Please refer to [Fulfillment/Execution](request.html#fulfillment).</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
@@ -64856,14 +65064,9 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
               <xs:documentation xml:lang="en">A short string (&lt;50 characters), suitable for inclusion in a page footer that identifies the copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All rights reserved', 'Some rights reserved').</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="origin" type="TestScript.Origin" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="testSystem" type="TestScript.TestSystem" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation xml:lang="en">An abstract server used in operations within this test script in the origin element.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="destination" type="TestScript.Destination" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">An abstract server used in operations within this test script in the destination element.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="metadata" type="TestScript.Metadata" minOccurs="0" maxOccurs="1">
@@ -64915,52 +65118,36 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="TestScript.Origin">
+  <xs:complexType name="TestScript.TestSystem">
     <xs:annotation>
       <xs:documentation xml:lang="en">A structured set of tests against a FHIR server or client implementation to determine compliance against the FHIR specification.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
-          <xs:element name="index" minOccurs="1" maxOccurs="1" type="integer">
+          <xs:element name="index" minOccurs="1" maxOccurs="1" type="positiveInt">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Abstract name given to an origin server in this test script.  The name is provided as a number starting at 1.</xs:documentation>
+              <xs:documentation xml:lang="en">Number for the test system that is unique within this test script.  Referenced by operation.origin and/or operation.destination.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="profile" minOccurs="1" maxOccurs="1" type="Coding">
+          <xs:element name="title" minOccurs="1" maxOccurs="1" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The type of origin profile the test system supports.</xs:documentation>
+              <xs:documentation xml:lang="en">A short human-friendly label for the test system that is unique within this test script and may be used when rendering the script.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="url" minOccurs="0" maxOccurs="1" type="url">
+          <xs:element name="actor" minOccurs="0" maxOccurs="unbounded" type="canonical">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The explicit url path of the origin server used in this test script.</xs:documentation>
+              <xs:documentation xml:lang="en">Reference to requirements that must be satisfied by the test system.</xs:documentation>
            </xs:annotation>
           </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="TestScript.Destination">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">A structured set of tests against a FHIR server or client implementation to determine compliance against the FHIR specification.</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="BackboneElement">
-        <xs:sequence>
-          <xs:element name="index" minOccurs="1" maxOccurs="1" type="integer">
+          <xs:element name="description" minOccurs="0" maxOccurs="1" type="markdown">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Abstract name given to a destination server in this test script.  The name is provided as a number starting at 1.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="profile" minOccurs="1" maxOccurs="1" type="Coding">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The type of destination profile the test system supports.</xs:documentation>
+              <xs:documentation xml:lang="en">Additional information about the role and capabilities of the systems that would participate in this portion of the script.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="url" minOccurs="0" maxOccurs="1" type="url">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The explicit url path of the destination server used in this test script.</xs:documentation>
+              <xs:documentation xml:lang="en">The explicit url path of the test system used in this test script. If populated, the test engine is not expected to prompt for or accept external input of this value.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -65286,7 +65473,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:element>
           <xs:element name="destination" minOccurs="0" maxOccurs="1" type="integer">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The server where the request message is destined for.  Must be one of the server numbers listed in TestScript.destination section.</xs:documentation>
+              <xs:documentation xml:lang="en">The test system where the request message is destined. Must be one of the test system indices listed in TestScript.testSystem section.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="encodeRequestUrl" minOccurs="1" maxOccurs="1" type="boolean">
@@ -65301,7 +65488,7 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:element>
           <xs:element name="origin" minOccurs="0" maxOccurs="1" type="integer">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The server where the request message originates from.  Must be one of the server numbers listed in TestScript.origin section.</xs:documentation>
+              <xs:documentation xml:lang="en">The test system where the request message originates. Must be one of the test system indices listed in TestScript.testSystem section.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="params" minOccurs="0" maxOccurs="1" type="string">

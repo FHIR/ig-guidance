@@ -37,6 +37,9 @@ Testing collateral can be included in the package using the parameter
 found in a folder named in this parameter will be added to the <code>tests</code> folder in the generated package.
 This often includes the test material from the previous two sections.
 
+Note that package file names are limited to 100 characters, so files wil be renamed if their name relative to the 
+root of the repository are longer than that.
+
 ### Including Test Information in the narrative
 
 See <a href="jsonxml.html">Including JSON or XML in the narrative</a> - this is used to present 

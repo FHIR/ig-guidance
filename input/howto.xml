@@ -92,6 +92,12 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="related-igs.html"/>
+        <name value="related-igs.html"/>
+        <title value="Related IGs"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="using-templates.html"/>
         <name value="using-templates.html"/>
         <title value="Using the HL7 Templates"/>
