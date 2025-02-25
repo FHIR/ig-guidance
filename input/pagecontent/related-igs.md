@@ -12,10 +12,11 @@ Related IGs are registered using the parameter ```related-ig```:
       }
     ]
 ```
-where 
 
-* ```role``` is a one of the following codes: module | data | test-case | ref-impl
-* ```code``` is a simple token by which the IG is known internally 
+where:
+
+* ```role``` is a one of the following codes: module, data, test-case or ref-impl
+* ```code``` is a simple token by which the IG is known internally
 * ```id``` is the NPM package IG of the related package. The id does not have a version
 
 E.g. here's an example:
@@ -24,7 +25,7 @@ E.g. here's an example:
     "parameter": [
       {
         "code": "related-ig",
-        "value": "library=hl7.fhir.uv.cds-hooks-library"
+        "value": "module:library=hl7.fhir.uv.cds-hooks-library"
       }
     ]
 ```
@@ -33,7 +34,7 @@ Or in `sushi-config.yaml`:
 
 ```yaml
 parameters:
-  related-ig: library=hl7.fhir.uv.cds-hooks-library
+  related-ig: module:library=hl7.fhir.uv.cds-hooks-library
 ```
 
 ## Referencing Content in Related IGs
