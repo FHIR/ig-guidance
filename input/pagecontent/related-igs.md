@@ -106,3 +106,25 @@ Additional Module: <a href="file:///Users/grahamegrieve/temp/igs/HL7-cds-hooks-l
     <td>dev</td>
   </tr>
 </table>
+
+## Publishing with related IGs 
+
+It's not possible for the tooling to automatically figure out what's going on with 
+related IGs when it becomes time to publish - the tooling can't know whether it should
+reference an existing published version of the related IG, or a version that is yet to be published.
+
+For this reason, you have to specify the intended version for the related IG in your 
+[publication request](https://confluence.hl7.org/spaces/FHIR/pages/144970227/IG+Publication+Request+Documentation):
+
+```json
+    "related" : {
+      "library" : "1.0.1"
+    }
+```
+
+The publication tooling will determine whether 1.0.1 has been published already, or whether 
+it is yet to be published. If it is not yet published, then the related IG must have a
+publication-request defined for the nominated version. (This is how two IGs that reference 
+each other can be published - both have publication requests for the version yet to be 
+published, and both nominate the yet to be published version of the other. The publication
+tooling will sort this out).
