@@ -80,6 +80,12 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="uml.html"/>
+        <name value="uml.html"/>
+        <title value="Creating Class Diagrams"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="languages.html"/>
         <name value="languages.html"/>
         <title value="Producing Multi-Language IGs"/>
