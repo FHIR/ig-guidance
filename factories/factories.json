@@ -11,7 +11,8 @@
             "filename": "tests/Bundle-patients.json",
             "bundle": true,
             "tables": {
-                "countries": "factories/countries.csv"
+                "countries": "factories/countries.csv",
+                "genders": "factories/patient-genders.csv"
             }
         },
         {
