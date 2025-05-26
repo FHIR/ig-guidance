@@ -1,4 +1,8 @@
 
+This page describes how to use PlantUML to create UML Diagrams to be built
+on the fly by the plantUML library as the IG is created. Note that the IG 
+Publisher can create Class diagrams directly - see [Uml Class Diagrams](uml.html).
+
 PlantUML diagrams can be added by:
 
 1. Creating the diagram source file 

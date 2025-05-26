@@ -243,7 +243,7 @@ There is 3 ways to refer to a column from the source data in the expression:
 Notes:
 * all columns and cells have surrounding whitespace trimmed from the value 
 * the date time formatter runs in English mode
-* date handling in excel is complicated, so pay attention to the date formats in the log
+* date handling in excel is complicated, so pay attention to the date formats in the log. The locale used by the processor is the locale defined for the IG itself
 
 ### Examples
 
