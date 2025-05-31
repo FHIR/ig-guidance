@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../../input-cache/schemas/R5/fhir-single.xsd">
+  <p>
+    FHIR defines a <a href="https://build.fhir.org/versions.html#maturity">maturity model</a> that can be applied to artifacts in an implementation guide,
+    as well as to guides themselves.
+    We also define an <a href="https://build.fhir.org/ig/HL7/fhir-extensions/StructureDefinition-structuredefinition-fmm.html">extension</a> 
+    that allows artifacts to define their respective 'level' of maturity.  The HL7 IG Publisher includes a 
+    <a href="https://build.fhir.org/ig/FHIR/fhir-tools-ig/CodeSystem-ig-parameters.html#ig-parameters-propagate-status">configuration parameter</a> 
+    that is turned on by default in the base IG template.
+  </p>
+  <p>
+    This page defines the expectations HL7 International has around declaring maturity levels for implementation guides and artifacts,
+    the other machinery that exists to support managing and documenting maturity, as well as the options available to other organizations
+    to define their own maturity model and/or leverage the FMG's model to document their own maturities.  
+  </p>
+  <a name="models"> </a>
+  <h3>Maturity Models</h3>
+  <p>
+    The FHIR core specification defines a maturity model that applies to all FHIR content published by HL7 international, including
+    the artifacts in the core specification.  This model defines a set of maturity 'levels', as well as the criteria that should be met
+    for an artifact to be considered to meet that 'level' of maturity.  The FHIR core specification has long declare maturity for resources
+    and has started declaring maturity for other artifacts (value sets, operations, etc.) as well.  However, the expectation to declare maturity
+    is now being extended to FHIR implementation guides and artifacts published by HL7 international as well.  Oversight of the maturity declaration
+    process for these artifacts is managed by the HL7 FHIR Management Group.
+  </p>
+  <p>
+    While affiliates and other organizations are welcome to use the FHIR maturity model, it's possible that some organizations may want to use
+    different criteria, or even a different numeric scale.  This is permitted and supported by the extensions used to declare maturity.  The
+    base IG template for use with the IG publisher has an IG parameter called 
+    <a href="https://build.fhir.org/ig/FHIR/fhir-tools-ig/CodeSystem-ig-parameters.html#ig-parameters-fmm-definition">fmm-definition</a> that 
+    allows the guide to link their FMM level declarations to whatever web-page they like.  The maturity levels pointed to by the 
+    <a href="https://build.fhir.org/ig/HL7/fhir-extensions/StructureDefinition-structuredefinition-fmm.html">structuredefinition-fmm</a> extension
+    can be any range of integer values needed to reflect the granularity of maturities declared by their model.
+  </p>
+  <a name="supporting"> </a>
+  <h3>Supporting maturity declarations</h3>
+  <p>
+    To allow appropriate governance over and implementer confidence in an authoring group's assertion of maturity, it's often helpful to capture
+    supporting documentation that provide support for assertions about the level of testing, quality assurance, implementation, etc. associated with
+    the resource.  This might be connectathon participants, listing known implementations, dates and indivudals who have performed QA checks, etc.
+    Historically, HL7 has managed the documentation of maturity of resources using a large Google sheet.  However, this mechansism doesn't scale well
+    to tracking all of the other artifacts in the FHIR core specification, let alone those in different implementation guides.
+  </p>
+  <p>
+    There is now a standard extension 
+    (<a href="https://build.fhir.org/ig/HL7/fhir-extensions/StructureDefinition-structuredefinition-fmm-support.html">structuredefinition-fmm-support</a>)
+    that allows authors to capture the supporting information for their maturity assertions.  This information is available when a user hovers over the
+    maturity level for that artifact.  The extension isn't mandatory, though organizations can choose to require its use.  Organizations can also set
+    expectations for which artifacts require which types of supporting documentation.
+  </p>
+  <a name="cascading"> </a>
+  <h3>Cascading Maturity Declarations</h3>
+  <p>
+    The FHIR core specification contains hundreds of resources and many hundreds more of value sets, code systems, operation definitions, search parameters,
+    concept maps, and other types of artifacts.  Implementation guides can similarly have hundreds or thousands of distinct artifacts.  It can be costly
+    to track and manage maturity information on every single one of those artifacts.
+  </p>
+  <p>
+    To help with this, the FHIR core specification uses a 'maturity propagation' process.  Maturities must be declared on resources.  However, the maturity
+    of value sets, code systems, operations, etc. will default to the maturity of their associated resource (if any).  This is done via a cascading process
+    where value set maturity will default based on the maturity of the resources that bind to them, code system maturity will default based on the maturity
+    of the value sets that reference them, etc.
+  </p>
+  <p>
+    This cascading process is also supported by the HL7 IG publisher.  It is enabled by default in the base IG template and is controlled by the
+    <a href="https://build.fhir.org/ig/FHIR/fhir-tools-ig/CodeSystem-ig-parameters.html#ig-parameters-propagate-status">configuration parameter</a>.
+    If this is set to 'true', then maturity levels will automatically propagate from higher-level artifacts down to lower-level artifacts.  (For HL7 
+    international artifacts, 'standards status' such as 'normative', 'STU', 'draft' will also propagate as well.)  The propagation will <b>only</b> occur
+    to artifacts that haven't explicitly declared FMM (or standards status).  I.e. Whatever status the author declares will trump any cascading that would
+    otherwise occur.
+  </p>
+  <p>
+    The cascade hierarchy works as follows:
+  </p>
+  <ol>
+    <li>Maturity is only relevant for 'canonical' resources.  It's not possible for a Patient, Observation, or CarePlan instance to have maturity.
+     Maturity levels won't be displayed for non-canonical resources</li>
+    <li>Certain resources that are canonical are always considered 'informative' (non-implementable) and therefore also won't be subject to
+      maturity declaration or propagation.  These include: ChargeItemDefinition, Citation, ConditionDefinition, Evidence, EvidenceReport, EvidenceVariable, 
+      ExampleScenario, ObservationDefinition, and TestScript.</li>
+    <li>If an instance is explicitly marked as an example, it will also automatically be considered to be informative, non-implementable, and thus
+      not subject to maturity.</li>
+    <li>Maturity propagates along certain resource relationships, but not all relationships.  For example, if an implementation guide has a dependency on 
+    another implementation guide, it doesn't inherit the referenced guide's maturity.  The specific sources of propagation are as follows:
+    <table>
+        <tbody>
+          <tr>
+            <th>Source</th>
+            <th>Propagates to</th>
+          </tr>
+          <tr>
+            <td>ActivityDefinition</td>
+            <td>library (Library); profile (StructureDefinition); transform (StructureMap)</td>
+          </tr>
+          <tr>
+            <td>CapabilityStatement</td>
+            <td>rest.resource.profile &amp; document.profile (StructureDefinition); rest.searchParam &amp; rest.resource.searchParam (SearchParameter), 
+              rest.operation &amp; rest.resource.operation (OperationDefinition); messaging.supportedMessage.definition (MessageDefinition)</td>
+          </tr>
+          <tr>
+            <td>ConceptMap</td>
+            <td>group.unmapped.valueSet</td>
+          </tr>
+          <tr>
+            <td>Implementation Guide</td>
+            <td>global.profile (StructureDefinition); definition.resource (everything)</td>
+          </tr>
+          <tr>
+            <td>Measure</td>
+            <td>library (Library)</td>
+          </tr>
+          <tr>
+            <td>MessageDefinition</td>
+            <td>base &amp; parent (MessageDefinition); focus.profile (StructureDefinition); graph (GraphDefinition)</td>
+          </tr>
+          <tr>
+            <td>OperationDefinition</td>
+            <td>base (OperationDefinition); inputProfile, outputProfile, &amp; parameter.targetProfile (StructureDefinition); 
+              parameter.binding (ValueSet)</td>
+          </tr>
+          <tr>
+            <td>PlanDefinition</td>
+            <td>library (Library); action &amp; action.action (ActivityDefinition)</td>
+          </tr>
+          <tr>
+            <td>Questionnaire</td>
+            <td>derivedFrom (Questionnaire); item.answerValueSet &amp; extension[questionnaire-unitValueSet] (ValueSet); 
+              extension[questionnaire-referenceProfile] (StructureDefinition)</td>
+          </tr>
+          <tr>
+            <td>SearchParameter</td>
+            <td>derivedFrom &amp; component (SearchParameter)</td>
+          </tr>
+          <tr>
+            <td>StructureDefinition</td>
+            <td>baseDefinition &amp; baseDefinition (StructureDefinition); differential.element.binding.valueSet (ValueSet)</td>
+          </tr>
+          <tr>
+            <td>StructureMap</td>
+            <td>import (StructureMap)</td>
+          </tr>
+          <tr>
+            <td>ValueSet</td>
+            <td> extension[valueset-map] (ConceptMap); extension[valueset-supplement], compose.include.system &amp; 
+              compose.exclude.system (CodeSystem); compose.include.valueSet, compose.exclude.valueSet (ValueSet)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The following resources do not (currently) propagate maturity to any references: CodeSystem, EventDefinition, Library, 
+        NamingSystem, &amp; TerminologyCapabilities</p>
+      <p>
+        <b>NOTE:</b> As the list of canonical resources and the data elements supported by them change, the code that supports 
+          maturity propagation will need to be updated.  If you think a resource or element should support propagation that isn't
+          listed above, please raise an issue on Zulip
+      </p>
+    </li>
+    <li>In some cases, a resource may 'inherit' maturity from multiple sources having different values - for example, the same 
+      ValueSet may be referenced by one profile with maturity 4, and another with maturity 2.  In this case the 'highest'
+      maturity will be presumed to apply.  I.e. if at least one of the profiles is at level 4, it's assumed that the value set
+      it points to is also at least at level 4.</li>
+    <li>For the purpose of standards maturity, draft is consider less than STU, which is less than normative.  'informative' does
+      not propagate.</li>
+    <li>Propagation only happens within the context of an IG.  Statuses from artifacts in other IGs is not considered.</li>
+  </ol>
+  <p>
+    Authors should be aware that while these propagation rules will 'generally' produce the desired results and will signficantly
+    save on maintenance effort, there will absolutely be times when they will want to override the default maturity.  For example,
+    a particular implementation guide or profile might have high maturity, but some of the artifacts it points to might be newer
+    or not widely tested/implemented and thus should be explicitly marked as lower maturity.
+  </p>
+</div>
