@@ -1,0 +1,96 @@
+{
+  "resourceType" : "StructureDefinition",
+  "id" : "test-logical-patient",
+  "url" : "http://hl7.org/fhir/uv/howto/StructureDefinition/test-logical-patient",
+  "status" : "active",
+  "name" : "LogicalPatient",
+  "date" : "2019-11-01T09:29:23+11:00",
+  "purpose" : "Testing Model to Model Mapping",
+  "fhirVersion" : "4.0.1",
+  "kind" : "logical",
+  "abstract" : false,
+  "type" : "http://hl7.org/fhir/uv/howto/StructureDefinition/Person",
+  "baseDefinition" : "http://hl7.org/fhir/StructureDefinition/Base",
+  "derivation" : "specialization",
+  "mapping" : [{
+    "identity" : "pp",
+    "uri" : "http://hl7.org/fhir/uv/howto/StructureDefinition/test-patient-profile",
+    "name" : "Test Profile"
+  }],
+  "differential" : {
+    "element" : [{
+      "path" : "Person",
+      "min" : 0,
+      "max" : "1",
+      "mapping" : [{
+        "identity" : "pp",
+        "map" : "Patient"
+      }]
+    },
+    {
+      "path" : "Person.valid",
+      "short" : "Whether the record is valid",
+      "min" : 1,
+      "max" : "1",
+      "type" : [{
+        "code" : "boolean"
+      }],
+      "mapping" : [{
+        "identity" : "pp",
+        "map" : "Patient.active"
+      }]
+    },
+    {
+      "path" : "Person.name",
+      "short" : "Usual Name",
+      "min" : 1,
+      "max" : "1",
+      "type" : [{
+        "code" : "string"
+      }],
+      "mapping" : [{
+        "identity" : "pp",
+        "map" : "Patient.name.where(use='official')"
+      }]
+    },
+    {
+      "path" : "Person.dob",
+      "short" : "Stated Birth Date",
+      "min" : 1,
+      "max" : "1",
+      "type" : [{
+        "code" : "date"
+      }],
+      "mapping" : [{
+        "identity" : "pp",
+        "map" : "Patient.birthDate"
+      }]
+    },
+    {
+      "path" : "Person.dod",
+      "short" : "Stated Death Date",
+      "min" : 0,
+      "max" : "1",
+      "type" : [{
+        "code" : "date"
+      }],
+      "mapping" : [{
+        "identity" : "pp",
+        "map" : "Patient.deceasedDateTime"
+      }]
+    },
+    {
+      "path" : "Person.address",
+      "short" : "Registered Address",
+      "min" : 0,
+      "max" : "1",
+      "type" : [{
+        "code" : "Address"
+      }],
+      "mapping" : [{
+        "identity" : "pp",
+        "map" : "Patient.address.where(use='usual')"
+      }]
+    }]
+  }
+}
