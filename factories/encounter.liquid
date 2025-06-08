@@ -8,7 +8,7 @@
     "system" : "https://github.com/projectcypress/cypress/encounter",
     "value" : "{{ counter }}",
   }],
-  "status"  : {% if column('Complete?') = 'y' %} "finished" {% else %} "in-progress" {% endif %},
+  "status"  : {% if column('Complete?') = 'y' %} "completed" {% else %} "in-progress" {% endif %},
   "period" : [{
     "start" : "{{ dateColumn('Admission Date', 'M/d/yy') }}",
     {% if column('Discharge Date') != '' %}

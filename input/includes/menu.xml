@@ -38,6 +38,9 @@
         <a href="fragments.html">Using Instance Fragments</a>
       </li>
       <li>
+        <a href="uml.html">UML Class Diagrams</a>
+      </li>
+      <li>
         <a href="diagrams-plantuml.html">PlantUml Diagrams</a>
       </li>
       <li>
@@ -45,6 +48,9 @@
       </li>
       <li>
         <a href="languages.html">Writing Multi-lingual IGs</a>
+      </li>
+      <li>
+        <a href="related-igs.html">Related IGs</a>
       </li>
     </ul>
   </li>

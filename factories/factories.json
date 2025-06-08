@@ -20,8 +20,9 @@
             "mode": "profile",
             "profile": "http://hl7.org/fhir/uv/howto/StructureDefinition/test-patient-profile",
             "data": "factories/patient-cases.xlsx;Patients",
+            "mark-profile" : false,
             "format": "json",
-            "filename": "tests/Patient-$counter$.json",
+            "filename": "input/factories/Patient-$counter$.json",
             "bundle": false,
             "tables": {
                 "genders": "factories/patient-genders.csv"
@@ -74,7 +75,7 @@
             "liquid": "factories/encounter.liquid",
             "data": "factories/patient-cases.xlsx",
             "format": "json",
-            "filename": "tests/Encounter-$counter$.json",
+            "filename": "input/factories/Encounter-$counter$.json",
             "bundle": false,
             "tables": {
                 "physicians": "factories/patient-cases.xlsx;Providers"
@@ -87,7 +88,7 @@
             "profile": "http://hl7.org/fhir/StructureDefinition/bp",
             "data": "factories/patient-cases.xlsx;Patients",
             "format": "json",
-            "filename": "tests/Observation-bp-$counter$.json",
+            "filename": "input/factories/Observation-bp-$counter$.json",
             "bundle": false,
             "mappings": [
                 {
@@ -187,7 +188,7 @@
             "profile": "http://hl7.org/fhir/StructureDefinition/bodyweight",
             "data": "factories/patient-cases.xlsx;Patients",
             "format": "json",
-            "filename": "tests/Observation-weight-$counter$.json",
+            "filename": "input/factories/Observation-weight-$counter$.json",
             "bundle": false,
             "mappings": [
                 {
@@ -318,7 +319,7 @@
             "profile": "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
             "data": "factories/patient-cases.xlsx;Patients",
             "format": "json",
-            "filename": "tests/MedicationStatement-$counter$.json",
+            "filename": "input/factories/MedicationStatement-$counter$.json",
             "bundle": false,
             "filter" : "column('Warfarin?') != ''",
             "mappings": [
@@ -342,7 +343,7 @@
                 },
                 {
                     "path": "MedicationStatement.status",
-                    "expression" : "'completed'"
+                    "expression" : "'recorded'"
                 },
                 {
                     "path": "MedicationStatement.triggeredBy"

@@ -80,6 +80,12 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="uml.html"/>
+        <name value="uml.html"/>
+        <title value="Creating Class Diagrams"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="languages.html"/>
         <name value="languages.html"/>
         <title value="Producing Multi-Language IGs"/>
@@ -90,6 +96,12 @@
         <name value="tooling.html"/>
         <title value="IG Tooling"/>
         <generation value="html"/>
+      </page>
+      <page>
+        <sourceUrl value="related-igs.html"/>
+        <name value="related-igs.html"/>
+        <title value="Related IGs"/>
+        <generation value="markdown"/>
       </page>
       <page>
         <sourceUrl value="using-templates.html"/>
@@ -199,6 +211,13 @@
         <code value="test-data-factories"/>
       </code>       
       <value value="factories/factories.json"/>
+    </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="path-factory"/>
+      </code>       
+      <value value="input/factories"/>
     </parameter>
   </definition>
 </ImplementationGuide>
