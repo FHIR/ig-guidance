@@ -1,0 +1,52 @@
+{
+  "resourceType" : "ConceptMap",
+  "id" : "map-logical-patient",
+  "url" : "http://hl7.org/fhir/uv/howto/StructureDefinition/map-logical-patient",
+  "status" : "active",
+  "name" : "LogicalPatientMap",
+  "date" : "2025-07-09T09:29:23+11:00",
+  "purpose" : "Testing Model to Model Mapping",
+  "group" : [{
+    "source" : "http://hl7.org/fhir/uv/howto/StructureDefinition/test-patient-profile?codesystem",
+    "target" : "http://hl7.org/fhir/uv/howto/StructureDefinition/test-logical-patient?codesystem",
+    "element" : [{
+      "code" : "Patient",
+      "target" : [{
+        "code" : "Person",
+        "relationship" : "equivalent"
+      }]
+    },{
+      "code" : "Patient.active",
+      "target" : [{
+        "code" : "Person.valid",
+        "relationship" : "equivalent"
+      }]
+    },{
+      "code" : "Patient.name",
+      "target" : [{
+        "code" : "Person.name",
+        "comment" : "where(use='official')",
+        "relationship" : "source-is-broader-than-target"
+      }]
+    },{
+      "code" : "Patient.birthDate",
+      "target" : [{
+        "code" : "Person.dob",
+        "relationship" : "equivalent"
+      }]
+    },{
+      "code" : "Patient.deceasedDateTime",
+      "target" : [{
+        "code" : "Person.dod",
+        "relationship" : "equivalent"
+      }]
+    },{
+      "code" : "Patient.address",
+      "target" : [{
+        "code" : "Person.address",
+        "comment" : "where(use='usual')",
+        "relationship" : "source-is-broader-than-target"
+      }]
+    }]
+  }] 
+}

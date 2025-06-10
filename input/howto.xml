@@ -219,5 +219,12 @@
       </code>       
       <value value="input/factories"/>
     </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="suppress-mappings"/>
+      </code>       
+      <value value="*"/>
+    </parameter>
   </definition>
 </ImplementationGuide>
