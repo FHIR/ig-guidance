@@ -105,3 +105,22 @@ There are two tools that can perform this assembly operation for implementers:
 * [the Java Validator](https://confluence.hl7.org/spaces/FHIR/pages/35718580/Using+the+FHIR+Validator#UsingtheFHIRValidator-PackageRegeneration)
 
 Both of these tools can be instructured to pin canonicals as they extract content from packages, and implementers should routinely do this before/as they are uploaded onto FHIR servers etc. (And FHIR Server documentation should link to this page and these tools to help implementers).
+
+### Choosing the most recent version 
+
+Once you have a list of a different versions of the same resource (e.g. the same URL), choosing the most recent isn't always straight forward. 
+In principle, systems can do this by:
+
+* comparing the versions 
+* comparing the dates 
+
+Comparing the dates isn't as reliable as it first sounds, because sometimes point/patch releases are made on old versions, so they get more recent dates, and sometimes the dates are updated as the resources are copied around. If systems are confident that dates are reliable, they can use the dates. 
+
+Comparing versions is trickier than it sounds, because there are so many versions schemes - semver, dates, others. Though in R5+ resources have a versionAlgorithm to help with this, different versions of the resource may have different schemes (if it's even stated), though is not common. 
+
+In practice, a workable approach is:
+* if the version looks like semver, treat it as semver 
+* if the version look like a date, treat it as a date
+* otherwise, or if the versions don't look consistent, sort them alphabetically 
+
+This advice might get updated from time to time, but this appears to sort almost all resources found in the ecosystem correctly.
