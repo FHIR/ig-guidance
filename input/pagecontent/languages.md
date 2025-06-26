@@ -18,7 +18,7 @@ Text in the final IG comes from 6 different sources:
 5. Text from the narrative pages authored as part of the specification 
 6. Text from the template that builds all the parts into a coherent specification 
 
-A fully multi-lingual IG must somehow provide translations for all this content. 
+A fully multi-lingual IG must provide translations for all this content. 
 
 This list summarizes the expected source materials for each of these sources.
 
@@ -36,6 +36,7 @@ langages to support IGs and implementations that depend on the content.
 The IG references the language pack(s) of relevance, and the translations they provide
 are automatically in scope. 
 
+You need to use an reference language pack, or create and reference your own. 
 See below for how to create Language Packs.
 
 #### Text from the java code that presents the resources 
@@ -65,7 +66,7 @@ page, but right now nothing will happen with that - depends on the template (nex
 
 #### Text from the template that builds all the parts into a coherent specification 
 
-ToDo - working on the template hasn't yet happened.
+Translation of the template text happens in the template - see below.
 
 ---
 
@@ -76,10 +77,11 @@ The IG publication tooling supports three formats for providing translations:
 * XLIFF: http://docs.oasis-open.org/xliff/xliff-core/v2.0/xliff-core-v2.0.html (file extension: ```.xliff```)
 * JSON: An internal format functionally equivalent to XLIFF, provided for users who wish to integrate with some other translation format. (file extension: ```.json```)
 
-The tools do not have a preference for one format over another; they're all equivalent from a process point of view.
-However HL7 recommends that users standardise on using the ```.po``` format - this format has the best support for 
-plural forms, and the overall translation process. Note, that only the java translations use the plural forms, and
-the ```.po``` format is required in that context.
+In most uses, PO is required, except for translating resources, when any format can be used, but the ```.po``` format 
+is still preferred because  - this format has the best support for plural forms, and the overall translation process. 
+
+Note, that only the java translations use the plural forms, and the ```.po``` format is required in that context.
+The ```.po``` format is also required in the template translations.
 
 ---
 
@@ -93,9 +95,13 @@ the ```.po``` format is required in that context.
 ---
 
 ### Providing translations for the resources in an IG
-**TODO**
 
----
+When a multi-lingual IG is built, output will be created in /translations/{lang}/{format} for all the strings in 
+the resources that are known to be translated. Any existing translations will be preserved in the generated output. 
+
+Editors/translators choose which format is preferred, edit the content as text or using their preferred 
+language editing software (or just AI directly). The output of this is an updated translation file, which 
+is then copied into /input/... (as specifed in the IG parameter translations). 
 
 ### Creating a Language Pack
 
@@ -148,16 +154,17 @@ fill out the translations.
 
 #### Providing the translations
 
-1. Create an empty file in /input/translations which has the name [ResourceType]-[id].[ext] where 
+1. For each translation language, define an input folder which is subfolder of the {root}/input folder, and which ends with a subfolder that exactly matches the lang. `input/translations/{lang}` is the normal choice
+2. Create an empty file in the appropriate translation folder which has the name [ResourceType]-[id].[ext] where 
 ** ```ResourceType``` is one of CodeSystem, Questionnaire, or StructureDefinition
 ** ```id``` is the id assigned to the resource in the core specification or THO 
 ** ```ext``` is one of ```.po```, ```.xliff```, or ```.json``` (see Translation Formats above)
 
-2. Use the IG publisher to build the Language Pack 
-3. Three different files containing the content to translate will be produced in temp/lang/po, temp/lang/json, and temp/lang/xliff
-4. Pick the one you want to work with, and edit the content until you're done
-5. Save that modified file back into /input/translations. If you used a different extension, delete the original one
-6. Use the IG publisher to build the Language Pack 
+3. Use the IG publisher to build the Language Pack 
+4. Three different files containing the content to translate will be produced in temp/lang/po, temp/lang/json, and temp/lang/xliff
+5. Pick the one you want to work with, and edit the content until you're done
+6. Save that modified file back into /input/translations. If you used a different extension, delete the original one
+7. Use the IG publisher to build the Language Pack 
 
 This cycle can be repeated indefinitely as the language pack is developed. Existing translations are 
 preserved in the generated files.
@@ -211,23 +218,15 @@ Implementers wishing to contribute translations should keep the following in min
 
 * There is only one set of translations per language(/region). Contributers will have to collaborate. Disputes will be resolved by the relevant HL7 Affiliate if there is one
 * The set of phrases that needs translating covers both text that is 'rendered' into the IGs, and validator error messages 
-* The set of phrases that need translating changes constantly as the IG publisher is developed in an ongoing fashion. 
+* The set of phrases that need translating grows constantly as the IG publisher is developed in an ongoing fashion, and existing messages change 
 * The % coverage of a translation is published on the github home page: https://github.com/hapifhir/org.hl7.fhir.core?tab=readme-ov-file#internationalization
 
 Implementers provide translations by editing the [.po files](https://github.com/hapifhir/org.hl7.fhir.core/tree/master/org.hl7.fhir.utilities/src/main/resources/source)
-and then making them as GitHub pull requests. 
+(by hand, software or AI with review) and then making them as GitHub pull requests. 
 
-The .po file starts with the following lines:
+Most PO files have some kind of header, but this is not required. Note that different PO software put different metadata in the root of the PO files - this is ignored
 
-````po
-// en -> de
-Plural-Forms: nplurals=2; plural=n != 1;
-````
-
-The comment on the first line just confirms that this is the translation from English to German, which is implicit in the file name.
-The Plural-Forms line is a standard .po file feature that documents the use of plural forms for the language
-
-Then there are a series of entries:
+The file contains a series of entries:
 
 ````po
 #: [MSG_ID]

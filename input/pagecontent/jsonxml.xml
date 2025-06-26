@@ -14,7 +14,7 @@
 <p>
 This feature is used to allow the presentation of information from arbitrary JSON 
 and XML files into the page HTML. The primary anticipated use of this feature is 
-to present documentation about the test cases includiung in the IG (using the 
+to present documentation about the test cases including in the IG (using the 
 <a href="https://hl7.org/fhir/tools/CodeSystem-ig-parameters.html#ig-parameters-path-test">path-test</a>
 parameter). Typically, these test cases have a JSON or an XML file (or files) that 
 describe the tests in terms of suites, tests etc. A custom author provided liquid 
