@@ -38,7 +38,9 @@
     },
     {
       "path" : "Patient.deceased[x]",
-      "max" : "0"
+      "type" : [{
+        "code" : "dateTime"
+      }]
     },
     {
       "path" : "Patient.address",

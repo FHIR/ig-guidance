@@ -199,7 +199,7 @@ Because the data providers aren't expected or required to be technical, here's a
 can do to massage the data into shape ready to go in a resource: 
 
 * map from a named column to a path in the resource
-* build a complex data from multiple columns 
+* build a complex data type from multiple columns 
 * extract a value from a column text 
 * look up a value based on a number/code
 

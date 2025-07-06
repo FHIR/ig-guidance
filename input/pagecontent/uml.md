@@ -45,7 +45,8 @@ The `generate-uml` parameter appears only once, and can have one of the followin
 If the setting is not `none` then a UML diagram for each StructureDefinition will be 
 produced in `/temp/diagrams` in two different formats: An `.svg` format, and an `.html`
 format. The HTML output has the same style as it would in the page, and shows what the
-diagram will look like in the output. The .svg is missing the style information, but can 
+diagram will look like in the output, and also loads the SVG from the svg file, so you 
+can see what the Inkscape changes look like. The .svg is missing the style information, but can 
 be edited directly by Inkscape (see below).
 
 Because of this, whenever an editor sets generate-uml to `source` or `all` the editor 
@@ -60,12 +61,16 @@ Preparation:
 
 * Install [Inkscape](https://inkscape.org) (use the current stable version)
 * Other SVG editors are not supported - you can try using them, but if they don't work (and there's lots of reasons why they might not), then you'll have to use Inkscape
+* You can ask an AI to lay the SVG out for you - at present (mid-2025) the AI has some interesting ideas, but execution is a bit sloppy. If you do, ask it to preserve the ids on the elements, and it *might* work (the AI might introduce complex transforms that are ignored by the IG publisher, for instance). It's generally better to get the AI to generate a suggestive layout and then adapt that in Inkscape
 
 Edit Cycle:
 
 * open the .svg file in `temp/diagrams`
 * You'll note that Inkscape can't read the attributes, and the layout of the text is wrong. That is expected, and doesn't matter other than making editors life a little harder
-* You can move the classes, lines, and line decorations around
+* You can move the classes around (the only thing you can change is top,left - anything else will be ignored)
+* You can ignore the lines, and they'll just follow the classes around when the diagram is regenerated
+* if you want to move the lines, add another point to the line (double click on it in Inkscape), which will move the connector (line, title, and cardinality) to manually managed. 
+* to stop managing a line, just delete it - it will be recreated
 * when you're happy with their location, save the file with the same name to `/input/diagrams`
 * Run the generation again, and check the output again
 
@@ -73,4 +78,24 @@ Repeat this cycle until you're happy with the appearance of the diagram. Note th
 to the content will change the diagram, so a typical workflow is to edit the diagram once 
 early in the process, and then revisit the diagrams towards the end of preparing for a 
 publication release.
+
+### Other UML Class Diagrams
+
+A page can add a Class Diagram that covers multiple different classes (e.g. StructureDefinitions with 
+derivation = `specialization`). To do this, add a 'uml' instruction into the page:
+
+```
+{%! uml {json} %}
+```
+
+where the JSON is a valid JSON Object with the following properties:
+
+* `id` - the id of the diagram. Must be unique across all the IG, and must not be the same as the id or name of an existing StructureDefinition
+* `attributes` - boolean for whether to show attributes in the class (e.g. may not want to show class contents if the focus of the diagram is about the class heirarchy)
+* `no-inner-classes` - boolean for whether to suppress inner classes in the class (e.g. may not want to show class contents if the focus of the diagram is about the class heirarchy)
+* `classes` - an array of String, where the entries in the array are the name (StructureDefinition.name) of classes to show in the diagram
+* `prefix` - optional - add if you want the diagram in the page twice (or more) in different tabs etc. This is a prefix that goes on all the ids in the generated SVG so that they remain unique. At least one of the instances of the diagram should not have a prefix (that's the Inkscape one)
+
+Use Inkscape to layout the diagram just like any other diagram
+
 

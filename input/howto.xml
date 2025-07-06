@@ -56,6 +56,18 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="best-practice.html"/>
+        <name value="best-practice.html"/>
+        <title value="IG Best Practices"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
+        <sourceUrl value="pinning.html"/>
+        <name value="pinning.html"/>
+        <title value="Managing Canonical Versions (pinning)"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="terminology.html"/>
         <name value="terminology.html"/>
         <title value="Working with Terminology"/>
@@ -92,6 +104,12 @@
         <generation value="markdown"/>
       </page>
       <page>
+        <sourceUrl value="maturityprop.html"/>
+        <name value="maturityprop.html"/>
+        <title value="Maturity Propagation"/>
+        <generation value="html"/>
+      </page>
+      <page>
         <sourceUrl value="tooling.html"/>
         <name value="tooling.html"/>
         <title value="IG Tooling"/>
@@ -110,22 +128,16 @@
         <generation value="html"/>
       </page>
       <page>
-        <sourceUrl value="best-practice.html"/>
-        <name value="best-practice.html"/>
-        <title value="IG Best Practices"/>
+        <sourceUrl value="diagrams-plantuml.html"/>
+        <name value="diagrams-plantuml.html"/>
+        <title value="Adding diagrams (PlantUml)"/>
         <generation value="markdown"/>
-        <page>
-          <sourceUrl value="diagrams-plantuml.html"/>
-          <name value="diagrams-plantuml.html"/>
-          <title value="Adding diagrams (PlantUml)"/>
-          <generation value="markdown"/>
-        </page>
-        <page>
-          <sourceUrl value="diagrams-mermaid.html"/>
-          <name value="diagrams-mermaid.html"/>
-          <title value="Adding diagrams (Mermaid)"/>
-          <generation value="markdown"/>
-        </page>
+      </page>
+      <page>
+        <sourceUrl value="diagrams-mermaid.html"/>
+        <name value="diagrams-mermaid.html"/>
+        <title value="Adding diagrams (Mermaid)"/>
+        <generation value="markdown"/>
       </page>
       <page>
         <sourceUrl value="testing.html"/>
@@ -218,6 +230,13 @@
         <code value="path-factory"/>
       </code>       
       <value value="input/factories"/>
+    </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="suppress-mappings"/>
+      </code>       
+      <value value="*"/>
     </parameter>
   </definition>
 </ImplementationGuide>
