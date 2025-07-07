@@ -1,0 +1,40 @@
+{
+  "resourceType" : "Bundle",
+  "id" : "signed",
+  "identifier" : {
+    "system" : "http://something1",
+    "value" : "something2"
+  },
+  "type" : "collection",
+  "timestamp" : "2024-06-09T11:06:35+10:00",
+  "link" : [{
+    "relation" : "self",
+    "url" : "http://something3"
+  }],
+  "entry" : [{
+    "fullUrl" : "http://something5",
+    "resource" : {
+      "resourceType" : "Observation",
+      "id" : "obs1",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">This is a simple <b>example</b></div>"
+      },
+      "code" : {
+        "text" : "something"
+      },
+      "status" : "final",
+      "valueQuantity" : {
+        "value" : 1
+      }
+    }
+  }],
+  "signature" : {
+    "type" : [{
+      "system" : "urn:iso-astm:E1762-95:2013",
+      "code" : "1.2.840.10065.1.12.1.1"
+    }],
+    "targetFormat" : "application/fhir+json; canonicalization=http://hl7.org/fhir/canonicalization/json",
+    "sigFormat" : "application/jose"
+  }
+}
