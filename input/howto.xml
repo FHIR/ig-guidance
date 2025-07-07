@@ -163,6 +163,12 @@
           <generation value="markdown"/>
         </page>
       </page>
+      <page>
+        <sourceUrl value="multi-maps.html"/>
+        <name value="multi-maps.html"/>
+        <title value="Working with Multiple Maps"/>
+        <generation value="markdown"/>
+      </page>
      
       <page>
         <sourceUrl value="template.html"/>

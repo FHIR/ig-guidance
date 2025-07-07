@@ -53,7 +53,10 @@ that exist. Any additional maps will come after the explicitly defined columns.
 } 
 </pre>
 
-There's two kinds of columns: ConceptMap and CodeSystem.
+Common settings across all columns:
+
+* `title`: Assign the caption for the column (optional)
+* `type`: There's two kinds of columns: ConceptMap and CodeSystem - see below.
 
 ### ConceptMaps
 
@@ -72,4 +75,19 @@ expect that the property values are Codings, and look for a match
 using system + code. if it finds one, it will add the matched concept 
 to the table 
 
- 
+## Example
+
+{% multi-map {
+  "caption" : "Address Type Mappings for FHIR, V3, and v2",
+  "title" : "FHIR",
+  "source" : "http://hl7.org/fhir/ValueSet/address-use",
+  "columns" : [{
+    "type" : "ConceptMap",
+    "url" : "http://hl7.org/fhir/ConceptMap/101",
+    "title" : "V3"
+  },{
+    "type" : "ConceptMap",
+    "url" : "http://hl7.org/fhir/ConceptMap/cm-address-use-v2",
+    "title" : "V2"
+  }]
+} %}
