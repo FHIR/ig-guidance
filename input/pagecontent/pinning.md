@@ -57,7 +57,7 @@ Authors can choose to pin the canonical references manually, and to invest in ch
 However this is too laborious for most editors, or simply not a good use of precious time, so the IG publisher can be instructed to pin the canonicals itself. This is done using the [`pin-canonicals`](https://hl7.org/fhir/tools/CodeSystem-ig-parameters.html#ig-parameters-pin-canonicals) parameter, which can have the following values:
 
 * `pin-none`: take no action (which is the default if it's not present)
-* `pin-all`:  any unversioned canonical references that can be resolved through the package dependencies will have `|(version)` appended to the canonical
+* `pin-all`:  any unversioned canonical references that can be resolved through the package dependencies will have `|(version)` appended to the canonical, where (version) is the latest available within the package dependencies
 * `pin-multiples`: pinning the canonical reference will only happen if there is multiple versions found in the package dependencies
 
 Note that `pin-multiples` is a bad idea in general - the pinning only occurs when there's multiple matches *inside* the package dependencies. But this doesn't speak to the general problem of multiple matches in an implementer's environment where the implementer is dealing with multiple different IGs with intersecting package dependencies, or collating content from multiple packages on a terminology server. For this reason, `pin-all` is strongly recommended to authors.
@@ -71,7 +71,7 @@ It's also possible to provide the parameter `pin-dest` that specifies a Paramete
 The advantage of writing the decision to a [manifest](https://build.fhir.org/ig/HL7/crmi-ig/branches/master/StructureDefinition-crmi-manifestlibrary-examples.html) is that implementers can control the scope of the application of pinning precisely at the time of implementation (assembly - see below), and can also easily alter the pinned versions where that's appropriate (and some large eco-systems function in this way).
 
 However the problem with this approach is that
-* Implementers need to precisely in control of the scope of application (and this is difficult or even impossible, see above)
+* Implementers need to be precisely in control of the scope of application (and this is difficult or even impossible, see above)
 * implementers can easily make mistakes pinning the versions and pin to something illegal, or at least incompatible with other trading partners' choices
 * implementers need tooling that consistently interprets the manifests correctly (mainly, only approved tx-ecosystem terminology servers do this reliably)
 
@@ -85,7 +85,7 @@ This happens for any content that is not found in packages at all. Given the ubi
 
 How can you tell which canonicals? You can't. Yet. (TODO)
 
-For any other content, the content will come from a package, and be subject to the package dependency rules. Implementers can indicate that package versioning doesn't apply by pinning the version to the current mot recent version:
+For any other content, the content will come from a package, and be subject to the package dependency rules. Implementers can indicate that package versioning doesn't apply by pinning the version to the current most recent version:
 
 ```json
   "valueSet" : "http://example.org/ValueSet/some-id|*"
