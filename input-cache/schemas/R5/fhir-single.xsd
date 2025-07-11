@@ -47,7 +47,7 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Sun, May 18, 2025 15:14+0000 for FHIR v6.0.0-ballot2 
+  Generated on Wed, Jul 9, 2025 22:01+0000 for FHIR v6.0.0-ballot2 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hl7.org/fhir" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://hl7.org/fhir" elementFormDefault="qualified" version="6.0.0-ballot2">
   <!-- Note: When using this schema with some tools, it may also be necessary to declare xmlns:xml="http://www.w3.org/XML/1998/namespace", however this causes performance issues with other tools and thus is not in the base schemas. -->
@@ -30696,6 +30696,11 @@ The actual author of the section when it is not the author of the composition. I
               <xs:documentation xml:lang="en">in-progress | completed | entered-in-error.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="category" minOccurs="0" maxOccurs="unbounded" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Partitions the DeviceAlert into one or more categories that can be used to filter searching, to govern access control, or guide system behavior.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="type" minOccurs="0" maxOccurs="1" type="DeviceAlertTypeCodes">
             <xs:annotation>
               <xs:documentation xml:lang="en">physiological | technical.</xs:documentation>
@@ -30703,7 +30708,12 @@ The actual author of the section when it is not the author of the composition. I
           </xs:element>
           <xs:element name="priority" minOccurs="0" maxOccurs="1" type="DeviceAlertPriorityCodes">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The alert priority is usually reported by the source. A priority of `info` may indicate that the alert is &quot;for information only&quot; and not urgent action is required. The element may be omitted if the priority is unknown.</xs:documentation>
+              <xs:documentation xml:lang="en">The alert priority is usually reported by the source device. A priority of `info` may indicate that the alert is “for information only” and not urgent action is required. The element may be omitted if the priority is unknown.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="code" minOccurs="1" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The DeviceAlert.code indicates the specific condition that triggered the alert. It may correspond to a DeviceMetric.alert.code or Device.alert.code.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="subject" minOccurs="1" maxOccurs="1" type="Reference">
@@ -30711,24 +30721,34 @@ The actual author of the section when it is not the author of the composition. I
               <xs:documentation xml:lang="en">The who or what the alert is about.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="source" minOccurs="0" maxOccurs="1" type="Reference">
+          <xs:element name="presence" minOccurs="1" maxOccurs="1" type="boolean">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Whether the alert condition is currently active.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="presencePeriod" minOccurs="0" maxOccurs="1" type="Period">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">An instantaneous condition is reported with the same start and end value. The end value is omitted if the condition is ongoing.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="device" minOccurs="0" maxOccurs="1" type="Reference">
             <xs:annotation>
               <xs:documentation xml:lang="en">A top-level or component Device (such as a MDS, VMD, or Channel) that detected the alert condition; or, within such a Device, the specific DeviceMetric (e.g. a heart rate reading) that was in an alert condition.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="condition" type="DeviceAlert.Condition" minOccurs="1" maxOccurs="1">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The condition, event, or state being reported.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="derivedFrom" minOccurs="0" maxOccurs="unbounded" type="Reference">
+          <xs:element name="derivedFrom" type="DeviceAlert.DerivedFrom" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation xml:lang="en">The value causing the alert condition.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="acknowledged" minOccurs="0" maxOccurs="1" type="boolean">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">An indication of whether (true) or not (false) the alert condition has been acknowledged.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="label" minOccurs="0" maxOccurs="1" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The label may combine information from the alert  code, priority, the measurement type, measurement value, body sites and other sources, e.g., &quot;HR &gt; 180&quot;.</xs:documentation>
+              <xs:documentation xml:lang="en">The label may combine information from the alert  code, priority, the measurement type, measurement value, body sites and other sources, e.g., “HR &gt; 180”.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="signal" type="DeviceAlert.Signal" minOccurs="0" maxOccurs="unbounded">
@@ -30740,36 +30760,26 @@ The actual author of the section when it is not the author of the composition. I
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="DeviceAlert.Condition">
+  <xs:complexType name="DeviceAlert.DerivedFrom">
     <xs:annotation>
       <xs:documentation xml:lang="en">Describes a noteworthy condition or occurrence determined to exist by a device.</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="BackboneElement">
         <xs:sequence>
-          <xs:element name="code" minOccurs="1" maxOccurs="1" type="CodeableConcept">
+          <xs:element name="observation" minOccurs="1" maxOccurs="1" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The DeviceAlert.code indicates the specific condition that triggered the alert. It may correspond to a DeviceMetric.alert.code or Device.alert.code.</xs:documentation>
+              <xs:documentation xml:lang="en">The Observation whose value is causing the alert condition; or, if `component` is present, the Observation with a component causing the alert condition.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="acknowledged" minOccurs="0" maxOccurs="1" type="boolean">
+          <xs:element name="component" minOccurs="0" maxOccurs="1" type="Coding">
             <xs:annotation>
-              <xs:documentation xml:lang="en">An indication of whether (true) or not (false) the alert condition has been acknowledged.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="presence" minOccurs="1" maxOccurs="1" type="boolean">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">The alert condition is currently occurring.</xs:documentation>
-           </xs:annotation>
-          </xs:element>
-          <xs:element name="timing" minOccurs="0" maxOccurs="1" type="Period">
-            <xs:annotation>
-              <xs:documentation xml:lang="en">An instantaneous condition is reported with the same start and end value. The end value is omitted if the condition is ongoing.</xs:documentation>
+              <xs:documentation xml:lang="en">If applicable, the code of the component (of the Observation identified in `derivedFrom.observation`) having a value causing the alert condition. This may be used when the alert is associated with a specific component of an Observation, rather than the overall Observation; for example, a low diastolic blood pressure. Since the component is identified by matching `Observation.component.code`, if more than one component have the same code, the specific component is ambiguous. Repetitions of this element indicate additional components contributing to the alert condition.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="limit" minOccurs="0" maxOccurs="1" type="Range">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The limits beyond which a value was detected to cause the alert condition. The actual value is in DeviceAlert.derivedFrom.</xs:documentation>
+              <xs:documentation xml:lang="en">The limits beyond which a value was detected to cause the alert condition. The actual value is the `Observation.value[x]` referenced by `derivedFrom.observation` or, if specified, the `Observation.component.value[x]` of the component (with `Observation.component.code` matching `derivedFrom.component`) of the reference Observation.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -32029,6 +32039,11 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
               <xs:documentation xml:lang="en">The frequency at which the metric is taken or recorded. Devices measure metrics at a wide range of frequencies; for example, an ECG might sample measurements in the millisecond range, while an NIBP might trigger only once an hour. Less often, the measurementFrequency may be based on a unit other than time, such as distance (e.g. for a measuring wheel). The update period may be different than the measurement frequency, if the device does not update the published observed value with the same frequency as it was measured.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="availability" minOccurs="0" maxOccurs="1" type="CodeableConcept">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Indicates whether the metric is derived (measured) by a continuous means or by an intermittent means.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="calibration" type="DeviceMetric.Calibration" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation xml:lang="en">Describes the calibrations that have been performed or that are required to be performed.</xs:documentation>
@@ -32569,7 +32584,7 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="procedure" minOccurs="0" maxOccurs="unbounded" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The procedure(s) that are reported on in the DiagnosticReport.</xs:documentation>
+              <xs:documentation xml:lang="en">The performed procedure(s) that are reported on in the DiagnosticReport.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="performer" minOccurs="0" maxOccurs="unbounded" type="Reference">
@@ -40252,7 +40267,7 @@ For example, it is possible for a 'family' Group to be a performer of an Observa
           </xs:element>
           <xs:element name="endpoint" minOccurs="0" maxOccurs="unbounded" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The network services providing retrieval access to the selected images, frames, etc. See implementation notes for information about using DICOM endpoints.</xs:documentation>
+              <xs:documentation xml:lang="en">The network services providing access to the selected images, frames, etc. See implementation notes for information about using DICOM endpoints.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="instance" type="ImagingSelection.Instance" minOccurs="0" maxOccurs="unbounded">
@@ -63884,6 +63899,11 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
               <xs:documentation xml:lang="en">Plan/proposal/order fulfilled by this request.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="groupIdentifier" minOccurs="0" maxOccurs="1" type="Identifier">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">A shared identifier common to multiple independent Request instances that were activated/authorized more or less simultaneously by a single author.  The presence of the same identifier on each request ties those requests together and may have business ramifications in terms of reporting of results, billing, etc.  E.g. a requisition number shared by a set of lab tests ordered together, or a prescription number shared by all meds ordered at one time.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="category" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
               <xs:documentation xml:lang="en">Category of supply, e.g.  central, non-stock, etc. This is used to support work flows associated with the supply process.</xs:documentation>
@@ -66237,6 +66257,11 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
               <xs:documentation xml:lang="en">Reference to the resource (containing the contents of the resource needed for operations). This is allowed to be a Parameters resource.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="expression" minOccurs="0" maxOccurs="1" type="Expression">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The expression for a specific element to extract from the fixture body.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -66263,9 +66288,9 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
               <xs:documentation xml:lang="en">A free text natural language description of the variable and its purpose.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="expression" minOccurs="0" maxOccurs="1" type="string">
+          <xs:element name="expression" minOccurs="0" maxOccurs="1" type="Expression">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The FHIRPath expression for a specific value to evaluate against the fixture body. When variables are defined, only one of either expression, headerField or path must be specified.</xs:documentation>
+              <xs:documentation xml:lang="en">The expression for a specific value to evaluate against the fixture body. When variables are defined, only one of either expression, headerField or path must be specified.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="headerField" minOccurs="0" maxOccurs="1" type="string">
@@ -66510,6 +66535,16 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
               <xs:documentation xml:lang="en">The label would be used for tracking/logging purposes by test engines.</xs:documentation>
            </xs:annotation>
           </xs:element>
+          <xs:element name="key" minOccurs="0" maxOccurs="1" type="id">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">The key that identifies this assert (unique within this TestScript).</xs:documentation>
+           </xs:annotation>
+          </xs:element>
+          <xs:element name="evaluateBasedOn" minOccurs="0" maxOccurs="unbounded" type="id">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">A list of zero or more assert.key references to conditionally determine if this assert will be evaluated.</xs:documentation>
+           </xs:annotation>
+          </xs:element>
           <xs:element name="description" minOccurs="0" maxOccurs="1" type="string">
             <xs:annotation>
               <xs:documentation xml:lang="en">The description would be used by test engines for tracking and reporting purposes.</xs:documentation>
@@ -66522,12 +66557,12 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:element>
           <xs:element name="compareToSourceId" minOccurs="0" maxOccurs="1" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Id of the source fixture used as the contents to be evaluated by either the &quot;source/expression&quot; or &quot;sourceId/path&quot; definition.</xs:documentation>
+              <xs:documentation xml:lang="en">Id of the source fixture used as the contents to be evaluated by either the &quot;assert.compareToSourceExpression&quot; or &quot;assert.compareToSourcePath&quot; definition.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="compareToSourceExpression" minOccurs="0" maxOccurs="1" type="string">
+          <xs:element name="compareToSourceExpression" minOccurs="0" maxOccurs="1" type="Expression">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The FHIRPath expression for a specific value to evaluate against the source fixture. When compareToSourceId is defined, either compareToSourceExpression or compareToSourcePath must be defined, but not both.</xs:documentation>
+              <xs:documentation xml:lang="en">The expression for a specific value to evaluate against the source fixture. When compareToSourceId is defined, either compareToSourceExpression or compareToSourcePath must be defined, but not both.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="compareToSourcePath" minOccurs="0" maxOccurs="1" type="string">
@@ -66545,9 +66580,9 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
               <xs:documentation xml:lang="en">The default manual completion outcome applied to this assertion.</xs:documentation>
            </xs:annotation>
           </xs:element>
-          <xs:element name="expression" minOccurs="0" maxOccurs="1" type="string">
+          <xs:element name="expression" minOccurs="0" maxOccurs="1" type="Expression">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The FHIRPath expression to be evaluated against the request or response message contents - HTTP headers and payload.</xs:documentation>
+              <xs:documentation xml:lang="en">The expression to be evaluated against the request or response message contents - HTTP headers and payload.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="headerField" minOccurs="0" maxOccurs="1" type="string">

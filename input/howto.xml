@@ -169,6 +169,18 @@
         <title value="Working with Multiple Maps"/>
         <generation value="markdown"/>
       </page>
+      <page>
+        <sourceUrl value="vcl.html"/>
+        <name value="vcl.html"/>
+        <title value="VCL: ValueSet Compose Language"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
+        <sourceUrl value="narrative.html"/>
+        <name value="narrative.html"/>
+        <title value="Rules about Narrative"/>
+        <generation value="markdown"/>
+      </page>
      
       <page>
         <sourceUrl value="template.html"/>
