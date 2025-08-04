@@ -56,6 +56,12 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="versions.html"/>
+        <name value="versions.html"/>
+        <title value="Versions and Dependencies"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="best-practice.html"/>
         <name value="best-practice.html"/>
         <title value="IG Best Practices"/>

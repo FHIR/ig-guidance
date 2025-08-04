@@ -26,6 +26,7 @@ and is available for authors to peruse in the file <code>package.db</code> when 
 Notes for Authors:
 </p>
 <ul>
+ <li>If the output is only one row and one column, then a plain string of that value will be returned (this is good for count(*) kind of SQL)</li>
  <li>Authors wishing to use SQL should use an SQLite3 tool to develop their queries against package.db</li>
  <li>The tables in the package.db are a moving target. See below for documentation</li>
  <li>If authors wish to affect the output, they can instead use the json format for the query, which looks like this:</li>
@@ -232,7 +233,15 @@ The following tables are always created by the IG publisher:
 <tr> <td>Purpose</td> <td>string</td> <td>True</td> <td>CanonicalResource.purpose (if present)</td></tr>
 <tr> <td>Copyright</td> <td>string</td> <td>True</td> <td>CanonicalResource.copyright (if present)</td></tr>
 <tr> <td>CopyrightLabel</td> <td>string</td> <td>True</td> <td>CanonicalResource.copyrightLabel (if present)</td></tr>
+<tr> <td>derivation</td> <td>string</td> <td>True</td> <td>SructureDefinition.derivation (if present)</td></tr>
+<tr> <td>standardStatus</td> <td>string</td> <td>True</td> <td>CanonicalResource.extension('') (if present)</td></tr>
+<tr> <td>kind</td> <td>string</td> <td>True</td> <td>SructureDefinition.kind (if present)</td></tr>
+<tr> <td>sdType</td> <td>string</td> <td>True</td> <td>SructureDefinition.type (if present)</td></tr>
+<tr> <td>base</td> <td>string</td> <td>True</td> <td>SructureDefinition.baseDefinition (if present)</td></tr>
+<tr> <td>content</td> <td>string</td> <td>True</td> <td>CodeSystem.content (if present)</td></tr>
+<tr> <td>supplements</td> <td>string</td> <td>True</td> <td>CodeSystem.supplements (if present)</td></tr>
 <tr> <td>Json</td> <td>binary</td> <td>False</td> <td>JSON source for resource</td></tr>
+
 
 <tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">Properties</td><td>Code System properties defined by CodeSystems in the IG</td></tr>
 <tr> <td>Key</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
