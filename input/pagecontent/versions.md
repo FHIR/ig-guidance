@@ -40,6 +40,22 @@ though implementers often do anyway.
 
 ### Implementation Guide Dependencies
 
+### Nomenclature 
+
+Agreed terms:
+* *Milestone* Publication: A publication of an IG that is intended to be formal version that implementers adopt, and that is supported as a recognized version even after later versions are published. It may be the subject of ongoing technical corrections. Most IGs (not all) have such a publication cycle. Do not have suffixes on the version
+* *Working* Release: A draft version that is released for testing/comment/ballot, and will be superceded by later versions. Have suffixes on the version)
+* *ci-build* version: A version built from whatever is committed to GitHub, and built by build.fhir.org. Usually 'the ci-build' refers to the version built from the mster/main branch in the GitHub repository.
+* *Technical Correction* : a publication that is intended to replace a *Milestone* due to some technical error being found in it. Shares the same major.minor as the publication it corrects, and increments the patch. Technical Corrections are considered Milestones
+
+Confusing terms:
+* *current*: current refers to either the last milestone or the ci-build, and so it ambiguous. Unfortunately it is also being used as documented below to refer to the ci-build in version references. It's also used in [package-list.json](https://confluence.hl7.org/spaces/FHIR/pages/66928420/FHIR+IG+PackageList+doco) with a slightly different meaning)
+* *latest*: This refers to either the last published milestone or the last published (milestone or working version) 
+
+Todo:
+
+* what are acceptable terms for current and latest?
+
 ### Specifying Dependencies
 
 IGs can depend on other IGs and packages using two primary identifiers:
@@ -53,27 +69,65 @@ You can specify either identifier, and the publisher will resolve the missing in
 - If you provide only a package ID, tools will determine the canonical URL from the package metadata
 - You can provide both for explicit control
 
-### Dependency Version Syntax
+### Dependency Versions
 
-Dependencies use a package reference format similar to NPM: `packageId#version`. In some contexts,
-the package reference can have no version. When this is the case, the tools will pick the most 
-recent publication (milestone, or otherwise). In IGs, however, dependencies must always have a
-stated version (with one specific exception - see [Related IGs](related-igs.html)).
+If an IG want to use content from another IG, then it has to 'depend on it' by 
+including it in the package dependencies. Dependencies are always to a combination of package + version, 
+and are specified either in the ImplementationGuide resource for the IG, or if the IG is built 
+by Sushi, in the sushi-config.yaml. In IGs, dependencies must always have a stated version 
+(with one specific exception - see [Related IGs](related-igs.html)).
 
 Possible version values are:
 
 * an explicit version - the exact version of the package [major.minor.patch(-name]. The tools will resolve to the exact version specified
 * {major.minor} - if just a major and a minor are specified, the tools will resolve to the latest patch version. This isn't supported everywhere 
-* `current` - use the last build of the master/main branch on build.fhir.org (note: we apologise for using this misleading term - it doesn't refer to the 'current' milestone, even though this is terminology used elsewhere)
+* `current` - use the last build of the master/main branch on build.fhir.org (note: we apologise for using this misleading term as described above)
 * `dev` -  use the last local build performed on this computer (in any branch), otherwise fall back to #current
 
 it's possible for an IG to depend on multiple different versions of an IG. This can be done explicitly - see below,
 ot it can arise through transitive dependencies of packages it depends on. In the latter case, things can be 
 quite messy - see [Pinning Canonical References](pinning.html)
 
+### Package Version Syntax
+
+Outside of an IG resource, e.g. in the parameters to the validator, the 
+package reference syntax used is similar to NPM: `packageId#version`.
+In some contexts, the package reference can have no version. When this
+is the case, the tools will pick the most recent publication (milestone,
+or otherwise). 
+
+Tools:
+* Validator: Unknown
+* ?
+
+
 #### Depending on multiple different versions of the same package 
 
-todo
+An IG can depend on multiple versions of an IG at once, e.g:
+
+```json
+  "dependsOn" : [{
+    "packageId" : "hl7.fhir.us.core",
+    "version" : "3.1.1"
+  }, {
+    "packageId" : "hl7.fhir.us.core",
+    "version" : "7.0.0"
+  }]
+```
+
+The reasons why an IG might want to do this is complicated and it creates many issues, but sometimes there is no choice. 
+
+This isn't directly possible in sushi-config.yaml, or in the package.json format used inside NPM packages, 
+so in those cases, a convention from the NPM package ecosystem is adopted:
+
+```json
+"dependencies" : {
+  "hl7.fhir.us.core" : "3.1.1",
+  "uscore@npm:hl7.fhir.us.core" : "7.0.0"
+}
+```
+
+A similar syntax would apply in sushi-config.yaml, but it is not yet supported by Sushi.
 
 #### Automatic Packages 
 
