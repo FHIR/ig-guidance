@@ -11,7 +11,7 @@ VCL is particularly useful for dynamic generation of ValueSets for subsequent us
 
 * **Grammar**: VCL has a formal grammar (see below) defined in [ANTLR](https://www.antlr.org/).
 * **Whitespace**: Except within quoted values, spaces and tabs are ignored. Newlines and carriage returns are prohibited. (Do we really want this?)
-* **URIs**: URIs must include a scheme consisting solely of ascii letters. Percent-encoding must be used where required by the URI specification.
+* **URIs**: URIs must include a scheme consisting solely of ascii letters. Percent-encoding must be used where required by the URI specification but also for round brackets `(` and `)`. (Because the `systemUri` term uses brackets as a delimiter.)
 * **Quoting**: All codes and values (but not URIs) involving non-alphanumeric characters or the dash or underscore must be quoted. Double-quotes (`"`) are used with backslash (`\`) as the escape character. Only `"` and `\\` can be escaped.  (what about embedded newlines?)
 * **Comments**: There is no syntax for comments.
 
@@ -84,10 +84,10 @@ filter      : (property
                 )
               | (code | codeList | STAR | URI | filterList ) DOT property  // operator "of"
               );
-filterList  : OPEN filter (COMMA filter)* CLOSE ;
+filterList  : LCRLY filter (COMMA filter)* RCRLY ;
 property    : code ;
 
-codeList        : OPEN code (COMMA code)+ CLOSE ;
+codeList        : LCRLY code (COMMA code)+ RCRLY ;
 code            : SCODE | QUOTED_VALUE ;
 str             : QUOTED_VALUE ;
 
@@ -95,6 +95,8 @@ str             : QUOTED_VALUE ;
 DASH          : '-' ;
 OPEN          : '(' ;
 CLOSE         : ')' ;
+LCRLY         : '{' ;
+RCRLY         : '}' ;
 SEMI          : ';' ;
 COMMA         : ',' ;
 DOT           : '.' ;
@@ -127,7 +129,7 @@ WS              : [ \t]+ -> skip ;   // skip spaces, tabs; newlines not permitte
 | `"B"`                       | the code `B` |
 | `"B.123"`                   | the code `B.123` |
 | `concept << B`              | the set of codes including `B` or any descendant of `B` |
-| `*` *(proposed)*            | *all codes (not part of the original agreement, but likely needed for specific use-cases such as expressing just `compose.include[].system` with no filters, concepts, or ValueSet includes)* |
+| `*`                         | all codes |
 | `parent = B`                | the set of codes that have `B` as a (direct) parent |
 | `prop_name = B`             | the set of codes that have `B` as the value for their `prop_name` property |
 | `prop_name = “string”`      | Same, but for values that require quoting (non-alhpanumeric characters) |
@@ -135,12 +137,12 @@ WS              : [ \t]+ -> skip ;   // skip spaces, tabs; newlines not permitte
 | `prop1 = B , prop2 = “C”`   | ”and” – intersection of codes matching each sub-expression |
 | `prop1 = B ; prop2 = “C”`   | “or” -- union of codes matching each sub-expression |
 | `B.codeprop`                | the set of values of the `codeprop` property of `B` |
-  `(concept < B).codeprop`    | the set of values of the `codeprop` property of all codes that are descendants of `B` | 
-| `(B.codeprop1).codeprop2`   | the set of values of the ’codeprop2’ property for all codes that are the value of the `codeprop1` property of `B` |
-| `codeprop1^(codeprop2 = C)` | the set of codes that have a ‘codeprop1’ property with a value that has a `codeprop2` property with the value `C` |
+  `{concept < B}.codeprop`    | the set of values of the `codeprop` property of all codes that are descendants of `B` | 
+| `{B.codeprop1}.codeprop2`   | the set of values of the ’codeprop2’ property for all codes that are the value of the `codeprop1` property of `B` |
+| `codeprop1^{codeprop2 = C}` | the set of codes that have a ‘codeprop1’ property with a value that has a `codeprop2` property with the value `C` |
 | `ingredient?true`           | the set of codes that have a value for the property `ingredient` |
 | `code/“A[0-9]*\\.9”`        | the set of codes where the code matches the regex `A[0-9]\.9` |
-| `property^(123,456)`        | the set of codes where the `codeprop` property value is `123` or `456` |
+| `property^{123,456}`        | the set of codes where the `codeprop` property value is `123` or `456` |
 | `has_ingredient^http://acme.com/VS/controlled` | the set of codes with an ingredient in the controlled substance ValueSet |
 
 
@@ -150,24 +152,24 @@ WS              : [ \t]+ -> skip ;   // skip spaces, tabs; newlines not permitte
 * `(http://loinc.org)(41995-2;4548-4;4549-2;17855-8;17856-6;62388-4;71875-9;59261-8;86910-7);(http://snomed.info/sct)(365845005;165679005;165680008;65681007;451061000124104;451051000124101);(http://www.ama-assn.org/go/cpt)(83036;83037;3044F;3046F)`
 * `((http://snomed.info/sct)concept<<17311000168105;(http://snomed.info/sct)(61796011000036105;923929011000036103);(http://loinc.org)ancestor=LP185676-6)-((http://loinc.org)76573-5)`
 * `(http://hl7.org/fhir/paymentstatus)paid;(http://hl7.org/fhir/payeetype)provider`
-* `^(http://hl7.org/fhir/ValueSet/payeetype)`
+* `^http://hl7.org/fhir/ValueSet/payeetype`
 * `ancestor=LP185676-6`
 * `COMPONENT/".*Dichloroethane.*"`
 * `COMPONENT=LP15653-6`
 * `(10007-3;10008-1)`
 * `((10007-3;10008-1);(COMPONENT=LP212516-1,PROPERTY=LP6817-3,TIME_ASPCT=LP6960-1,SYSTEM=LP28433-8))-(29557-6)`
-* `(http://loinc.org)10007-3;^(http://loinc.org/vs/LP257682-7)`
-* `parent^(LP46821-2,LP259418-4)`
+* `(http://loinc.org)10007-3;^http://loinc.org/vs/LP257682-7`
+* `parent^{LP46821-2,LP259418-4}`
 * `(COMPONENT=LP212516-1,PROPERTY=LP6817-3,TIME_ASPCT=LP6960-1,SYSTEM=LP28433-8)`
 * `COMPONENT/".*prowazekii.*"`
 * `PROPERTY=LP6879-3`
 * `(emergency;family;guardian;friend;partner;work;caregiver;agent;guarantor;owner;parent)`
 * `(in-progress;aborted;completed;entered-in-error)`
-* `(^(http://csiro.au/fhir/ValueSet/selfexclude))-(^(http://csiro.au/fhir/ValueSet/selfexclude))`
-* `^(http://csiro.au/fhir/ValueSet/selfexcludeB)`
-* `^(http://csiro.au/fhir/ValueSet/selfexcludeC)`
-* `(^(http://csiro.au/fhir/ValueSet/selfimport))-(^(http://csiro.au/fhir/ValueSet/selfexcludeA))`
-* `^(http://csiro.au/fhir/ValueSet/selfimport)`
+* `(^http://csiro.au/fhir/ValueSet/selfexclude)-(^http://csiro.au/fhir/ValueSet/selfexclude)`
+* `^http://csiro.au/fhir/ValueSet/selfexcludeB`
+* `^http://csiro.au/fhir/ValueSet/selfexcludeC`
+* `(^http://csiro.au/fhir/ValueSet/selfimport)-(^http://csiro.au/fhir/ValueSet/selfexcludeA)`
+* `^http://csiro.au/fhir/ValueSet/selfimport`
 * `(constraint="<< 30506011000036107 |australian product|: 700000101000036108 |hasTP| = 17311000168105 |PANADOL|",expression="<< 30506011000036107 |australian product|: 700000101000036108 |hasTP| = 17311000168105 |PANADOL|")`
 * `concept~<<929360061000036106`
 * `concept^http://snomed.info/sct?fhir_vs/refset=929360061000036106`
@@ -179,11 +181,11 @@ WS              : [ \t]+ -> skip ;   // skip spaces, tabs; newlines not permitte
 * `A;B`
 * `panadol.contains`
 * `(consists_of.has_ingredient)`
-* `(concept<<panadol).contains`
-* `has_ingredient^(has_tradename=2201670)`
-* `(a.b).c`
+* `{concept<<panadol}.contains`
+* `has_ingredient^{has_tradename=2201670}`
+* `{a.b}.c`
 * `has_ingredient = 1886`
-* `consists_of^(has_ingredient = 1886)`
-* `consists_of^(has_ingredient^(has_tradename=2201670))`
+* `consists_of^{has_ingredient = 1886}`
+* `consists_of^{has_ingredient^{has_tradename=2201670}}`
 * `(has_ingredient=1886, has_dose_form=317541)`
-* `(has_ingredient=1886, has_dose_form^(concept<<1151133))`
+* `(has_ingredient=1886, has_dose_form^{concept<<1151133})`
