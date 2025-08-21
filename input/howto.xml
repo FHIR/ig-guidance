@@ -182,6 +182,12 @@
         <generation value="markdown"/>
       </page>
       <page>
+        <sourceUrl value="binaries.html"/>
+        <name value="binaries.html"/>
+        <title value="Working with Binaries"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="narrative.html"/>
         <name value="narrative.html"/>
         <title value="Rules about Narrative"/>

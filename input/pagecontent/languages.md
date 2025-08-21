@@ -271,3 +271,22 @@ for the expectations of terminology servers in the IG publisher eco-system.
 Choosing which SNOMED CT distribution isn't the same as choosing a language, but it's an interconnected 
 issue. You can specify which SNOMED CT distribution to use by
 
+
+### Translation Workflow For Page Content
+
+```
+git show $(git log -n 1 --pretty=format:"%H" -- path/to/translated/file):path/to/source/file
+```
+
+This
+
+Gets the commit hash when the translation file was last modified
+Uses that hash to show the source file as it existed at that exact commit
+
+If you want to save that version of the source file:
+bashgit show $(git log -n 1 --pretty=format:"%H" -- path/to/translated/file):path/to/source/file > source_at_translation_time.txt
+For a more interactive approach, you could also:
+
+Find when the translation was done: git log -p -- path/to/translated/file
+Note the commit hash
+View the source at that point: git show HASH:path/to/source/file
