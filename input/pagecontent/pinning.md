@@ -78,6 +78,18 @@ However the problem with this approach is that
 
 For this reason, authors should only direct the pinning to a manifest when there is a large ecosystem framework using manifests.
 
+### Pinning External References 
+
+As noted above, the pinning above only applies to references that resolve into the package dependencies. External references are ignored.
+If you want to pin external references, use the parameter `pin-external` = `true`. This will set the external references when the IG publisher 
+and the terminology ecosystem is able to resolve the versions. 
+
+In general, editors shouldn't fix external references - they're not under editorial control, and the version can change without notice at
+any time in ways that are not related to editorial intent. Further, pinning versions is an instruction to the implementers to use those 
+specific versions. 
+
+If you just want to know what versions were used when the IG was built, look in the output file qa-versions.json.
+
 ### Specifying not to use package dependency based resolution
 
 There are some references where authors do not want the version to be pinned at all, and do not want the package dependencies to be relevant to the choice of version for the canonical references. Instead, implementers should always use the latest version.
@@ -97,15 +109,15 @@ how a reference without a specific version reference should be resolved. The pos
 
 ### IG Publisher short cuts 
 
-The IG publisher defines two shortcut methods to make it easier to manage references, where one of the following characters is provided as the version in a canonical reference:
+The IG publisher defines three shortcut methods to make it easier to manage references, where one of the following characters is provided as the version in a canonical reference:
 
 * `*`: latest reference 
 * `@`: manifest reference
-@ `?`: pin external reference
+* `?`: pin external reference
 
-E.g. the canonical reference is `http://something.org/CodeSystem/something|*`. Note that these characters are IG publisher short cuts: they are 
-*not* found in any output from the IG publisher, and shouldn't be encountered anywhere else in the FHIR Implementation ecosystem.
-
+E.g. the canonical reference is `http://something.org/CodeSystem/something|*`. Note that these characters are IG publisher short cuts: 
+editors put them in any of the canonical and additional references above, where they will be processed by the IG Publisher. The 
+characters are *not* found in any output from the IG publisher, and shouldn't be encountered anywhere else in the FHIR Implementation ecosystem.
 
 **Latest Reference**
 
@@ -139,7 +151,7 @@ The IG publisher will take the following actions when encountering a version lik
 * The `?` will be removed
 * The latest available version of the code system will be determined and pinned using the chosen pinning approach
 
-Note that this is the only way to pin resources that are outside the package system. 
+Note that this is the how to pin specific references that are outside the package system, rather than pinning everything. 
 
 ### What about packages that are already published without pinning?
 
