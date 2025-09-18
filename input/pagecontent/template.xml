@@ -71,7 +71,7 @@
 <h4 id="adding-an-icon-to-the-template">Adding an icon to the template</h4>
 <ol style="list-style-type: decimal">
 <li><p>Within your local template folder (e.g. myTemplate), create a path "content/assets/images"</p></li>
-<li><p>Inside the images folder put some sort of icon that you"d like in header to your implementation guides (call it for example "myIcon.png") - make sure you have a license to use the image</p></li>
+<li><p>Inside the images folder put some sort of icon that you'd like in header to your implementation guides (call it for example "myIcon.png") - make sure you have a license to use the image</p></li>
 <li><p>Supplement the header for the template to point to your icon:</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Within your local template folder (e.g. myTemplate), create a path "includes"</p></li>

@@ -300,8 +300,9 @@
           <ul>
             <li>pages (for the markdown or XHTML page content)</li>
             <li>pagecontent (same purpose as pages - use whichever name you prefer)</li>
-            <li>intro-notes (intended for -intro and -notes files -see <a href="#intros">below</a> for more details.</li>
-            <li>images (for jpg, png and other image files - or any binary content that should be copied to the published website.</li>
+            <li>intro-notes (intended for -intro and -notes files -see <a href="#intros">below</a> for more details.)</li>
+            <li>images (for jpg, png and other image files - or any binary content that should be copied to the published website.)</li>
+            <li>assets (for other types of files - spreadsheets, zip files, etc. that should simply be copied across)</li>
           </ul>
         </td>
       </tr>
