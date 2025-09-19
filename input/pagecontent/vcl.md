@@ -33,7 +33,7 @@ A sub-expression is then either a single code, a filter, or a ValueSet include.
 Filters map (mostly) to a triple: `{property}{op}{value}` where operators have a corresponding symbol.
 Use of these symbols means whitespace is not required to separate the three components.
 
-**Note** FHRI R6 has two new features that come into play at this point.
+**Note** FHIR R6 has two new features that come into play at this point.
 1. A new operator "of" which maps to `{value}{op}{property}`, and more specifically `{value}.{property}`
 2. The operators `in`, `not-in`, and `of` allow nested filters instead of a value
 
