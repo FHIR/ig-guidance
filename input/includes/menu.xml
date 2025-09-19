@@ -2,80 +2,35 @@
   <li><a href="index.html">IG Home</a></li>
   <li><a href="toc.html">Table of Contents</a></li>
   <li class="dropdown">
-    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Background<b class="caret">
-      </b>
-    </a>
-    <ul class="dropdown-menu">
-      <li>
-        <a href="background.html">Background</a>
-      </li>
-      <li>
-        <a href="tooling.html">IG Tooling</a>
-      </li>
-    </ul>
-  </li>
-  <li class="dropdown">
     <a data-toggle="dropdown" href="#" class="dropdown-toggle">Specification<b class="caret">
       </b>
     </a>
     <ul class="dropdown-menu">
-      <li>
-        <a href="using-templates.html">Using the HL7 Templates</a>
-      </li>
-      <li>
-        <a href="versions.html">Versions and Dependencies</a>
-      </li>
-      <li>
-        <a href="best-practice.html">IG Best Practices</a>
-      </li>
-      <li>
-        <a href="pinning.html">Managing Canonical Versions (pinning)</a>
-      </li>
-      <li>
-        <a href="terminology.html">Working with Terminology</a>
-      </li>
-      <li>
-        <a href="sql.html">Working with SQL</a>
-      </li>
-      <li>
-        <a href="jsonxml.html">Presenting JSON and XML content</a>
-      </li>
-      <li>
-        <a href="fragments.html">Using Instance Fragments</a>
-      </li>
-      <li>
-        <a href="uml.html">UML Class Diagrams</a>
-      </li>
-      <li>
-        <a href="languages.html">Multi-language IGs</a>
-      </li>
-      <li>
-        <a href="maturityprop.html">Maturity Propagation</a>
-      </li>
-      <li>
-        <a href="diagrams-plantuml.html">PlantUml Diagrams</a>
-      </li>
-      <li>
-        <a href="diagrams-mermaid.html">Mermaid Diagrams</a>
-      </li>
-      <li>
-        <a href="languages.html">Writing Multi-lingual IGs</a>
-      </li>
-      <li>
-        <a href="related-igs.html">Related IGs</a>
-      </li>
-      <li>
-        <a href="multi-maps.html">Working with Multiple maps</a>
-      </li>
-      <li>
-        <a href="vcl.html">VCL: ValueSet Compose Language</a>
-      </li>
-      <li>
-        <a href="binaries.html">Working with Binaries</a>
-      </li>
-      <li>
-        <a href="narrative.html">Rules about Narrative</a>
-      </li>
+      <li><a href="versions.html">Versions and Dependencies</a></li>
+      <li><a href="related-igs.html">Related IGs</a></li>
+      <li><a href="pinning.html">Managing Canonical Versions (pinning)</a></li>
+      <li><a href="best-practice.html">IG Best Practices</a></li>
+      <li><a href="maturityprop.html">Maturity Propagation</a></li>
+      <li><a href="languages.html">Multi-language IGs</a></li>
+      <li><a href="terminology.html">Working with Terminology</a></li>
+      <li><a href="vcl.html">VCL: ValueSet Compose Language</a></li>
+      <li><a href="binaries.html">Working with Binaries</a></li>
+      <li><a href="narrative.html">Rules about Narrative</a></li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Page Content<b class="caret">
+      </b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a href="conformance-statements.html">Conformance Statements</a></li>
+      <li><a href="diagrams-mermaid.html">Mermaid Diagrams</a></li>
+      <li><a href="diagrams-plantuml.html">PlantUml Diagrams</a></li>
+      <li><a href="fragments.html">Using Instance Fragments</a></li>
+      <li><a href="jsonxml.html">Presenting JSON and XML content</a></li>
+      <li><a href="multi-maps.html">Working with Multiple maps</a></li>
+      <li><a href="sql.html">Working with SQL</a></li>
+      <li><a href="uml.html">UML Class Diagrams</a></li>
     </ul>
   </li>
   <li class="dropdown">
@@ -83,31 +38,20 @@
       </b>
     </a>
     <ul class="dropdown-menu">
-      <li>
-        <a href="testing.html">Testing Overview</a>
-      </li>
-      <li>
-        <a href="profile-test-cases.html">Testing Profiles</a>
-      </li>
-      <li>
-        <a href="matchetypes.html">Using Matchetypes</a>
-      </li>
-      <li>
-        <a href="testfactory.html">Using Test Data Factories</a>
-      </li>
+      <li><a href="testing.html">Testing Overview</a></li>
+      <li><a href="profile-test-cases.html">Testing Profiles</a></li>
+      <li><a href="matchetypes.html">Using Matchetypes</a></li>
+      <li><a href="testfactory.html">Using Test Data Factories</a></li>
     </ul>
   </li>
   <li class="dropdown">
-    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Customization<b class="caret">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Templates<b class="caret">
       </b>
     </a>
     <ul class="dropdown-menu">
-      <li>
-        <a href="template.html">Extending the HL7 IG Templates</a>
-      </li>
-      <li>
-        <a href="colors.html">Changing colors in the template</a>
-      </li>
+      <li><a href="using-templates.html">Using the HL7 Templates</a></li>
+      <li><a href="template.html">Extending the HL7 IG Templates</a></li>
+      <li><a href="colors.html">Changing colors in the template</a></li>
     </ul>
   </li>
   <li><a href="artifacts.html">Artifact Index</a></li>

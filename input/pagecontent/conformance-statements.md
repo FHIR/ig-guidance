@@ -53,7 +53,7 @@ ascii characters, digits 0..9, `-`, `.`, and `_`.
 To do a multiple paragraph conformance statement, use pairs of the marking 
 character in a paragraph of their own, e.g. 
 
-`$$`
+`§§`
 
 This paragraph marker goes before and after the other markdown content that 
 forms the conformance statement. The first paragraph also has the details, 
