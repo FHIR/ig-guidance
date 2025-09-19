@@ -110,6 +110,12 @@
         <generation value="markdown"/>
       </page>
       <page>
+        <sourceUrl value="conformance-statements.html"/>
+        <name value="conformance-statements.html"/>
+        <title value="Managing Conformance Statements"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="maturityprop.html"/>
         <name value="maturityprop.html"/>
         <title value="Maturity Propagation"/>
