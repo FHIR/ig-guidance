@@ -52,6 +52,22 @@ Use of these symbols means whitespace is not required to separate the three comp
 | exists           | `?`      |
 | of               | `.`      | order of arguments is reversed because "value" is the code |
 
+#### VCL Implicit Value Sets
+
+Implicit value sets are those whose specification can be predicted based on the known structure of the URL that identifies them.
+This implicit value set capability allows a single URL to serve as a value set definition; it can serve as the basis for the [`$expand`](https://hl7.org/fhir/valueset-operation-expand.html) operation and for other value set references.
+
+A VCL implicit value set URL has two parts:
+1. The base URL which is `http://fhir.org/VCL`
+2. A query portion that specifies the VCL expression itself:
+  `?v1=[expression]` where the `[expression]` part is percent-encoded. This is especially important if nested URLs with special characters are used in the VCL expression itself.
+
+Terminology servers and other tools that are processing a VCL implicit value set URL to extract the expression for evaluation **SHALL** percent-decode the `[expression]` before interpreting it.
+
+Note that such VCL expressions must include a `systemUri` element to identify the relevant code system canonical.
+
+* `http://fhir.org/VCL?v1=(http://loinc.org)(parent^{LP46821-2,LP259418-4})`
+
 #### VCL Grammar
 
 This is the VCL formal grammar defined in [ANTLR](https://www.antlr.org/).
@@ -137,7 +153,7 @@ WS              : [ \t]+ -> skip ;   // skip spaces, tabs; newlines not permitte
 | `prop1 = B , prop2 = “C”`   | ”and” – intersection of codes matching each sub-expression |
 | `prop1 = B ; prop2 = “C”`   | “or” -- union of codes matching each sub-expression |
 | `B.codeprop`                | the set of values of the `codeprop` property of `B` |
-  `{concept < B}.codeprop`    | the set of values of the `codeprop` property of all codes that are descendants of `B` | 
+  `{concept < B}.codeprop`    | the set of values of the `codeprop` property of all codes that are descendants of `B` |
 | `{B.codeprop1}.codeprop2`   | the set of values of the ’codeprop2’ property for all codes that are the value of the `codeprop1` property of `B` |
 | `codeprop1^{codeprop2 = C}` | the set of codes that have a ‘codeprop1’ property with a value that has a `codeprop2` property with the value `C` |
 | `ingredient?true`           | the set of codes that have a value for the property `ingredient` |
