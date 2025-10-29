@@ -26,7 +26,7 @@
   <fhirVersion value="5.0.0"/>
   <definition>
     <resource>
-      <reference>
+      <reference> 
         <reference value="Patient/example"/>
       </reference>
       <name value="Example patient"/>
@@ -102,6 +102,48 @@
         <name value="languages.html"/>
         <title value="Producing Multi-Language IGs"/>
         <generation value="markdown"/>
+        <page>
+          <sourceUrl value="lang-creating-ml-specs.html"/>
+          <name value="lang-creating-ml-specs.html"/>
+          <title value="Multilingual Specification setup"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="lang-narrative.html"/>
+          <name value="lang-narrative.html"/>
+          <title value="Translating Narrative content"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="lang-ext-terms.html"/>
+          <name value="lang-ext-terms.html"/>
+          <title value="Translating Terminology content"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="lang-java-pack.html"/>
+          <name value="lang-java-pack.html"/>
+          <title value="Translations in code-generated content"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="lang-pack.html"/>
+          <name value="lang-pack.html"/>
+          <title value="Language Packs"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="lang-maintenance.html"/>
+          <name value="lang-maintenance.html"/>
+          <title value="Language Maintenance"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="translation-formats.html"/>
+          <name value="translation-formats.html"/>
+          <title value="Translation formats"/>
+          <generation value="markdown"/>
+        </page>
       </page>
       <page>
         <sourceUrl value="tooling.html"/>

@@ -13,7 +13,7 @@
         <a href="tooling.html">IG Tooling</a>
       </li>
     </ul>
-  </li>
+  </li> 
   <li class="dropdown">
     <a data-toggle="dropdown" href="#" class="dropdown-toggle">Specification<b class="caret">
       </b>
@@ -73,6 +73,25 @@
       </li>
       <li>
         <a href="testfactory.html">Using Test Data Factories</a>
+      </li>
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">Language Support<b class="caret">
+      </b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="languages.md">Multi-lingual content</a>
+      </li>
+      <li>
+        <a href="lang-pack.html">Language pack</a>
+      </li>
+      <li>
+        <a href="lang-maintenance.html">Maintaining multilingual content</a>
+      </li>
+      <li>
+        <a href="lang-creating-ml-specs.html">Creating multi-lingual specifications</a>
       </li>
     </ul>
   </li>
