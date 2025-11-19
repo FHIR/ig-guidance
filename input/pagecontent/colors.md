@@ -124,7 +124,7 @@ The defined style colors are listed below. Numbers beside element correspond to 
 
 ##### Boxes
 
-The style of certain elements are defined by more than just color ():
+The style of certain elements are defined by more than just color:
 
 <p style="border:var(--publish-box-border);" markdown="1">`--publish-box-border` (16)</p>
 <p style="border:var(--toc-box-border);" markdown="1">`--toc-box-border` (18)</p>
@@ -147,6 +147,7 @@ The style of certain elements are defined by more than just color ():
 ##### Dropdown
 
 | Element | Background Start | Background End |
+|---|---|---|
 | Gradient | <span class="colorbox" style="--boxcolor: var(--btn-gradient-start-color);"></span> `--btn-gradient-start-color` (9) | <span class="colorbox" style="--boxcolor: var(--btn-gradient-end-color);"></span> `--btn-gradient-end-color` (10) |
 | Gradient Alpha | <span class="colorbox" style="--boxcolor: var(--btn-gradient-start-color-alpha);"></span> `--btn-gradient-start-color-alpha` (11) | <span class="colorbox" style="--boxcolor: var(--btn-gradient-end-color-alpha);"></span> `--btn-gradient-end-color-alpha` (12) |
 
