@@ -67,7 +67,7 @@ Note that `pin-multiples` is a bad idea in general - the pinning only occurs whe
 
 By default, the pinning happens in the canonical directly. E.g. any author provided canonical of `http://example.org/ValueSet/some-id` will be changed to `http://example.org/ValueSet/some-id|version` during the publication process. 
 
-It's also possible to provide the parameter `pin-dest` that specifies a Parameters resource that is part of the IG. If you do this, then the pinning is written into this parameters resource as a set of instructions about which version of a resource to use (the parameters `system-version`, `default-valueset-version`, and `default-canonical-version` which are all documented as part of R6, but are applied by the tooling eco-system in the context of earlier versions). 
+It's also possible to provide the parameter `pin-manifest` that specifies a Parameters resource that is part of the IG. If you do this, then the pinning is written into this parameters resource as a set of instructions about which version of a resource to use (the parameters `system-version`, `default-valueset-version`, and `default-canonical-version` which are all documented as part of R6, but are applied by the tooling eco-system in the context of earlier versions). 
 
 The advantage of writing the decision to a [manifest](https://build.fhir.org/ig/HL7/crmi-ig/branches/master/StructureDefinition-crmi-manifestlibrary-examples.html) is that implementers can control the scope of the application of pinning precisely at the time of implementation (assembly - see below), and can also easily alter the pinned versions where that's appropriate (and some large eco-systems function in this way).
 
