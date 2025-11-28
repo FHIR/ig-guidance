@@ -35,9 +35,13 @@ up. `span` elements can contain any inline elements (span, b, i, a, etc).
 
 The elements have the following properties: 
 
+<div class="modified-content" markdown="1">
 * class=`fhir-conformance` - this identifies them as conformance statements subject to the processing described here
-* id - the stated id of the conformance statement. This is presented to the user as the formal identity of the conformance point
+* id - the stated id of the conformance statement. This is presented to the user as the formal identity of the conformance point.  It must be a string that matches the FHIR 'id' data type.  If not specified, a sequential id will be assigned based on the order in which pages and statements are processed.
 * summary - how the text is presented in the summary list of conformance statements. This is required for `div` elements. For `span` elements, the summary defaults to the text
+* actors - a comma-separated list of actor ids to which the rule applies.  These must be actors defined in the IG or one of its dependencies.  If there are multiple actors with the same id, the one defined in this IG wins.  If there are multiples with the same id and none are defined in this IG, a warning will be sent to the console and the actor will be ignored.
+* categories - a comma-separated list of categories relevant to the requirement.  The code must be in the value set pointed to by requirement-category-codes IG parameter.  Codes within the value set must be unique.
+</div>
 
 ### Markdown 
 
@@ -45,10 +49,16 @@ In markdown, `div` and `span` elements are not used directly. Instead, the
 character `§` is used to make conformance statements. E.g. in the middle of 
 a paragraph, place that character before and after the sentence. 
 
-The id of the conformance statement is represented as a token after the first 
-mark character followed by a colon, e.g. `§id-1.2:`. In this case, `id-1.2` 
-is the id of this conformance statement. Tokens can contain any combination of 
-ascii characters, digits 0..9, `-`, `.`, and `_`.
+<div class="modified-content" markdown="1">
+The metadata of the conformance statement is represented as a token after the first 
+mark character followed by a colon, e.g. `§id-1.2^actor1,actor2^ui:`. The metadata consists
+of 3 optional fields, separated by '^'.  A separator is only needed if there is content
+following it.  The metadata fields are:
+
+* id - the unique identifier for the conformance statement.  In the above example, `id-1.2`.  (See rules for id in the XML section above.)
+* actors - a comma-separated list of actor ids to which the rule applies.  (See rules for actors in the XML section above,)
+* categories - a comma-separated list of codes for categories that apply to the rule.  (See rules for categories in the XML section above.)
+</div>
 
 To do a multiple paragraph conformance statement, use pairs of the marking 
 character in a paragraph of their own, e.g. 
@@ -75,3 +85,15 @@ three times.
 
 It's entirely at the discretion of the editor / authors where the conformance
 list goes, but it can only go in one place in the IG.
+
+<div class="new-content" markdown="1">
+This view will provide a complete list of all conformance statements found in the IG and
+will allow filtering them based on actor and/or category.
+
+## Requirements Resource
+
+In principle, this content would ideally be extracted and represented as a Requirements instance, given that that's what the content
+represents.  However, at present the extraction process for these rules occurs after the content has been rendered by Jekyll.
+It will be difficult to revisit the timing of this processing due to translation and other processes.  However, it is something
+that might be achievable at some point.
+</div>
