@@ -1,3 +1,12 @@
+<style>
+    .colorbox {
+        display:inline-block;
+        width:20px;
+        height:20px;
+        border:1px solid rgba(128,128,128,1);
+        background-color: var(--boxcolor, #808080);
+    }
+</style>
 
 Changing the IG colors can be done by manipulating the css variables, e.g. by overriding the color definition variables.
 
@@ -95,3 +104,62 @@ To change the colors, simply override (by adding a new CSS) the values of the co
 }
 ```
 
+### Tabular Representation
+
+The defined style colors are listed below. Numbers beside element correspond to the diagram above. The color swatches correspond to the style of *this* implementation guide (not the diagram, or list above).
+
+#### Text elements
+
+| Element | Text | Background | Border | Link | Hover |
+|---|---|---|---|---|---|
+| Header | <span class="colorbox" style="--boxcolor: var(--ig-status-text-color);"></span> `--ig-status-text-color` (1) | <span class="colorbox" style="--boxcolor: var(--ig-header-container-color);"></span> `--ig-header-container-color` (22)| | | |
+| Breadcrumb | <span class="colorbox" style="--boxcolor: var(--breadcrumb-text-color);"></span> `--breadcrumb-text-color` (27) | <span class="colorbox" style="--boxcolor: var(--breadcrumb-bg-color);"></span> `--breadcrumb-bg-color` (28) | | | |
+| Body | | | | <span class="colorbox" style="--boxcolor: var(--link-color);"></span> `--link-color` (13) | <span class="colorbox" style="--boxcolor: var(--link-hover-color);"></span> `--link-hover-color` (14) |
+| Footer nav bar | | <span class="colorbox" style="--boxcolor: var(--footer-nav-bg-color);"></span> `--footer-nav-bg-color` (23) | | | |
+| Footer body | <span class="colorbox" style="--boxcolor: var(--footer-text-color);"></span> `--footer-text-color` (24)<br> <span class="colorbox" style="--boxcolor: var(--footer-highlight-text-color);"></span> `--footer-highlight-text-color` (26) | <span class="colorbox" style="--boxcolor: var(--footer-container-bg-color);"></span> `--footer-container-bg-color` (4) | | <span class="colorbox" style="--boxcolor: var(--footer-hyperlink-text-color);"></span> `--footer-hyperlink-text-color` (25) | |
+| ToC Box | | <span class="colorbox" style="--boxcolor: var(--toc-box-bg-color);"></span> `--toc-box-bg-color` (17) | see [boxes](#boxes) below | | |
+| Publish  | | <span class="colorbox" style="--boxcolor: var(--publish-box-bg-color);"></span> `--publish-box-bg-color` (15) | see [boxes](#boxes) below | | |
+| Dragon Note | <span class="colorbox" style="--boxcolor: var(--dragon-font-color);"></span> `--dragon-font-color` (29) | <span class="colorbox" style="--boxcolor: var(--dragon-background-color);"></span> `--dragon-background-color` (30) | | | |
+| STU Note | | <span class="colorbox" style="--boxcolor: var(--stu-note-background-color);"></span> `--stu-note-background-color` (19) | <span class="colorbox" style="--boxcolor: var(--stu-note-border-left-color);"></span> `--stu-note-border-left-color` (20) | | |
+
+##### Boxes
+
+The style of certain elements are defined by more than just color:
+
+<p style="border:var(--publish-box-border);" markdown="1">`--publish-box-border` (16)</p>
+<p style="border:var(--toc-box-border);" markdown="1">`--toc-box-border` (18)</p>
+
+#### Side Decoration
+
+| Element | Background | Highlight |
+|---|---|---|
+| Header | <span class="colorbox" style="--boxcolor: var(--ig-header-color);"></span> `--ig-header-color` (21) | <span class="colorbox" style="--boxcolor: var(--stripe-bg-color);"></span> `--stripe-bg-color` (5) |
+| Footer | <span class="colorbox" style="--boxcolor: var(--footer-bg-color);"></span> `--footer-bg-color` (3) | |
+
+#### Menus
+
+##### Menu bar
+
+| Element | Text | Background | Hover | Open |
+|---|---|---|---|---|
+| Menu Bar | <span class="colorbox" style="--boxcolor: var(--btn-text-color);"></span> `--btn-text-color` (8) | <span class="colorbox" style="--boxcolor: var(--navbar-bg-color);"></span> `--navbar-bg-color` (2) | <span class="colorbox" style="--boxcolor: var(--btn-hover-color);"></span> `--btn-hover-color` (6) | <span class="colorbox" style="--boxcolor: var(--btn-active-color);"></span> `--btn-active-color` (7) |
+
+##### Dropdown
+
+| Element | Background Start | Background End |
+|---|---|---|
+| Gradient | <span class="colorbox" style="--boxcolor: var(--btn-gradient-start-color);"></span> `--btn-gradient-start-color` (9) | <span class="colorbox" style="--boxcolor: var(--btn-gradient-end-color);"></span> `--btn-gradient-end-color` (10) |
+| Gradient Alpha | <span class="colorbox" style="--boxcolor: var(--btn-gradient-start-color-alpha);"></span> `--btn-gradient-start-color-alpha` (11) | <span class="colorbox" style="--boxcolor: var(--btn-gradient-end-color-alpha);"></span> `--btn-gradient-end-color-alpha` (12) |
+
+#### Other elements
+
+For consistency, the styling of the "content" including hierarchy trees, element definitions, and most narrative, don't use color variables: Text is dark grey on a white background. Other content, such as code blocks, have their own defined styles.
+
+The "stats blocks" at the top of definitional resource pages showing canonical URL, name, etc. do not use color variables, but are defined in the following table styles:
+
+* `colsd` for draft
+* `colstu` for trial use
+* `colsn` for normative
+* `colsi` for informative
+* `coldp` for deprecated
+* `colse` for external

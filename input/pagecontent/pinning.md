@@ -22,6 +22,7 @@ note that there's a few other places where this logic applies:
 
 * ValueSet.compose.include.system + ValueSet.compose.include.version (and exclude)
 * ConceptMap.group.system + ConceptMap.group.version (and target)
+* Operation parameters that have the type `canonical`
 
 ### Choosing the correct version
 
@@ -40,7 +41,7 @@ In principle, this is not a difficult algorithm:
 3. Find all the versions of the resource for the stated URL in that set of packages 
 4. pick the most recent
 
-Unfortunately, this is not as simple as it seems. There are a number of potentially tricky 
+Unfortunately, this is not as simple as it seems in practice. There are a number of potentially tricky 
 problems to solve:
 
 * the determination of most recent from a list of resources with the same URL may be ambiguous (see discussion below about this determination)
@@ -66,7 +67,7 @@ Note that `pin-multiples` is a bad idea in general - the pinning only occurs whe
 
 By default, the pinning happens in the canonical directly. E.g. any author provided canonical of `http://example.org/ValueSet/some-id` will be changed to `http://example.org/ValueSet/some-id|version` during the publication process. 
 
-It's also possible to provide the parameter `pin-dest` that specifies a Parameters resource that is part of the IG. If you do this, then the pinning is written into this parameters resource as a set of instructions about which version of a resource to use (the parameters `system-version`, `default-valueset-version`, and `default-canonical-version` which are all documented as part of R6, but are applied by the tooling eco-system in the context of earlier versions). 
+It's also possible to provide the parameter `pin-manifest` that specifies a Parameters resource that is part of the IG. If you do this, then the pinning is written into this parameters resource as a set of instructions about which version of a resource to use (the parameters `system-version`, `default-valueset-version`, and `default-canonical-version` which are all documented as part of R6, but are applied by the tooling eco-system in the context of earlier versions). 
 
 The advantage of writing the decision to a [manifest](https://build.fhir.org/ig/HL7/crmi-ig/branches/master/StructureDefinition-crmi-manifestlibrary-examples.html) is that implementers can control the scope of the application of pinning precisely at the time of implementation (assembly - see below), and can also easily alter the pinned versions where that's appropriate (and some large eco-systems function in this way).
 
@@ -77,6 +78,18 @@ However the problem with this approach is that
 
 For this reason, authors should only direct the pinning to a manifest when there is a large ecosystem framework using manifests.
 
+### Pinning External References 
+
+As noted above, the pinning above only applies to references that resolve into the package dependencies. External references are ignored.
+If you want to pin external references, use the parameter `pin-external` = `true`. This will set the external references when the IG publisher 
+and the terminology ecosystem is able to resolve the versions. 
+
+In general, editors shouldn't fix external references - they're not under editorial control, and the version can change without notice at
+any time in ways that are not related to editorial intent. Further, pinning versions is an instruction to the implementers to use those 
+specific versions. 
+
+If you just want to know what versions were used when the IG was built, look in the output file qa-versions.json.
+
 ### Specifying not to use package dependency based resolution
 
 There are some references where authors do not want the version to be pinned at all, and do not want the package dependencies to be relevant to the choice of version for the canonical references. Instead, implementers should always use the latest version.
@@ -85,15 +98,60 @@ This happens for any content that is not found in packages at all. Given the ubi
 
 How can you tell which canonicals? You can't. Yet. (TODO)
 
-For any other content, the content will come from a package, and be subject to the package dependency rules. Implementers can indicate that package versioning doesn't apply by pinning the version to the current most recent version:
+For any other content, the content will come from a package, and be subject to the package dependency rules. 
+
+The extensions package defines the extension `http://hl7.org/fhir/StructureDefinition/version-resolution-method` which is used to indicate 
+how a reference without a specific version reference should be resolved. The possible values for this extension are: 
+
+* 'package' - resolve this reference through the package references (as explained above). This is the default behavior.
+* 'manifest' - the expectation is that a manifest (see above() will be provided to resolve the reference, and resolving the reference in the absence of a manifest is considered an error. Note that this extension does not define the manifest; the expectation is that the context of use will provide the manifest)
+* 'latest' - resolve this reference independent of those methods, using the latest version that is available however resources are made available (which may include, for instance, terminology services) 
+
+### IG Publisher short cuts 
+
+The IG publisher defines three shortcut methods to make it easier to manage references, where one of the following characters is provided as the version in a canonical reference:
+
+* `*`: latest reference 
+* `@`: manifest reference
+* `?`: pin external reference
+
+E.g. the canonical reference is `http://something.org/CodeSystem/something|*`. Note that these characters are IG publisher short cuts: 
+editors put them in any of the canonical and additional references above, where they will be processed by the IG Publisher. The 
+characters are *not* found in any output from the IG publisher, and shouldn't be encountered anywhere else in the FHIR Implementation ecosystem.
+
+**Latest Reference**
 
 ```json
   "valueSet" : "http://example.org/ValueSet/some-id|*"
 ```
+The IG publisher will take the following actions when encountering a version like this:
 
-The wildcard version `*` means that the most recent version applies, and this is considered to apply outside the scope of the package dependencies.
+* The `*` will be removed
+* The reference will not pinned (irrespective of the pinning algorithm specified above)
+* The `http://hl7.org/fhir/StructureDefinition/version-resolution-method` extension will be added with a value of 'latest'
 
-Note: this is not supported by the tools at this time.
+**Manifest Reference**
+
+```json
+  "valueSet" : "http://example.org/ValueSet/some-id|@"
+```
+The IG publisher will take the following actions when encountering a version like this:
+
+* The `@` will be removed
+* The reference will not pinned explicitly (though if pinning is done by a manifest, it will still be pinned)
+* The `http://hl7.org/fhir/StructureDefinition/version-resolution-method` extension will be added with a value of 'manifest'
+
+**Pin External Reference**
+
+```json
+  "system" : "http://loinc.org|?"
+```
+The IG publisher will take the following actions when encountering a version like this:
+
+* The `?` will be removed
+* The latest available version of the code system will be determined and pinned using the chosen pinning approach
+
+Note that this is the how to pin specific references that are outside the package system, rather than pinning everything. 
 
 ### What about packages that are already published without pinning?
 
