@@ -131,7 +131,7 @@ where:
 Source Data can be provided in multiple different forms:
 
 * As a text file containing comma separated values (.csv)
-* As an excel spreadsheet file (.xlsx). Note that you nominate the sheet name by appending `;{name}` to the filename. In the absence of a sheet name, the first sheet will be used.
+* As an excel spreadsheet file (.xlsx). Note that you nominate the sheet name by appending `;{name}` to the filename. In the absence of a sheet name, the first sheet will be used. To nominate a specific range add the range with a '!{startcell[:endcell]}` to the sheet', e.g.!B6:P8.
 * An SQLite db file (*.db). Note that you nominate the table or view name by appending `;{name}` to the filename (required)
 * A value set. Nominate the canonical URL of the ValueSet. 
 
@@ -177,7 +177,7 @@ The data in the files will be available in the liquid template using
 
 * `[name]` is the name in the ini file
 * `cell(row,col)` gives access to the data. Row is an integer (1 based), and column is either an integer (1 based) or a name
-* `lookup(lookupCol, value, outputCol)` looks up a value in lookupCol, and returns the value in outputCol (or null)
+* `lookup(tableName, lookupCol, value, outputCol)` looks up a value in tableName with lookupCol, and returns the value in outputCol (or null)
 
 #### Globals
 
