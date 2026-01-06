@@ -177,7 +177,7 @@ The data in the files will be available in the liquid template using
 
 * `[name]` is the name in the ini file
 * `cell(row,col)` gives access to the data. Row is an integer (1 based), and column is either an integer (1 based) or a name
-* `lookup(lookupCol, value, outputCol)` looks up a value in lookupCol, and returns the value in outputCol (or null)
+* `lookup(tableName, lookupCol, value, outputCol)` looks up a value in tableName with lookupCol, and returns the value in outputCol (or null)
 
 #### Globals
 

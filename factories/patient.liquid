@@ -7,7 +7,7 @@
   {% assign genderfhir = row.gender %} 
   "text" : {
     "status" : "generated",
-    "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">{{ row.last_name }}, {{ row.first_name }}. MRN: {{ row.patient_id}}, Gender: {{ genderfhir }} - Gender V2: {{ genders.lookup(2,genderfhir, 1) }}  </div>",
+    "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\">{{ row.last_name }}, {{ row.first_name }}. MRN: {{ row.patient_id}}, Gender: {{ genderfhir }} - Gender V2: {{ lookup('genders', 2, genderfhir, 1) }}  </div>",
   }
   "identifier:" : [{
     "type" : {
