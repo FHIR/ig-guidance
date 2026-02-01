@@ -67,12 +67,12 @@ writing intuitive, consistent, clear and  concise IG text.
 
 There are defined styles for narrative:
 
-* `stu-note`
-* `dragon`
-* `note-to-balloters`
-* `modified-content`
-* `new-content`
-* `feedback`
+* `stu-note` - used to note important changes, questions, or open issues of relevance to implementers
+* `dragon` - used to warn about specific risks or cautions implementers should be aware of
+* `note-to-balloters` - used to note changes, questions, or other areas of specific interest to balloters
+* `modified-content` - a part of the specification that has changed since the last official release
+* `new-content` - a part of the specification that is new since the last official release
+* `feedback` - information about how to provide feedback about a specification.  (Not usually used in HL7-international published specs.)
 
 <div xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/1999/xhtml ../../schema/fhir-xhtml.xsd" xmlns="http://www.w3.org/1999/xhtml">
 <blockquote class="stu-note">
@@ -87,11 +87,17 @@ This box is styled 'dragon' serves to warn about issues or pitfalls
 
 <p class="note-to-balloters">This paragraph is styled `note-to-balloters`</p>
 
+<p class="feedback">This paragraph is styled `feedback`</p>
+
 <p class="modified-content">This paragraph is styled `modified-content`</p>
 
 <p class="new-content">This paragraph is styled `new-content`</p>
 
-<p class="feedback">This paragraph is styled `feedback`</p>
+<p>The `new-content` and `modified-content` can appear on div, p, span, and li tags.  The appearance of these elements can be toggled on and off 
+using the 'Highlight text changes' checkbox that appears in the top-right corner of the artifact summary table.  Whether this checkbox defaults to checked
+or unchecked for a given publication is determined by the <code>toggle-changes</code> ig parameter.  If set to true (as would typically be desired for a
+ballot or other 'review' specification), the checkbox will default to true.  If set to false (as would typically be desired for a final publication release),
+then change rendering will not be on by default.</p>
 
 
 ### Images and Diagrams
