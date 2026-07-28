@@ -516,12 +516,13 @@
       <p>
         It is possible to define standardized text strings as Liquid variables. This is useful for common text snippets that need to be re-used verbatim
         across the IG, or strings that need to be translated independently from page content, e.g. to use them in templates. To do so, create a yaml
-        (or json) file in the input/data folder, where, organized by language, the variables are defined as key-value pairs. These variables can then be
-        accessed a the Liquid variable <code>{{site.data.</code>[FileName]<code>[include.lang]['</code>[VariableName]<code>']}}</code>.
+        (or json) file in the data folder of the template, or in the input/data folder. In this file, variables and their contents are defined as key-value
+        pairs, grouped by a key for the language. These variables can then be accessed a the Liquid variable
+        <code>{{site.data.</code>[FileName]<code>[include.lang]['</code>[VariableName]<code>']}}</code>.
       </p>
       <p>
-        For example, to define a variable called FeedbackText in both Dutch and English, create a file called igStrings.yml in the input/data folder
-        with the following content:
+        For example, to define a variable called FeedbackText in both Dutch and English, create a file called igStrings.yml in the template data folder or
+        input/data folder with the following content:
 <pre class="language-yaml">
 ---
 en:
@@ -532,9 +533,9 @@ nl:
         This text can now be used in narrative content or template files using <code>{{site.data.igStrings[include.lang]['FeedBackText']}}</code>
       </p>
       <p>
-        NOTE: it is possible to define these strings as part of the template instead of the IG input. However, this requires the use of a json file and
-        possibly po files for translations. The IG Publisher will mark a template containing these files as <em>untrusted</em>, which will limit its use.
-        For example, IG's using <em>untrusted</em> templates will fail to build on the HL7 auto-build server.
+        NOTE: it is possible to define these strings as part of the template instead of the IG input. However, if this is done using a json file, the
+        IG Publisher will mark a template containing these files as <em>untrusted</em>, which will limit its use. For example, IG's using
+        <em>untrusted</em> templates will fail to build on the HL7 auto-build server.
       </p>
       {% endraw %}
     </li>
