@@ -3,13 +3,13 @@
 
 All IGs are authored in a single primary language that is the master language, and then
 additional languages are provided through the use of translation infrastructure.
-The primary language does not have to be in english (even though most existing IGs use english)
+The primary language does not have to be in english (even though most existing IGs use english).
 Note that the external resources to the IG are also have a single primary 
 language, but may provide translations. 
 
 ### Summary 
 
-Text in the final IG comes from 6 different sources:
+Text in the final IG comes from 7 different sources:
 
 1. Text in the IG resources 
 2. Text in the resources from core and other packages the IG depends on
@@ -17,6 +17,7 @@ Text in the final IG comes from 6 different sources:
 4. Text from the underlying terminologies (external to FHIR e.g. SCT, LOINC, RxNorm etc)
 5. Text from the narrative pages authored as part of the specification 
 6. Text from the template that builds all the parts into a coherent specification 
+7. Text defined as Liquid variable by the user
 
 A fully multi-lingual IG must provide translations for all this content. 
 
@@ -67,6 +68,10 @@ page, but right now nothing will happen with that - depends on the template (nex
 #### Text from the template that builds all the parts into a coherent specification 
 
 Translation of the template text happens in the template - see below.
+
+#### Text defined as Liquid variable by the user
+
+Translations are part of the user provided definitions. See <a href="using-templates.html#liquid">the guidance on Liquid variables</a> for more information.
 
 ---
 
