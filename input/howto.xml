@@ -56,6 +56,12 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="versions.html"/>
+        <name value="versions.html"/>
+        <title value="Versions and Dependencies"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="best-practice.html"/>
         <name value="best-practice.html"/>
         <title value="IG Best Practices"/>
@@ -146,6 +152,18 @@
         </page>
       </page>
       <page>
+        <sourceUrl value="conformance-statements.html"/>
+        <name value="conformance-statements.html"/>
+        <title value="Managing Conformance Statements"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
+        <sourceUrl value="maturityprop.html"/>
+        <name value="maturityprop.html"/>
+        <title value="Maturity Propagation"/>
+        <generation value="html"/>
+      </page>
+      <page>
         <sourceUrl value="tooling.html"/>
         <name value="tooling.html"/>
         <title value="IG Tooling"/>
@@ -198,6 +216,30 @@
           <title value="Profile Test Cases"/>
           <generation value="markdown"/>
         </page>
+      </page>
+      <page>
+        <sourceUrl value="multi-maps.html"/>
+        <name value="multi-maps.html"/>
+        <title value="Working with Multiple Maps"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
+        <sourceUrl value="vcl.html"/>
+        <name value="vcl.html"/>
+        <title value="VCL: ValueSet Compose Language"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
+        <sourceUrl value="binaries.html"/>
+        <name value="binaries.html"/>
+        <title value="Working with Binaries"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
+        <sourceUrl value="narrative.html"/>
+        <name value="narrative.html"/>
+        <title value="Rules about Narrative"/>
+        <generation value="markdown"/>
       </page>
      
       <page>

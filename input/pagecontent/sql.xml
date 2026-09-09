@@ -26,6 +26,7 @@ and is available for authors to peruse in the file <code>package.db</code> when 
 Notes for Authors:
 </p>
 <ul>
+ <li>If the output is only one row and one column, then a plain string of that value will be returned (this is good for count(*) kind of SQL)</li>
  <li>Authors wishing to use SQL should use an SQLite3 tool to develop their queries against package.db</li>
  <li>The tables in the package.db are a moving target. See below for documentation</li>
  <li>If authors wish to affect the output, they can instead use the json format for the query, which looks like this:</li>
@@ -66,6 +67,36 @@ The JSON format has the following properties:
  <li><b>class</b>: the css class name for the table. Default = grid</li>
  <li><b>titles</b>: A boolean for whether to include column titles. Default = true</li>
  <li><b>columns</b>: A JSON array with a list of column objects. If this is empty, or missing, the columns will be auto-populated with a type if 'auto'</li>
+ <li><b>codeSystems</b>: A JSON array of strings, each a code system canonical URL (optionally <code>url|version</code>). See below</li>
+</ul>
+
+<a name="codesystems"> </a>
+<h4>Adding Code Systems from dependencies</h4>
+
+<p>
+By default, only the code systems (and their concepts, properties and designations) defined in the IG itself are
+loaded into <code>package.db</code>, so SQL queries can only see those code systems. If you want to write SQL
+against a code system that comes from one of the IG's dependencies, name it in the <code>codeSystems</code> property:
+</p>
+
+<pre>
+{%! sql {
+  "query" : "select Code, Display from Concepts c, Resources r where c.ResourceKey = r.Key and r.Url = 'http://hl7.org/fhir/administrative-gender'",
+  "codeSystems" : [
+    "http://hl7.org/fhir/administrative-gender"
+  ]
+} %}
+</pre>
+
+<p>
+Each named code system is resolved from the IG's dependencies and added to <code>package.db</code> (the
+<code>Resources</code>, <code>Concepts</code>, <code>Properties</code>, <code>ConceptProperties</code> and
+<code>Designations</code> tables) before the query runs, if it is not already present. Notes:
+</p>
+<ul>
+ <li>Code systems added this way are <i>not</i> added to the <code>CodeSystemList</code> table - that table continues to list only the code systems that belong to the IG.</li>
+ <li>Only the content actually carried in the code system resource is loaded. For code systems whose <code>content</code> is not <code>complete</code> (e.g. <code>not-present</code> systems such as SNOMED CT or LOINC), few or no concepts will be available.</li>
+ <li>A code system can be named by more than one SQL block; it is only loaded once.</li>
 </ul>
 
 <p>
@@ -207,6 +238,12 @@ for the IG by it's listed dependencies and the recursive dependencies of any of 
 <p>
 The following tables are always created by the IG publisher:
 </p>
+<p>
+Note: although the table descriptions below refer to the resources and code systems defined in this IG, the
+<code>Resources</code>, <code>Concepts</code>, <code>Properties</code>, <code>ConceptProperties</code> and
+<code>Designations</code> tables may also contain code systems pulled in from the IG's dependencies on demand -
+see <a href="#codesystems">Adding Code Systems from dependencies</a>.
+</p>
 
 <table class="grid">
 <tr> <th>Table / Field Name</th> <th>Type</th> <th>Nullable?</th> <th>Description</th></tr>
@@ -232,7 +269,15 @@ The following tables are always created by the IG publisher:
 <tr> <td>Purpose</td> <td>string</td> <td>True</td> <td>CanonicalResource.purpose (if present)</td></tr>
 <tr> <td>Copyright</td> <td>string</td> <td>True</td> <td>CanonicalResource.copyright (if present)</td></tr>
 <tr> <td>CopyrightLabel</td> <td>string</td> <td>True</td> <td>CanonicalResource.copyrightLabel (if present)</td></tr>
+<tr> <td>derivation</td> <td>string</td> <td>True</td> <td>SructureDefinition.derivation (if present)</td></tr>
+<tr> <td>standardStatus</td> <td>string</td> <td>True</td> <td>CanonicalResource.extension('') (if present)</td></tr>
+<tr> <td>kind</td> <td>string</td> <td>True</td> <td>SructureDefinition.kind (if present)</td></tr>
+<tr> <td>sdType</td> <td>string</td> <td>True</td> <td>SructureDefinition.type (if present)</td></tr>
+<tr> <td>base</td> <td>string</td> <td>True</td> <td>SructureDefinition.baseDefinition (if present)</td></tr>
+<tr> <td>content</td> <td>string</td> <td>True</td> <td>CodeSystem.content (if present)</td></tr>
+<tr> <td>supplements</td> <td>string</td> <td>True</td> <td>CodeSystem.supplements (if present)</td></tr>
 <tr> <td>Json</td> <td>binary</td> <td>False</td> <td>JSON source for resource</td></tr>
+
 
 <tr style="font-weight: bold; background-color: #eeeeee"><td colspan="3">Properties</td><td>Code System properties defined by CodeSystems in the IG</td></tr>
 <tr> <td>Key</td> <td>integer</td> <td>False</td> <td>Incrementing Primary Key</td></tr>
