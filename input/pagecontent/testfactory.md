@@ -98,6 +98,7 @@ Each entry in the factory control file has the following format:
   "profile" : "{url}",
   "data" : "{data-source}",
   "mark-profile" : true|false,
+  "requiredOnly" : true|false,
   "filename" : "{filename}",
   "format" : "json|xml",
   "bundle" : true|false,
@@ -118,6 +119,7 @@ where:
 * `liquid` (**if liquid**): a relative path to a liquid template that builds a resource 
 * `profile` (**if profile**): the URL of a profile to use as the template for generating the instance
 * `mark-profile` (**if profile**): whether to make the profile explicit in the generated resource (in Resource.meta.profile). Note that the IG publisher knows if a resource is generated from a profile; you don't need to fill out the profile explicitly for that
+* `requiredOnly` (**if profile**, optional): if true, only the elements the profile makes mandatory at the top level of the resource are generated, together with any element that has a mapping entry or a fixed value. Optional elements deeper in the resource are handled as usual. The same switch is available as `requiredOnly` on the validator's `/testdata` service
 * `filename` (**mandatory**): A script that controls the name of the output file (see immediately below)
 * `format` (optional): the format of the generated file (doesn't have to match the format that a liquid template produces)
 * `bundle` (optional): if true, the generated resources will be wrapped into a bundle and only a single file created
