@@ -42,12 +42,14 @@ the next publisher release. The tooling supports this; use it rather than forkin
 * **Translation files in your own IG.** For a fix you need now, or a translation only your IG needs, put a
   translation file for the upstream resource in your own `input/translations/{lang}` folder, named after that
   resource, for example `StructureDefinition-Composition-uv-ips.po`. Start with an empty file: the build then
-  generates the strings to translate under `translations/`, exactly as for your own resources. The publisher
-  turns the result into a CodeSystem supplement that ships in your IG's package and is applied when the
-  upstream resource is rendered in your languages. This works for CodeSystem, StructureDefinition and
-  Questionnaire resources from any package in scope, including FHIR core. Note: this option is still being
-  verified against the current publisher; if the build reports "Ignoring file" for your translation file, the
-  log line says why.
+  generates the strings to translate under `translations/`, exactly as for your own resources, and turns your
+  translation into a CodeSystem supplement that ships in your IG's package. **Rendering does not yet use it.**
+  As of the current publisher, the supplement is labelled with the IG's default language rather than the
+  translation's, and the renderer only consults supplements for code displays, not for element definitions
+  inherited from an upstream profile. So the file is produced and packaged, but the upstream text still
+  renders in the source language. The same limitation applies to profile text in a language pack; language
+  packs do work for code displays. Treat this option as the intended route, not a working one, until the
+  tooling catches up.
 * **Forking the upstream IG** and depending on the fork also works, but it ties you to maintaining the fork.
   Prefer the two options above.
 
