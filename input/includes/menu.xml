@@ -11,7 +11,6 @@
       <li><a href="pinning.html">Managing Canonical Versions (pinning)</a></li>
       <li><a href="best-practice.html">IG Best Practices</a></li>
       <li><a href="maturityprop.html">Maturity Propagation</a></li>
-      <li><a href="languages.html">Multi-language IGs</a></li>
       <li><a href="terminology.html">Working with Terminology</a></li>
       <li><a href="vcl.html">VCL: ValueSet Compose Language</a></li>
       <li><a href="binaries.html">Working with Binaries</a></li>
@@ -49,10 +48,16 @@
       </b>
     </a>
     <ul class="dropdown-menu">
-      <li><a href="languages.html">Multi-lingual content</a></li>
-      <li><a href="lang-pack.html">Language pack</a></li>
-      <li><a href="lang-maintenance.html">Maintaining multilingual content</a></li>
-      <li><a href="lang-creating-ml-specs.html">Creating multi-lingual specifications</a></li>
+      <li><a href="languages.html">Multilingual IGs</a></li>
+      <li><a href="lang-creating-ml-specs.html">Setting up the IG</a></li>
+      <li><a href="lang-ig.html">Translating Resources</a></li>
+      <li><a href="lang-narrative.html">Translating Narrative Pages</a></li>
+      <li><a href="lang-pack.html">Language Packs</a></li>
+      <li><a href="lang-ext-terms.html">Terminology Displays</a></li>
+      <li><a href="lang-java-pack.html">Publisher-generated Text</a></li>
+      <li><a href="lang-new-language.html">Adding a New Language</a></li>
+      <li><a href="lang-template.html">Template Text</a></li>
+      <li><a href="translation-formats.html">Translation Formats</a></li>
     </ul>
   </li>
   <li class="dropdown">

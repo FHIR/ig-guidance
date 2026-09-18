@@ -26,7 +26,7 @@
   <fhirVersion value="5.0.0"/>
   <definition>
     <resource>
-      <reference> 
+      <reference>
         <reference value="Patient/example"/>
       </reference>
       <name value="Example patient"/>
@@ -106,30 +106,24 @@
       <page>
         <sourceUrl value="languages.html"/>
         <name value="languages.html"/>
-        <title value="Producing Multi-Language IGs"/>
+        <title value="Multilingual IGs"/>
         <generation value="markdown"/>
         <page>
           <sourceUrl value="lang-creating-ml-specs.html"/>
           <name value="lang-creating-ml-specs.html"/>
-          <title value="Multilingual Specification setup"/>
+          <title value="Setting up the IG"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="lang-ig.html"/>
+          <name value="lang-ig.html"/>
+          <title value="Translating Resources"/>
           <generation value="markdown"/>
         </page>
         <page>
           <sourceUrl value="lang-narrative.html"/>
           <name value="lang-narrative.html"/>
-          <title value="Translating Narrative content"/>
-          <generation value="markdown"/>
-        </page>
-        <page>
-          <sourceUrl value="lang-ext-terms.html"/>
-          <name value="lang-ext-terms.html"/>
-          <title value="Translating Terminology content"/>
-          <generation value="markdown"/>
-        </page>
-        <page>
-          <sourceUrl value="lang-java-pack.html"/>
-          <name value="lang-java-pack.html"/>
-          <title value="Translations in code-generated content"/>
+          <title value="Translating Narrative Pages"/>
           <generation value="markdown"/>
         </page>
         <page>
@@ -139,15 +133,33 @@
           <generation value="markdown"/>
         </page>
         <page>
-          <sourceUrl value="lang-maintenance.html"/>
-          <name value="lang-maintenance.html"/>
-          <title value="Language Maintenance"/>
+          <sourceUrl value="lang-ext-terms.html"/>
+          <name value="lang-ext-terms.html"/>
+          <title value="Terminology Displays"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="lang-java-pack.html"/>
+          <name value="lang-java-pack.html"/>
+          <title value="Publisher-generated Text"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="lang-new-language.html"/>
+          <name value="lang-new-language.html"/>
+          <title value="Adding a New Language"/>
+          <generation value="markdown"/>
+        </page>
+        <page>
+          <sourceUrl value="lang-template.html"/>
+          <name value="lang-template.html"/>
+          <title value="Template Text"/>
           <generation value="markdown"/>
         </page>
         <page>
           <sourceUrl value="translation-formats.html"/>
           <name value="translation-formats.html"/>
-          <title value="Translation formats"/>
+          <title value="Translation Formats"/>
           <generation value="markdown"/>
         </page>
       </page>
@@ -280,6 +292,13 @@
         <code value="releaselabel"/>
       </code>
       <value value="CI Build"/>
+    </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="path-pages"/>
+      </code>
+      <value value="input/images"/>
     </parameter>
     <parameter>
       <code>
