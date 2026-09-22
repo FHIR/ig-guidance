@@ -1,4 +1,4 @@
-## Testing Support
+### Testing Support
 
 This page summarises the support that the IG publisher offers to authors to
 support the testing process, both for testing the IG and for testing implementations

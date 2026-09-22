@@ -1,4 +1,4 @@
-# Creating Mapping Tables across multiple code systems
+### Creating Mapping Tables across multiple code systems
 
 Maps between different code systems are mostly done with ConceptMaps, which are 
 one-way maps from source to target code systems. Some maps are embedded in
@@ -9,7 +9,7 @@ But when presented in the IG publisher, the maps are presented individually. if
 you want a mapping table that scans across multiple code systems, you can do it
 with a multi-map. 
 
-## Including a multi-map in the IG
+#### Including a multi-map in the IG
 
 In principle, including a multi-map is easy:
 
@@ -35,7 +35,7 @@ type to some other code system.
 The source controls the left column, and also the rows in the table. There will be 
 an row in the table for each code in the value set or code system. 
 
-## Defining the Source
+#### Defining the Source
 
 The source object contains one or more of the following:
 
@@ -57,7 +57,7 @@ Provide either a ValueSet or a vcl. Codes in the sections that are not in the so
 If you define sections you can also provide a `others` on the `source` object that specifies the title for
 any codes in the left column not found in any of the defined sections.
 
-## Adding other columns to the table
+#### Adding other columns to the table
 
 As shown above, you can simply ask the IG publisher to include whatever it can
 find in the table using `'scan' : true`. Alternatively, you can define columns explicitly
@@ -83,13 +83,13 @@ Common settings across all columns:
 * `show-system`: whether to show the CodeSystem for each code. Default is true
 * `type`: There's two kinds of columns: ConceptMap and CodeSystem - see below.
 
-### ConceptMaps
+#### ConceptMaps
 
 Adding a ConceptMap is straightforward - type = ConceptMap and use the 
 URL to nominate the ConceptMap. The maps will be shown whether they are forward 
 or backward. 
 
-### CodeSystem
+#### CodeSystem
  
 Adding a CodeSystem is a bit more involved - type = CodeSystem and use the 
 URL to nominate the CodeSystem. 
@@ -100,7 +100,7 @@ expect that the property values are Codings, and look for a match
 using system + code. if it finds one, it will add the matched concept 
 to the table 
 
-## Example
+### Example
 
 {% multi-map {
   "caption" : "Address Type Mappings for FHIR, V3, and v2",

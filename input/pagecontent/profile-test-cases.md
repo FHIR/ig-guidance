@@ -1,4 +1,4 @@
-## Profile Test Cases
+### Profile Test Cases
 
 Implementation Guides can contain examples for profiles, and most do. But there are various technical and procedural
 mechanisms in place to enforce that the examples for the profiles are valid resources, both in regard to the 
@@ -8,7 +8,7 @@ to 'test out' the profiles to ensure that they correctly rule out valid resource
 Instead of defining IG examples for this purpose, the IG publisher supports 'profile test cases' for this purpose. 
 Each set of profile test cases is defined by a json file, customarily found in tests/profiles.
 
-### Profile Test Cases Control File
+#### Profile Test Cases Control File
 
 The file that controls the test cases is a json file that contains a JSON Object with a single property
 "profiles" that contains an array of objects where each object has a url property, and a set of tests:
@@ -48,11 +48,11 @@ where:
 In general, authors should list the key messages they are testing for in the outcomes section, so that the test case don't 'pass' by failing for an unrelated reason
 that has nothing to do with the reason the profile is being tested.
 
-### Registering Profile Test Cases
+#### Registering Profile Test Cases
 
 Profile Test Cases file are registered using the [profile-test-cases](https://build.fhir.org/ig/FHIR/fhir-tools-ig/CodeSystem-ig-parameters.html#ig-parameters-profile-test-cases) parameter. There can be more than one profile test case, though this is not usually necessary.
 
-### Running Profile Test Cases
+#### Running Profile Test Cases
 
 The publisher will automatically execute the test cases. Any test casess that fail will be registered in the QA.
 Editors should look in the .out.json file that has the same name as the test cases 

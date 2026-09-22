@@ -1,6 +1,4 @@
-# Related IGs
-
-## Declaring Related IGs
+### Declaring Related IGs
 
 Related IGs are registered using the parameter ```related-ig```:
 
@@ -37,7 +35,7 @@ parameters:
   related-ig: module:library=hl7.fhir.uv.cds-hooks-library
 ```
 
-## Referencing Content in Related IGs
+### Referencing Content in Related IGs
 
 You can refer content in a related IG using a jekyll statement like this:
 
@@ -65,7 +63,7 @@ Note that `site.data.related.code.` has following properties:
 * `canonical`: the canonical of the IG
 * `version`: the stated version of the IG
 
-## Presenting a list of Related IGs
+### Presenting a list of Related IGs
 
 There's two fragments:
 
@@ -107,7 +105,7 @@ Additional Module: <a href="file:///Users/grahamegrieve/temp/igs/HL7-cds-hooks-l
   </tr>
 </table>
 
-## Publishing with related IGs 
+### Publishing with related IGs 
 
 It's not possible for the tooling to automatically figure out what's going on with 
 related IGs when it becomes time to publish - the tooling can't know whether it should
