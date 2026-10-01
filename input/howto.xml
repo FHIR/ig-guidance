@@ -7,7 +7,7 @@
   <title value="Guidance for FHIR IG Creation"/>
   <status value="draft"/>
   <experimental value="false"/>
-  <publisher value="HL7 International - FHIR Management Group"/>
+  <publisher value="HL7 International / FHIR Management Group"/>
   <contact>
     <telecom>
       <system value="other"/>
@@ -65,6 +65,12 @@
         <sourceUrl value="best-practice.html"/>
         <name value="best-practice.html"/>
         <title value="IG Best Practices"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
+        <sourceUrl value="oids.html"/>
+        <name value="oids.html"/>
+        <title value="OID Assignment"/>
         <generation value="markdown"/>
       </page>
       <page>
