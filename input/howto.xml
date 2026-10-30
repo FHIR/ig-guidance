@@ -104,6 +104,12 @@
         <generation value="html"/>
       </page>
       <page>
+        <sourceUrl value="generated-fragments.html"/>
+        <name value="generated-fragments.html"/>
+        <title value="Including Generated Fragments"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="uml.html"/>
         <name value="uml.html"/>
         <title value="Creating Class Diagrams"/>

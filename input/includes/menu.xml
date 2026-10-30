@@ -27,6 +27,7 @@
       <li><a href="conformance-statements.html">Conformance Statements</a></li>
       <li><a href="diagrams-mermaid.html">Mermaid Diagrams</a></li>
       <li><a href="diagrams-plantuml.html">PlantUml Diagrams</a></li>
+      <li><a href="generated-fragments.html">Including Generated Fragments</a></li>
       <li><a href="fragments.html">Using Instance Fragments</a></li>
       <li><a href="jsonxml.html">Presenting JSON and XML content</a></li>
       <li><a href="multi-maps.html">Working with Multiple maps</a></li>
