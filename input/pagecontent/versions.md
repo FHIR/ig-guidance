@@ -79,7 +79,7 @@ by Sushi, in the sushi-config.yaml. In IGs, dependencies must always have a stat
 
 Possible version values are:
 
-* an explicit version - the exact version of the package [major.minor.patch(-name]. The tools will resolve to the exact version specified
+* an explicit version - the exact version of the package [major.minor.patch(-name]. The tools will resolve to the version specified. If a compatible patch version is available, it may be used (e.g. a request for 1.0.1 may resolve to 1.0.0 if 1.0.1 is not available)
 * {major.minor} - if just a major and a minor are specified, the tools will resolve to the latest patch version. This isn't supported everywhere 
 * `current` - use the last build of the master/main branch on build.fhir.org (note: we apologise for using this misleading term as described above)
 * `dev` -  use the last local build performed on this computer (in any branch), otherwise fall back to #current

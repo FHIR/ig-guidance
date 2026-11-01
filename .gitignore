@@ -19,4 +19,5 @@ tests/
 input/factories/
 
 factories/~$patient-cases.xlsx
-/Requirements-fromNarrative.json
+
+Requirements-fromNarrative.json

@@ -1,4 +1,4 @@
-## UML Class Diagrams
+### UML Class Diagrams
 
 This page describes how to use the IG publisher to create UML Class Diagrams for 
 StructureDefinitions and Profiles. For other kinds of UML diagrams, see 

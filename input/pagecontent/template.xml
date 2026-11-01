@@ -125,9 +125,17 @@
 <a name="liquid"> </a>
 <h4 id="liquid">Liquid templates for narrative</h4>
 <p>
-  The IG publisher supports a liquid-based approach to defining the narrative content for different types of resources.
-</p>
-<p>
-  TODO - flesh this out
-</p>
+  The IG publisher supports a Liquid based approach to defining the narrative content for different types of resources. If a Liquid template is present for a resource, it is used both for the representation of that resource in the IG and for populating the <code>Resource.text</code> of these resources (if needed).</p>
+  <p>These Liquid templates can be maintained in two ways:<ol>
+    <li>As part of the IG template:<ul>
+      <li>Create a folder named "liquid" in the template folder.</li>
+      <li>Set the <a href="https://build.fhir.org/ig/FHIR/fhir-tools-ig/en/CodeSystem-ig-parameters.html#ig-parameters-path-liquid-template">path-liquid-template IG parameter</a> to "template/liquid".</li>
+    </ul></li>
+    <li>As part of the IG input. Liquid templates defined here will override those from the IG template:<ul>
+      <li>Create a sub folder named "liquid" in the "input" folder.</li>
+      <li>Set the <a href="https://build.fhir.org/ig/FHIR/fhir-tools-ig/en/CodeSystem-ig-parameters.html#ig-parameters-path-liquid">path-liquid IG parameter</a> to "input/liquid".</li>
+    </ul></li>
+  </ol></p>
+  <p>To use this method for a specific resource type, create a file called <code>[ResourceType].liquid</code> in the folder of choice, and write out the HTML with Liquid expressions. You can use the <a href="https://confluence.hl7.org/spaces/FHIR/pages/66938964/FHIR+Liquid+Profile">FHIR Liquid dialect</a>, which leverages FHIRPath expressions to access content from the resource.</p>
+  <p>You can find examples of this approach in the <a href="https://github.com/HL7/ig-template-base2/tree/main/liquid">fhir2.base.template</a>.</p>
 </div>

@@ -7,7 +7,7 @@
   <title value="Guidance for FHIR IG Creation"/>
   <status value="draft"/>
   <experimental value="false"/>
-  <publisher value="HL7 International - FHIR Management Group"/>
+  <publisher value="HL7 International / FHIR Management Group"/>
   <contact>
     <telecom>
       <system value="other"/>
@@ -68,6 +68,12 @@
         <generation value="markdown"/>
       </page>
       <page>
+        <sourceUrl value="oids.html"/>
+        <name value="oids.html"/>
+        <title value="OID Assignment"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="pinning.html"/>
         <name value="pinning.html"/>
         <title value="Managing Canonical Versions (pinning)"/>
@@ -96,6 +102,12 @@
         <name value="fragments.html"/>
         <title value="Using Instance Fragments"/>
         <generation value="html"/>
+      </page>
+      <page>
+        <sourceUrl value="generated-fragments.html"/>
+        <name value="generated-fragments.html"/>
+        <title value="Including Generated Fragments"/>
+        <generation value="markdown"/>
       </page>
       <page>
         <sourceUrl value="uml.html"/>

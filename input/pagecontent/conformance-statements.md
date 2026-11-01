@@ -1,4 +1,4 @@
-# Managing Conformance Statements
+### Managing Conformance Statements
 
 The IG Publisher includes facilities to mark and list conformance statements made in page content.
 
@@ -13,7 +13,7 @@ In order to manage conformance statements, an IG author has to
 IGs are not required to manage conformance statements in this fashion, unless 
 they are HL7 IGs. 
 
-## Identifying Conformance statements 
+### Identifying Conformance statements 
 
 Conformance Statements come in two flavours: a sentence inside a paragraph 
 that makes a testable assertion, or in one or more paragraphs and/or lists,
@@ -23,7 +23,7 @@ Editors should use whichever form best works for their content, but in
 general, it works best if the statements are clearly separated from 
 the other narrative content, so the (multi-)paragraph form is recommended. 
 
-### XML 
+#### XML 
 
 In XML pages, conformance statements are either `div` elements or `span`
 elements that contain the conformance statement. 
@@ -42,7 +42,7 @@ statement.  See <a href="#metadata">below</a>.
 * summary - how the text is presented in the summary list of conformance statements. This is required for `div` elements. For `span` elements, the summary defaults to the text
 </div>
 
-### Markdown 
+#### Markdown 
 
 In markdown, `div` and `span` elements are not used directly. Instead, the 
 character `§` is used to make conformance statements. E.g. in the middle of 
@@ -64,7 +64,8 @@ title is the first paragraph of the conformance statement block.
 
 <div class="new-content" markdown="1">
 <a name="metadata"> </a>
-## Additional statement metadata
+
+### Additional statement metadata
 
 It is possible to specify additional metadata about a conformance statement rather than just
 assigning an identifier:
@@ -112,7 +113,7 @@ legal.  However <code>§someid?^category1,category2</code><code>:...</code> is n
 </div>
 
 <div class="modified-content" markdown="1">
-## Conformance Statement Table
+### Conformance Statement Table
 
 The summary list of conformance statements must be placed in the IG somewhere.
 Where it actually goes is at the discretion of the author. In XML,
@@ -132,7 +133,7 @@ the IG text.  It will also allow filtering by the different columns visible.
 This view will provide a complete list of all conformance statements found in the IG and
 will allow filtering them based on actor and/or category.
 
-### Guidance for interpretting the table
+#### Guidance for interpretting the table
 It is quite likely that readers will misinterpret this table without additional guidance.  Implementation guides that display this table should include an introduction that covers most or all of the following content (though feel free to adjust the wording or even submit a PR to improve the suggested wording found here):
 
 <div markdown="1">
@@ -151,7 +152,7 @@ A few other notes:
 * The categorizations are general. In practice, all 'exchange', 'ui', and 'storage' requirements are some aspect of 'processing' requirements. The categories will give hints as to the architectural layer a requirement will apply to, but there is nothing definitive implied by the category(ies) listed.
 </div>
 
-## Requirements Resource
+### Requirements Resource
 
 If conformance statements are marked up using the syntax described in this page, the publisher will also generate a
 Requirements instance that contains the full set of requirements so-marked.  This will be placed in the root of the IG.
