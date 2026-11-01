@@ -23,6 +23,7 @@
       </b>
     </a>
     <ul class="dropdown-menu">
+      <li><a href="artifactsTable.html">The Artifacts Table</a></li>
       <li><a href="conformance-statements.html">Conformance Statements</a></li>
       <li><a href="diagrams-mermaid.html">Mermaid Diagrams</a></li>
       <li><a href="diagrams-plantuml.html">PlantUml Diagrams</a></li>

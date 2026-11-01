@@ -104,6 +104,12 @@
         <generation value="markdown"/>
       </page>
       <page>
+        <sourceUrl value="artifactsTable.html"/>
+        <name value="artifactsTable.html"/>
+        <title value="The Artifacts Table"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="languages.html"/>
         <name value="languages.html"/>
         <title value="Producing Multi-Language IGs"/>
