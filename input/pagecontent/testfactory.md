@@ -235,7 +235,7 @@ Documentation:
 * `fhirType` - use when the type is polymorphic and not fixed in the profile. Can be either the name of a type, or a FHIRPath expression that returns the name of a type
 * `if` - if this is present, evaluate the expression, and only use the entry if the result is true
 * `expression`: An expression which evaluates to the value. See below for details
-* `value`: a literal value, used as it is instead of an expression. An entry has either an `expression` or a `value`; one with both is an error, since that is most likely a mistake. The value can be of any JSON type: a number or boolean is used as its text (`true`, `5`), an object or array as its JSON text. An empty string (`""`) suppresses the element, the same as an entry with no expression
+* `value`: a literal value, used as it is instead of an expression. An entry has either an `expression` or a `value`; one with both is an error, since that is most likely a mistake. The value can be of any JSON type: a number or boolean is used as its text (`true`, `5`), an object or array as its JSON text. An empty string (`""`) or a JSON `null` suppresses the element, the same as an entry with no expression
 * `parts`: a series of named expressions where the name of each part corresponds to a property name of a type
 * Each part contains either an expression, a value, or a set of parts  
 
