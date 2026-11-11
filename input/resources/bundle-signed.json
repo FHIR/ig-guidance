@@ -28,13 +28,19 @@
         "value" : 1
       }
     }
-  }],
-  "signature" : {
-    "type" : [{
-      "system" : "urn:iso-astm:E1762-95:2013",
-      "code" : "1.2.840.10065.1.12.1.1"
-    }],
-    "targetFormat" : "application/fhir+json; canonicalization=http://hl7.org/fhir/canonicalization/json",
-    "sigFormat" : "application/jose"
-  }
+  },{
+    "fullUrl" : "urn:uuid:fe123921-9b99-4f68-b302-af44e35635f7",
+    "resource" : {
+      "resourceType" : "Provenance",
+      "target" : [{ "reference" : "#/" }],
+      "signature" : {
+        "type" : [{
+          "system" : "urn:iso-astm:E1762-95:2013",
+          "code" : "1.2.840.10065.1.12.1.1"
+        }],
+        "targetFormat" : "application/fhir+json; canonicalization=http://hl7.org/fhir/canonicalization/json",
+        "sigFormat" : "application/jose"
+      }
+    }
+  }]
 }

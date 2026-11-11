@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <ImplementationGuide xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hl7.org/fhir ../input-cache/schemas/r5/fhir-single.xsd">
   <id value="hl7.fhir.uv.howto"/>
@@ -200,6 +201,12 @@
         <generation value="markdown"/>
       </page>
       <page>
+        <sourceUrl value="additional-bindings.html"/>
+        <name value="additional-bindings.html"/>
+        <title value="Working with Additional Bindings"/>
+        <generation value="markdown"/>
+      </page>
+      <page>
         <sourceUrl value="binaries.html"/>
         <name value="binaries.html"/>
         <title value="Working with Binaries"/>
@@ -285,6 +292,34 @@
         <code value="suppress-mappings"/>
       </code>       
       <value value="*"/>
+    </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="incubator-ig"/>
+      </code>       
+      <value value="hl7.fhir.uv.testing"/>
+    </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="excludettl"/>
+      </code>       
+      <value value="true"/>
+    </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="auto-oid-root"/>
+      </code>       
+      <value value="2.16.840.1.113883.4.642.40.83"/>
+    </parameter>
+    <parameter>
+      <code>
+        <system value="http://hl7.org/fhir/tools/CodeSystem/ig-parameters"/>
+        <code value="signatures-using-r6-method"/>
+      </code>       
+      <value value="true"/>
     </parameter>
   </definition>
 </ImplementationGuide>

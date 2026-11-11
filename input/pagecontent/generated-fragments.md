@@ -45,6 +45,34 @@ When the French version of the page is built, this includes `StructureDefinition
 and so on for each language. If the IG doesn't use the multi-language format, `lang-fragment` is just the 
 same as `include`, so it is always safe to use `lang-fragment` for generated fragments. 
 
+#### Lists of Resources
+
+The `list-[type]s.xhtml` fragments (e.g. `list-capabilitystatements.xhtml`), and their variants 
+`list-simple-[type]s.xhtml`, `list-[type]s-json.xhtml` and `list-[type]s-xml.xhtml`, only contain the 
+`<li>` items - there's no surrounding `<ul>` or `<ol>`, so that you can choose which kind of list to use. 
+The publisher provides the fragments `ul-open.xhtml`, `ul-close.xhtml`, `ol-open.xhtml` and `ol-close.xhtml` 
+to wrap them. In Markdown:
+
+```
+{% raw %}{% include ul-open.xhtml %}{% endraw %}
+{%! lang-fragment list-capabilitystatements.xhtml %}
+{% raw %}{% include ul-close.xhtml %}{% endraw %}
+```
+
+The open and close fragments are the same in all languages, so they are included with a plain `include`. 
+
+Likewise, the `table-[type]s.xhtml` fragments (and their `-json` and `-xml` variants) only contain the 
+`<tr>` rows of a table. The publisher provides open and close fragments for the two table styles used 
+in IGs: `table-grid-open.xhtml` / `table-grid-close.xhtml` (`<table class="grid">`, with a border 
+around every cell) and `table-list-open.xhtml` / `table-list-close.xhtml` (`<table class="list">`, with a 
+line between the rows):
+
+```
+{% raw %}{% include table-grid-open.xhtml %}{% endraw %}
+{%! lang-fragment table-capabilitystatements.xhtml %}
+{% raw %}{% include table-grid-close.xhtml %}{% endraw %}
+```
+
 ### Finding the Available Fragments
 
 Which fragments are generated depends on the resource type, on the content of the resource, on
@@ -85,5 +113,5 @@ see above for how to find them all.
 | `dependency-table.xhtml` | The packages this IG depends on |
 | `globals-table.xhtml` | The global profiles declared by this IG |
 | `ip-statements.xhtml` | The intellectual property statements for the IG |
-| `list-[type]s.xhtml` | A list of all the resources of a type in the IG (e.g. `list-patients.xhtml`) |
+| `list-[type]s.xhtml` | The list items for all the resources of a type in the IG (e.g. `list-patients.xhtml`) - see [Lists of Resources](#lists-of-resources) |
 
