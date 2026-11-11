@@ -122,7 +122,46 @@ and it is checked. Otherwise, the additional binding is ignored.
 #### Declared Use Contexts
 
 The validator doesn't decide which use contexts apply to a validation; the user has to
-say. The command line validator has a `-usage` parameter for this, which takes a
+say. There are two ways to do this.
+
+##### Jurisdiction
+
+The jurisdiction the validator is validating in (the `-jurisdiction` parameter) is treated as a
+use context. A usage on an additional binding is in force when:
+
+* its code is `http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction`, and
+* its value is a CodeableConcept with a coding that has the same system and code as the
+  jurisdiction that was specified
+
+The [jurisdiction value set](https://terminology.hl7.org/ValueSet-jurisdiction.html) draws on
+two code systems: `urn:iso:std:iso:3166` (countries, e.g. `US`) and
+`http://unstats.un.org/unsd/methods/m49/m49.htm` (regions, e.g. `001` for the world). `-jurisdiction`
+can be given as a 2 letter country code (e.g. `-jurisdiction us`, which means `urn:iso:std:iso:3166#US`),
+as `uv` or `global` (which mean `http://unstats.un.org/unsd/methods/m49/m49.htm#001`), or as
+`system#code` in either code system. So this additional binding applies when the validator is run
+with `-jurisdiction us`:
+
+```json
+"usage" : [{
+  "code" : {
+    "system" : "http://terminology.hl7.org/CodeSystem/usage-context-type",
+    "code" : "jurisdiction"
+  },
+  "valueCodeableConcept" : {
+    "coding" : [{
+      "system" : "urn:iso:std:iso:3166",
+      "code" : "US"
+    }]
+  }
+}]
+```
+
+The codes must match exactly - there is no geographic containment, so a binding
+for the world (`m49#001`) does not apply when the jurisdiction is `US`, and vice versa.
+
+##### Other Use Contexts
+
+The command line validator has a `-usage` parameter for any other use context. It takes a
 `code=value` pair, and can be repeated:
 
 ```
@@ -145,9 +184,9 @@ A declared use context matches a usage on an additional binding when:
   ignored). Quantity, Range and Reference values are accepted on the command line, but
   never match anything (yet)
 
-Declared use contexts are only available when running the validator directly; the IG
-publisher doesn't have a way to declare them, so when validating IG content, only the
-content-based matching described below applies.
+The `-usage` and `-jurisdiction` parameters are only available when running the validator
+directly; the IG publisher doesn't pass a jurisdiction or use contexts to the validator,
+so when validating IG content, only the content-based matching described below applies.
 
 #### Use Contexts that Refer to Content
 
