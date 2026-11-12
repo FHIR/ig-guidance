@@ -100,6 +100,111 @@ translations - rather than narrowing the primary binding:
 This is the usual reason for using additional bindings, and it is why most additional bindings
 are found on `CodeableConcept` elements. (The same applies to a `CodeableReference`, through its concept.)
 
+### When to use each type
+
+#### maximum
+
+Maximum bindings are used when there's an extensible binding as the main binding, 
+but a specifier wants to say something about the codes used when the codes are in the 
+extension space. A typical use is to say that a code should be from a particular Snomed CT 
+value set, but if those don't work, the code still must be a Snomed CT code. 
+
+Maximum bindings are not usually limited to a particular context; that makes them very 
+hard to interpret. More generally, specifying a simple required binding with a most restrictive
+best-practice, ui, or starter set of codes is often a better way to represent this idea.
+
+In the context of a CodeableConcept, this functions as a binding that must be satisfied 
+by at least one code (or all, if all is true).
+
+#### minimum
+
+Minimum bindings are used to say something very different to other kinds of bindings;
+the other kinds of bindings are about what is allowed to exist in the element. Minimum
+bindings instead say which of those codes a system must 'support'.
+
+The implication here, which is easily missed by implementers, is that systems can support
+a subset of the legitimate codes, depending on their use case. For this reason, minimum
+bindings are often associated with particular usages.
+
+Note that the definition of 'must support' is flexible, and see [the specification](link)
+for further discussion about how must-support works. 
+
+#### required 
+
+A required binding is a value set the coded value must satisfy. There are several 
+different scenarios where you might have an additional value that is required:
+
+* the base binding is not very tight (extensible, or preferred), but the community agrees that it can be required in some context of use 
+* there's a general required binding, but some contexts of use have a tighter binding 
+* two different codes are required, a national and and international code 
+
+Usually, additional bindings that are required bindings have a usage associated with them, but 
+they do not always (the last case above)
+
+In the context of a CodeableConcept, this functions as a binding that must be satisfied 
+by at least one code (or all, if all is true).
+
+#### extensible 
+
+It's unusual to see extensible bindings in additional bindings - the essence of the 
+definition of extensible fits most naturally with the main binding. The obvious 
+case follows from the previous list:
+
+* two different codes are sort-of required, a national and and international code 
+
+But if you can't, then provide some other code. 
+
+In the context of a CodeableConcept, this functions as a binding that must be satisfied 
+by at least one code (or all, if all is true).
+
+####  preferred, candidate
+
+Typically, this is used to indicate that there are multiple preferences or candidate valuesets, perhaps by a 
+context of use such as different jurisdictions. 
+
+#### current, current-extensible
+
+One common problem for interoperability specifications is that applications can easily 
+be changed to use a different set of codes in order to conform to a specification, but 
+this doesn't change the records that already exist, and there is very often no practical 
+action that an application can take to change these. 
+
+For this reason, additional bindings can be defined the apply to current records, but 
+not past records. 
+
+Todo : the validator does not currently support the notion of 'current' as a working 
+context.
+
+####  best-practice, ui, starter
+
+These are not rules about the codes in the element, but suggestions to applications about 
+different sets of codes for different kinds of usages. 
+
+#### component
+
+When one or more components are defined, they are understood as parts - subsets - of the 
+main binding, allowing for different parts of the main binding to be documented. The normal 
+use of this feature is to document code system specific usages when the main value set 
+contains codes from different code systems. 
+
+### Interactions between bindings 
+
+One frequently asked question is about how the different kind of bindings relate to each other 
+and to the main binding, and many users at first expect that the bindings are somehow related 
+to each other. 
+
+It's important to understand that the bindings are not inter-dependent when it comes to checking 
+whether an application or an element in a resource are conformant to the relevant profiles that 
+apply; each binding - the main binding, and any additional binding - is evaluated independently 
+of any other binding, and a Coding or CodeableConcept is valid if it meets each of the rules 
+independently. 
+
+Note that this means that it's not possible to specify two extensible bindings with different
+maximum bindings for each of the different extensible bindings; if this was truly desired, it 
+would be necessary to slice the Codings in a CodeableConcept - but even then, this would be 
+a very difficult combination for applications to read or write, so such combinations should
+be actively avoided.
+
 ### How Usage Works {#usage}
 
 By default, an additional binding applies everywhere the element is used. When the
