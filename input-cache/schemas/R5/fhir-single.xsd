@@ -47,9 +47,9 @@
   POSSIBILITY OF SUCH DAMAGE.
   
 
-  Generated on Wed, Dec 17, 2025 09:50+0000 for FHIR v6.0.0-ballot3 
+  Generated on Wed, Dec 17, 2025 09:50+0000 for FHIR v6.0.0-ballot5 
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hl7.org/fhir" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://hl7.org/fhir" elementFormDefault="qualified" version="6.0.0-ballot3">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://hl7.org/fhir" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" targetNamespace="http://hl7.org/fhir" elementFormDefault="qualified" version="6.0.0-ballot5">
   <!-- Note: When using this schema with some tools, it may also be necessary to declare xmlns:xml="http://www.w3.org/XML/1998/namespace", however this causes performance issues with other tools and thus is not in the base schemas. -->
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xhtml" schemaLocation="fhir-xhtml.xsd"/>
@@ -4391,9 +4391,9 @@
           <xs:documentation xml:lang="en">6.0.0-ballot2</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="6.0.0-ballot3">
+      <xs:enumeration value="6.0.0-ballot5">
         <xs:annotation>
-          <xs:documentation xml:lang="en">6.0.0-ballot3</xs:documentation>
+          <xs:documentation xml:lang="en">6.0.0-ballot5</xs:documentation>
         </xs:annotation>
       </xs:enumeration>
     </xs:restriction>
@@ -14085,7 +14085,9 @@ Modifier extensions SHALL NOT change the meaning of any elements on Resource or 
           </xs:element>
           <xs:element name="balance" type="Account.Balance" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The calculated account balances - these are calculated and processed by the finance system.The balances with a `term` that is not current are usually generated/updated by an invoicing or similar process.</xs:documentation>
+              <xs:documentation xml:lang="en">The calculated account balances - these are calculated and processed by the finance system.
+
+The balances with a `term` that is not current are usually generated/updated by an invoicing or similar process.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="calculatedAt" minOccurs="0" maxOccurs="1" type="instant">
@@ -16027,7 +16029,9 @@ The duration (usually in minutes) could also be provided to indicate the length 
           </xs:element>
           <xs:element name="weekInterval" minOccurs="0" maxOccurs="1" type="positiveInt">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The interval defines if the recurrence is every nth week. The default is every week, so it is expected that this value will be 2 or more.e.g. For recurring every second week this interval would be 2, or every third week the interval would be 3.</xs:documentation>
+              <xs:documentation xml:lang="en">The interval defines if the recurrence is every nth week. The default is every week, so it is expected that this value will be 2 or more.
+
+e.g. For recurring every second week this interval would be 2, or every third week the interval would be 3.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -29234,7 +29238,9 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="length" minOccurs="0" maxOccurs="1" type="Duration">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Actual quantity of time the encounter lasted. This excludes the time during leaves of absence.When missing it is the time in between the start and end values.</xs:documentation>
+              <xs:documentation xml:lang="en">Actual quantity of time the encounter lasted. This excludes the time during leaves of absence.
+
+When missing it is the time in between the start and end values.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="reason" type="Encounter.Reason" minOccurs="0" maxOccurs="unbounded">
@@ -29269,7 +29275,9 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="admission" type="Encounter.Admission" minOccurs="0" maxOccurs="1">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Details about the stay during which a healthcare service is provided.This does not describe the event of admitting the patient, but rather any information that is relevant from the time of admittance until the time of discharge.</xs:documentation>
+              <xs:documentation xml:lang="en">Details about the stay during which a healthcare service is provided.
+
+This does not describe the event of admitting the patient, but rather any information that is relevant from the time of admittance until the time of discharge.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="location" type="Encounter.Location" minOccurs="0" maxOccurs="unbounded">
@@ -29643,12 +29651,15 @@ RegisteredName | UserFriendlyName | PatientReportedName.</xs:documentation>
           </xs:element>
           <xs:element name="profileCanonical" minOccurs="0" maxOccurs="unbounded" type="canonical">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The FHIR profile that is expected at this endpoint. It describes the resources that are handled, or even simply which resource types -e.g. Vital Sign Observations or QuestionnaireResponse.The `profileUri` may be used when a FHIR Structure Definition is not available/appropriate.</xs:documentation>
+              <xs:documentation xml:lang="en">The FHIR profile that is expected at this endpoint. It describes the resources that are handled, or even simply which resource types -e.g. Vital Sign Observations or QuestionnaireResponse.
+The `profileUri` may be used when a FHIR Structure Definition is not available/appropriate.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="profileUri" minOccurs="0" maxOccurs="unbounded" type="uri">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The profile (as a uri) that is expected at this endpoint when not represented using a FHIR profile.e.g. CDA Template ID expressed as an OID (in the Uri).</xs:documentation>
+              <xs:documentation xml:lang="en">The profile (as a uri) that is expected at this endpoint when not represented using a FHIR profile.
+
+e.g. CDA Template ID expressed as an OID (in the Uri).</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -40521,7 +40532,9 @@ The origin at the TLHC of the TLHC pixel is 0.0\0.0, the BRHC of the TLHC pixel 
         <xs:sequence>
           <xs:element name="text" minOccurs="0" maxOccurs="1" type="string">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Free text dosage can be used for cases where the dosage administered is too complex to code. When coded dosage is present, the free text dosage may still be present for display to humans.The dosage instructions should reflect the dosage of the medication that was administered.</xs:documentation>
+              <xs:documentation xml:lang="en">Free text dosage can be used for cases where the dosage administered is too complex to code. When coded dosage is present, the free text dosage may still be present for display to humans.
+
+The dosage instructions should reflect the dosage of the medication that was administered.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="site" minOccurs="0" maxOccurs="1" type="CodeableConcept">
@@ -43475,7 +43488,9 @@ The primary difference between a medicationstatement and a medicationadministrat
           </xs:element>
           <xs:element name="focus" minOccurs="0" maxOccurs="unbounded" type="Reference">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The actual focus of an observation when it is not the subject of record representing something or someone associated with the patient such as a spouse, parent, fetus, or donor. For example, fetus observations in a mother's record.  The focus of an observation could also be an existing condition,  an intervention, the subject's diet,  another observation of the subject,  or a body structure such as tumor or implanted device.   An example use case would be using the Observation resource to capture whether the mother is trained to change her child's tracheostomy tube. In this example, the child is the patient of record and the mother is the focus. As another use case,a caregiver (RelatedPerson) has back strain and is unable to provide ADL support to a patient (Subject).</xs:documentation>
+              <xs:documentation xml:lang="en">The actual focus of an observation when it is not the subject of record representing something or someone associated with the patient such as a spouse, parent, fetus, or donor. For example, fetus observations in a mother's record.  The focus of an observation could also be an existing condition,  an intervention, the subject's diet,  another observation of the subject,  or a body structure such as tumor or implanted device.   An example use case would be using the Observation resource to capture whether the mother is trained to change her child's tracheostomy tube. In this example, the child is the patient of record and the mother is the focus. As another use case,
+
+a caregiver (RelatedPerson) has back strain and is unable to provide ADL support to a patient (Subject).</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="organizer" minOccurs="0" maxOccurs="1" type="boolean">
@@ -45870,7 +45885,9 @@ For resource issues, this will be a simple XPath limited to element names, repet
           </xs:element>
           <xs:element name="qualification" type="Organization.Qualification" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The official certifications, accreditations, training, designations and licenses that authorize and/or otherwise endorse the provision of care by the organization.For example, an approval to provide a type of services issued by a certifying body (such as the US Joint Commission) to an organization.</xs:documentation>
+              <xs:documentation xml:lang="en">The official certifications, accreditations, training, designations and licenses that authorize and/or otherwise endorse the provision of care by the organization.
+
+For example, an approval to provide a type of services issued by a certifying body (such as the US Joint Commission) to an organization.</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -45896,7 +45913,9 @@ For resource issues, this will be a simple XPath limited to element names, repet
           </xs:element>
           <xs:element name="status" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Qualifications often take time to attain and might be tracked during this time, and completed qualifications might not always be valid. This status concept has some overlap with period and both should be considered together. Refer to the descriptions of the codes for how the period should be interpreted.If a qualification is revoked or otherwise cancelled, then the period is likely to be ignored, and might be related to when it was active.</xs:documentation>
+              <xs:documentation xml:lang="en">Qualifications often take time to attain and might be tracked during this time, and completed qualifications might not always be valid. This status concept has some overlap with period and both should be considered together. Refer to the descriptions of the codes for how the period should be interpreted.
+
+If a qualification is revoked or otherwise cancelled, then the period is likely to be ignored, and might be related to when it was active.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="period" minOccurs="0" maxOccurs="1" type="Period">
@@ -46364,7 +46383,9 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:element>
           <xs:element name="gender" minOccurs="0" maxOccurs="1" type="AdministrativeGender">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Administrative Gender - the gender that the patient is considered to have for administration and record keeping purposes.See the [Patient Gender and Sex section](patient.html#gender) for additional information about communicating patient gender and sex.</xs:documentation>
+              <xs:documentation xml:lang="en">Administrative Gender - the gender that the patient is considered to have for administration and record keeping purposes.
+
+See the [Patient Gender and Sex section](patient.html#gender) for additional information about communicating patient gender and sex.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="birthDate" minOccurs="0" maxOccurs="1" type="date">
@@ -46391,7 +46412,9 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:element>
           <xs:choice minOccurs="0" maxOccurs="1" >
             <xs:annotation>
-              <xs:documentation xml:lang="en">Indicates whether the patient is part of a multiple (boolean) or indicates the actual birth order (integer).  This count is relative to the total of live births and fetal losses, which MAY be tracked in the `patient-multipleBirthTotal` extension.The boolean option for this property can also be used to track that there are known to be multiple fetuses prior to birth.</xs:documentation>
+              <xs:documentation xml:lang="en">Indicates whether the patient is part of a multiple (boolean) or indicates the actual birth order (integer).  This count is relative to the total of live births and fetal losses, which MAY be tracked in the `patient-multipleBirthTotal` extension.
+
+The boolean option for this property can also be used to track that there are known to be multiple fetuses prior to birth.</xs:documentation>
             </xs:annotation>
             <xs:element name="multipleBirthBoolean" type="boolean"/>
             <xs:element name="multipleBirthInteger" type="integer"/>
@@ -48128,7 +48151,8 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:choice>
           <xs:element name="address" minOccurs="0" maxOccurs="unbounded" type="Address">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Address(es) of the practitioner that are not role specific (typically home address). Work addresses are not typically entered in this property as they are usually role dependent.</xs:documentation>
+              <xs:documentation xml:lang="en">Address(es) of the practitioner that are not role specific (typically home address). 
+Work addresses are not typically entered in this property as they are usually role dependent.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="photo" minOccurs="0" maxOccurs="unbounded" type="Attachment">
@@ -48138,12 +48162,16 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:element>
           <xs:element name="qualification" type="Practitioner.Qualification" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">The official qualifications, certifications, accreditations, training, licenses (and other types of educations/skills/capabilities) that authorize or otherwise pertain to the provision of care by the practitioner.For example, a medical license issued by a medical board of licensure authorizing the practitioner to practice medicine within a certain locality.</xs:documentation>
+              <xs:documentation xml:lang="en">The official qualifications, certifications, accreditations, training, licenses (and other types of educations/skills/capabilities) that authorize or otherwise pertain to the provision of care by the practitioner.
+
+For example, a medical license issued by a medical board of licensure authorizing the practitioner to practice medicine within a certain locality.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="communication" type="Practitioner.Communication" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation xml:lang="en">A language which may be used to communicate with the practitioner, often for correspondence/administrative purposes.The `PractitionerRole.communication` property should be used for publishing the languages that a practitioner is able to communicate with patients (on a per Organization/Role basis).</xs:documentation>
+              <xs:documentation xml:lang="en">A language which may be used to communicate with the practitioner, often for correspondence/administrative purposes.
+
+The `PractitionerRole.communication` property should be used for publishing the languages that a practitioner is able to communicate with patients (on a per Organization/Role basis).</xs:documentation>
            </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -48169,7 +48197,9 @@ Deceased patients may also be marked as inactive for the same reasons, but may b
           </xs:element>
           <xs:element name="status" minOccurs="0" maxOccurs="1" type="CodeableConcept">
             <xs:annotation>
-              <xs:documentation xml:lang="en">Qualifications often take time to attain and might be tracked during this time, and completed qualifications might not always be valid. This status concept has some overlap with period and both should be considered together. Refer to the descriptions of the codes for how the period should be interpreted.If a qualification is revoked or otherwise cancelled, then the period is likely to be ignored, and m be related to when it was active.</xs:documentation>
+              <xs:documentation xml:lang="en">Qualifications often take time to attain and might be tracked during this time, and completed qualifications might not always be valid. This status concept has some overlap with period and both should be considered together. Refer to the descriptions of the codes for how the period should be interpreted.
+
+If a qualification is revoked or otherwise cancelled, then the period is likely to be ignored, and m be related to when it was active.</xs:documentation>
            </xs:annotation>
           </xs:element>
           <xs:element name="period" minOccurs="0" maxOccurs="1" type="Period">

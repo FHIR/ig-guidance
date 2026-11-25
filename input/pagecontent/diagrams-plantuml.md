@@ -86,7 +86,7 @@ PlantUML diagrams can use skins or themes, which define defaults for colors, fot
   * The list of the abailable built-in skins is available from PlantUML itself, by using the [`help themes` directive](https://www.plantuml.com/plantuml/uml/SoWkIImgAStDuSf8pIbGACb8pKqjvd98pKi1YW40): 
 
 * Adding [SkinParams](https://plantuml.com/skinparam) to configure specific aspects.
-  * These SkinParams can be in reusable include files
+  * These SkinParams have to be in the diagram itself: the IG templates run PlantUML in its SANDBOX security profile, so a diagram can't read any other file or URL - `!include`, `!includeurl`, `%load_json()` and the like stop the build
 
 
 **Since June 2023, the FHIR IG base template uses the new PlantUML default theme. If you want to use the "old" PlantUML style, simply add `skin rose` to the beginning of the diagram.**

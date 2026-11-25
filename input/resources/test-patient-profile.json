@@ -12,6 +12,16 @@
   "type" : "Patient",
   "baseDefinition" : "http://hl7.org/fhir/StructureDefinition/Patient",
   "derivation" : "constraint",
+  "mapping" : [{
+    "extension" : [{
+      "url" : "http://hl7.org/fhir/tools/StructureDefinition/mapping-reference",
+      "valueUrl" : "http://www.healthintersections.com.au/mappings"
+    }],
+    "identity" : "my-mapping",
+    "name" : "My Mapping",
+    "uri" : "http://logical.org/my-mapping",
+    "comment" : "This is a comment"
+  }],
   "differential" : {
     "element" : [{
       "path" : "Patient.identifier",
@@ -48,7 +58,12 @@
     },
     {
       "path" : "Patient.maritalStatus",
-      "max" : "0"
+      "max" : "0",
+      "mapping" : [{
+        "identity" : "my-mapping",
+        "map" : "this is, a value",
+        "comment" : "A *comment* about the value"
+      }]
     },
     {
       "path" : "Patient.multipleBirth[x]",

@@ -59,6 +59,7 @@
         <li>The root element for the model</li>
         <li>All elements that are marked as <a href="{{site.data.fhir.path}}profiling.html#mustsupport">mustSupport</a></li>
         <li>All elements that are listed in the differential <span style="color:grey">- if the profile says something about them, they're presumed to be important)</span></li>
+        <li>All elements of type <a href="{{site.data.fhir.path}}narrative.html">Narrative</a> <span style="color:grey">- the narrative can carry content that isn't present in the discrete elements (see Narrative.status), so implementers always need to consider it</span></li>
         <li>All ancestor elements of those listed above.  E.g. if an element is not mustSupport but contains descendants that are mustSupport, it will be considered a
             'key element', even though support for it is optional because there are implementation considerations if the system chooses to support it.</li>
       </ul><br/>
@@ -269,7 +270,7 @@
     <li><code>Σ</code>: This element is an element that is part of the summary set - see <a href="{{site.data.fhir.path}}search.html#summary">Summary Searches</a></li>
     <li><a style="padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #ffd1fb" href="{{site.data.fhir.path}}languages.html#translatable">T</a>: This element is a candidate for being translated - see <a href="{{site.data.fhir.path}}languages.html#translatable">Translatable Elements</a></li>
     <li><code style="padding-left: 3px; padding-right: 3px; border: 1px maroon solid; font-weight: bold; color: #301212; background-color: #fdf4f4;">C</code>: This element defines or is affected by constraints - see <a href="{{site.data.fhir.path}}conformance-rules.html#constraints">Constraints</a></li>
-    <li><code>NE</code>: This element cannot have extensions (some infrastructural elements only)</li>
+    <li><code>NE</code>: This element cannot have extensions or an id (<code>Element.id</code> and <code>Extension.url</code>)</li>
     <li><a style="padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #ffe6e6" href="{{site.data.fhir.path}}versions.html#std-process">TU</a>: This element has a <a href="{{site.data.fhir.path}}versions.html#std-process">standards status of Trial Use</a> (for discussion about mixing standards status in a resource, see <a href="{{site.data.fhir.path}}versions.html#std-process">Mixed Normative content</a>)</li>
     <li><a style="padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #e6ffe6" href="{{site.data.fhir.path}}versions.html#std-process">N</a>: This element has a <a href="{{site.data.fhir.path}}versions.html#std-process">standards status of Normative</a></li>
     <li><a style="padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #efefef" href="{{site.data.fhir.path}}versions.html#std-process">D</a>: This element has a <a href="{{site.data.fhir.path}}versions.html#std-process">standards status of Draft</a></li>

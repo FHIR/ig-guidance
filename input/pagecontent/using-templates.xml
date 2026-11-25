@@ -257,8 +257,8 @@
             folder.
           </p>
           <p>
-            These folders will be searched for files in XML, JSON or TTL format that contain resource definitions.  They will also be searched for
-            Excel spreadsheets saved as XML which contain FHIR resources and/or extensions.  See <a href="#resource-fmt">resource formats</a> for details.
+            These folders will be searched for files in XML, JSON or TTL format that contain resource definitions.  (Excel spreadsheets saved as XML
+            are no longer supported - see <a href="#resource-fmt">resource formats</a>.)
           </p>
           <p>
             The potential 'resource' folder names supported by the template are:
@@ -411,7 +411,7 @@
 
   <a name="ig"> </a>
   <h5>The implementation guide</h5>
-    Todo - explain key metadata that must be present, use of groupings, extensions to refer to specific spreadsheets, use of ids to refer to resources,
+    Todo - explain key metadata that must be present, use of groupings, use of ids to refer to resources,
     ordering of resources, defaulting of metadata for resources, toc being the root page, where index should go, where artifacts should go, position of
     pages in determining TOC hierarchy and
     order and section numbers, what parameters must be present, what parameters may be present.  (Will probably want multiple subsections here.)
@@ -426,9 +426,11 @@
     managed in source control and because they can be consumed by most FHIR-based tools - though what versions and formats they support may vary.
   </p>
   <p>
-    For profiles and extensions, there is a second option that is available, at least for now - spreadsheets.  Details on the mechanism for authoring
-    spreadsheet files can be found <a href="https://confluence.hl7.org/display/FHIR/FHIR+Spreadsheet+Authoring">here</a> and
-    <a href="https://confluence.hl7.org/display/FHIR/FHIR+Spreadsheet+Profile+Authoring">here</a>.
+    Spreadsheets (Excel saved as XML, listed with the <code>igpublisher-spreadsheet</code> extension on the ImplementationGuide) used to be a second
+    way to author profiles and extensions. They are no longer supported: the IG Publisher stops with an error that names them. To move an IG off
+    a spreadsheet, take the resources it defines from the output of the IG's last build with an earlier version of the IG Publisher
+    (<code>output/*.json</code>), put them in <code>input/resources</code> (or write them in FSH), and remove the extension. A spreadsheet that is
+    switched off (its name starts with '!') is still ignored.
   </p>
 
   <a name="narrative-fmt"> </a>
