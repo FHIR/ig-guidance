@@ -509,6 +509,21 @@
               This gives the base URL of the implementation guide dependency listed in this IG with the specified 'id' attribute.
             </td>
           </tr>
+          <tr>
+            <td>
+              <code>{{root-path}}</code>
+            </td>
+            <td>
+              The relative path from the page to the root of the IG output - use it in page content when linking to files
+              that live at the root of the IG, such as <code>package.tgz</code>, <code>full-ig.zip</code>, the definitions downloads,
+              or the version comparisons. With the current templates, pages are published in a folder for their language (e.g. <code>en/</code>),
+              even if the IG only has one language, while those files are not, so a plain relative link like <code>package.tgz</code> won't resolve. Write
+              "{{root-path}}package.tgz" instead - i.e. no slash between '}}' and the file name. <code>{{root-path}}</code> is
+              <code>../</code> on pages in a language folder and empty otherwise, so the link works either way. It is available in
+              the markdown and xml page files, but not in artifact intros and notes, or in pages the author provides as
+              complete html pages
+            </td>
+          </tr>
         </tbody>
       </table>
       {% endraw %}
