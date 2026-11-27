@@ -236,6 +236,12 @@
           <title value="Changing the IG colors"/>
           <generation value="markdown"/>
         </page>
+        <page>
+          <sourceUrl value="template-events.html"/>
+          <name value="template-events.html"/>
+          <title value="Template Events (onLoad, onGenerate etc)"/>
+          <generation value="markdown"/>
+        </page>
       </page>
       <page>
         <sourceUrl value="downloads.html"/>
