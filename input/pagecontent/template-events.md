@@ -165,9 +165,10 @@ with the folder relative to the temp folder as its relative path. Files that the
 publisher itself already generated in this run (e.g. svg files that the publisher now
 renders from `path-image-source`, which some templates still list) are skipped.
 
-**Note:** the publisher reads `[target].files` after the target runs for `onGenerate`
-and `onJekyll`, and expects it to be set - a target should set it to an empty value
-if it has no files to report.
+`[target].files` is optional: if the script doesn't set it, or sets it to an empty
+value, there are no files to process. (Before IG Publisher version [x], the publisher
+failed if an `onGenerate` or `onJekyll` target didn't set it, so templates that need to
+work with older versions should set it to an empty value.)
 
 The HL7 base template does most of its work here: it works out the FHIR versions,
 fetches the schemas, generates `_data/info.json`, `_data/artifacts.json` and the

@@ -56,6 +56,7 @@
       <li><a href="using-templates.html">Using the HL7 Templates</a></li>
       <li><a href="template.html">Extending the HL7 IG Templates</a></li>
       <li><a href="colors.html">Changing colors in the template</a></li>
+      <li><a href="template-events.html">Template Events (onLoad, onGenerate etc)</a></li>
     </ul>
   </li>
   <li><a href="artifacts.html">Artifact Index</a></li>
